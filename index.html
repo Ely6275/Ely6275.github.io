@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2ec;
+      --ink: #1a1814;
+      --muted: #6b6760;
+      --accent: #c84b2f;
+      --card-bg: #ffffff;
+      --border: #e0dcd4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245,242,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      gap: 4rem;
+    }
+    .hero-text { max-width: 540px; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-bio {
+      font-size: 1.1rem; color: var(--muted); line-height: 1.75;
+      max-width: 440px; margin-bottom: 2.5rem;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.75rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; border-radius: 4px; transition: all 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--ink); }
+    .hero-image {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .avatar-frame {
+      width: 380px; height: 460px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.9rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .avatar-frame::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #f0ebe0 0%, #e8e0d4 100%);
+      opacity: 0.5;
+    }
+    .avatar-placeholder { position: relative; z-index: 1; padding: 2rem; }
+    .avatar-placeholder svg { opacity: 0.3; margin-bottom: 0.75rem; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15; margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--card-bg); border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .skill-tag {
+      padding: 0.35rem 0.85rem; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.825rem; color: var(--muted); font-weight: 500;
+    }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+    .stat-item {}
+    .stat-number { font-family: var(--serif); font-size: 3rem; color: var(--ink); line-height: 1; }
+    .stat-label { font-size: 0.875rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .project-image {
+      width: 100%; height: 200px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    .project-body { padding: 1.5rem; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .project-tag {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--accent); background: rgba(200,75,47,0.08);
+      padding: 0.2rem 0.5rem; border-radius: 3px;
+    }
+    .project-title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .project-links { display: flex; gap: 0.75rem; }
+    .project-link {
+      font-size: 0.825rem; font-weight: 500; color: var(--ink);
+      text-decoration: none; display: flex; align-items: center; gap: 0.3rem;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--ink); color: var(--bg); text-align: center; }
+    #contact .section-label { color: rgba(245,242,236,0.5); }
+    #contact .section-title { color: var(--bg); margin-bottom: 1rem; }
+    #contact p { color: rgba(245,242,236,0.65); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.75; }
+    #contact .btn-primary { background: var(--bg); color: var(--ink); }
+    #contact .btn-primary:hover { background: var(--accent); color: var(--bg); }
+    .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+    .social-links a { color: rgba(245,242,236,0.5); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .social-links a:hover { color: var(--bg); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(245,242,236,0.35);
+      text-align: center; padding: 1.5rem; font-size: 0.8rem;
+      border-top: 1px solid rgba(245,242,236,0.08);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-text > * { animation: fadeUp 0.7s ease both; }
+    .hero-eyebrow  { animation-delay: 0.1s; }
+    .hero-title    { animation-delay: 0.2s; }
+    .hero-bio      { animation-delay: 0.35s; }
+    .hero-cta      { animation-delay: 0.5s; }
+    .hero-image    { animation: fadeUp 0.9s 0.3s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+      .hero-bio { max-width: 100%; }
+      .hero-cta { justify-content: center; }
+      .hero-image { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Your Name</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Portfolio</span>
+      <h1 class="hero-title">Hi, I'm <em>Your Name</em>.</h1>
+      <p class="hero-bio">
+        I'm a [your role] who builds [what you make]. I care about [what matters to you].
+        Currently [what you're doing — e.g. open to work / studying / building X].
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View my work</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="avatar-frame">
+        <div class="avatar-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <p>Replace with your photo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div>
+        <p class="section-label">About me</p>
+        <h2 class="section-title">A little background</h2>
+        <p style="color: var(--muted); line-height: 1.8; margin-bottom: 1rem;">
+          Write 2–3 sentences about your background — where you studied, what field you're in, and what drives you.
+        </p>
+        <p style="color: var(--muted); line-height: 1.8;">
+          Add another paragraph about your approach to work, what kind of problems you love solving, or anything else you want people to know.
+        </p>
+        <div class="about-skills">
+          <span class="skill-tag">HTML &amp; CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Git</span>
+          <!-- Add your own skills here -->
+        </div>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Projects completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Years of experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Technologies mastered</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Curiosity remaining</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Selected projects</h2>
+    <div class="projects-grid">
+
+      <!-- Project card — duplicate this block for each project -->
+      <article class="project-card">
+        <div class="project-image">Project screenshot or demo</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">API</span>
+          </div>
+          <h3 class="project-title">Project Name</h3>
+          <p class="project-desc">A short description of what the project does, what problem it solves, and what you learned building it.</p>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Live demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">Project screenshot or demo</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Data</span>
+          </div>
+          <h3 class="project-title">Another Project</h3>
+          <p class="project-desc">Describe what this one does. Keep it concise — two to three sentences is plenty. Link to the repo or a demo.</p>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Live demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">Project screenshot or demo</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+          </div>
+          <h3 class="project-title">Third Project</h3>
+          <p class="project-desc">Even a small project counts. Show the breadth of your skills — different stacks, different problem types.</p>
+          <div class="project-links">
+            <a href="#" class="project-link">↗ Live demo</a>
+            <a href="#" class="project-link">⌥ GitHub</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Let's work together</h2>
+    <p>Whether you have a project in mind, a question, or just want to say hi — my inbox is always open.</p>
+    <a href="mailto:you@example.com" class="btn btn-primary">Say hello →</a>
+    <div class="social-links">
+      <a href="https://github.com/yourusername">GitHub</a>
+      <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
+      <a href="https://twitter.com/yourhandle">Twitter / X</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Your Name · Built with HTML, CSS &amp; GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
