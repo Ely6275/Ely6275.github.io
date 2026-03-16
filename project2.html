@@ -206,6 +206,93 @@
     .project-hero-title { animation-delay: 0.15s; }
     .project-hero-desc { animation-delay: 0.25s; }
     .project-meta { animation-delay: 0.35s; }
+    /* ── LIGHTBOX ── */
+    .media-item .media-frame { cursor: zoom-in; }
+    .lightbox {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10, 9, 8, 0.92);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 90vw; max-height: 88vh;
+      object-fit: contain;
+      border-radius: 8px;
+      animation: lbIn 0.2s ease;
+    }
+    .lightbox-caption {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      color: rgba(245,242,236,0.7);
+      font-size: 0.85rem; text-align: center;
+      max-width: 560px; line-height: 1.5;
+      pointer-events: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.5rem;
+      background: none; border: none;
+      color: rgba(245,242,236,0.6); font-size: 1.75rem;
+      cursor: pointer; line-height: 1;
+      transition: color 0.15s;
+    }
+    .lightbox-close:hover { color: #fff; }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+    /* ── TABS ── */
+    .tab-container { margin-top: 1.5rem; }
+    .tab-list {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+    .tab-btn {
+      padding: 0.55rem 1rem;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      color: var(--muted); background: transparent;
+      border: 1px solid transparent; border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      cursor: pointer; transition: color 0.15s, background 0.15s;
+      position: relative; bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--ink); background: var(--card-bg); }
+    .tab-btn.active {
+      color: var(--ink); background: var(--card-bg);
+      border-color: var(--border);
+      border-bottom-color: var(--card-bg);
+    }
+    .tab-panel {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border); border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 1.75rem;
+    }
+    .tab-panel.active { display: block; }
+    .tab-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .tab-img-frame {
+      width: 100%; aspect-ratio: 3/4;
+      overflow: hidden; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      cursor: zoom-in;
+    }
+    .tab-img-frame img {
+      width: 100%; height: 100%; object-fit: contain; display: block;
+    }
+    .tab-caption {
+      font-size: 0.82rem; color: var(--muted);
+      line-height: 1.6; margin-top: 0.6rem;
+    }
+    @media (max-width: 768px) {
+      .tab-btn { font-size: 0.8rem; padding: 0.45rem 0.7rem; }
+    }
   </style>
 </head>
 <body>
@@ -301,6 +388,101 @@
     </div>
 
     <div class="content-section">
+      <h2>Math & design notes</h2>
+      <p>
+        These are my working notes from the quadruped phase — the math that now underpins the hexapod's control architecture. Each tab covers a distinct part of the problem.
+      </p>
+      <div class="tab-container">
+        <div class="tab-list" role="tablist">
+          <button class="tab-btn active" onclick="switchTab(event,'ik')" role="tab">kinematics</button>
+          <button class="tab-btn" onclick="switchTab(event,'interp')" role="tab">Servo interpolation</button>
+          <button class="tab-btn" onclick="switchTab(event,'bezier')" role="tab">Bézier curves</button>
+          <button class="tab-btn" onclick="switchTab(event,'gait')" role="tab">Gait & support polygons</button>
+          <button class="tab-btn" onclick="switchTab(event,'servo')" role="tab">Servo mapping</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-ik">
+          <div class="tab-images">
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_06.png" alt="Forward kinematics derivation showing joint coordinate frames, link lengths a1 a2 a3, and transformation from joint angles to end-effector position">
+              </div>
+              <p class="tab-caption">Forward kinematics — deriving end-effector position from joint angles using link lengths and trigonometry across three joint frames.</p>
+            </div>
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_07.png" alt="Inverse kinematics working showing law of cosines applied to find joint angles theta1 theta2 theta3 from a target foot position, with case analysis for Z above and below zero">
+              </div>
+              <p class="tab-caption">Inverse kinematics — using the law of cosines to compute joint angles from a desired foot position, with separate cases for Z &lt; 0 and Z ≥ 0.</p>
+            </div>
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_09.png" alt="DH parameters and rotation matrices for the leg joints">
+              </div>
+              <p class="tab-caption">DH parameters and rotation matrices — defining the coordinate transformations between each joint frame.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-interp">
+          <div class="tab-images">
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_01.png" alt="Servo interpolation notes showing slope calculations for XY and XZ axes and pseudocode for the servoLerp function with for loops iterating in both directions">
+              </div>
+              <p class="tab-caption">Servo interpolation — breaking foot trajectories into small linear steps by computing slopes on the XY and XZ planes, then iterating with a configurable delay between each write.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-bezier">
+          <div class="tab-images">
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_02.png" alt="Cubic Bezier curve derivation for walking gait showing Bernstein polynomial formula expanded to n=3, four control points P0 through P3, and generateBezier pseudocode">
+              </div>
+              <p class="tab-caption">Bézier walk — cubic Bézier foot trajectory for the walking gait. Four control points define a smooth arc that lifts the foot, swings it forward, and places it cleanly.</p>
+            </div>
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_03.png" alt="Bezier curve adapted for rotation gait with a slope term added at each step to adjust leg angle during the swing phase">
+              </div>
+              <p class="tab-caption">Bézier rotate — the same cubic curve adapted for turning. A slope term computed at each step adjusts the swing direction so the foot traces a curved arc instead of a straight line.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-gait">
+          <div class="tab-images">
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_04.png" alt="Photo of the quadruped robot from above with a blue triangle connecting the three grounded feet illustrating the support polygon">
+              </div>
+              <p class="tab-caption">Support polygon — the triangle formed by the three grounded feet at any moment. The robot is statically stable as long as the center of mass stays inside this polygon.</p>
+            </div>
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_05.png" alt="Sequence of nine top-down diagrams showing each of the four legs taking a swing phase in turn while the others form a support triangle">
+              </div>
+              <p class="tab-caption">Gait sequence — each frame shows one leg swinging (green arrow) while the remaining three maintain the support triangle. The full cycle steps through each leg in order.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-servo">
+          <div class="tab-images">
+            <div class="tab-img-item">
+              <div class="tab-img-frame">
+                <img src="page_08.png" alt="Diagram of all four legs with initial servo angles and axis orientations, with notes on speed multipliers for simultaneous servo movement">
+              </div>
+              <p class="tab-caption">Servo mapping — each leg has a unique axis orientation and initial angle. Simultaneous movement is achieved by scaling the speed of the faster servo so both joints arrive at their targets together.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
       <h2>Design and motion studies</h2>
       <div class="media-grid">
         <div class="media-item">
@@ -341,7 +523,7 @@
 
       <div class="video-placeholder">
         <strong style="display:block; color: var(--ink); margin-bottom: 0.35rem; font-weight: 500;">YouTube demo slot 2</strong>
-        Use this for the earlier quadruped spider or a side-by-side comparison with the hexapod redesign.
+        Use this for the earlier quadruped spider or a side by side comparison with the hexapod redesign.
       </div>
 
       <div class="video-placeholder">
@@ -366,6 +548,50 @@
     </div>
 
   </div>
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
 
+  <script>
+    function switchTab(e, id) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+      document.getElementById('tab-' + id).classList.add('active');
+    }
+    function openLightbox(src, alt, caption) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = alt;
+      document.getElementById('lightbox-caption').textContent = caption;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e && e.target !== e.currentTarget && !e.target.classList.contains('lightbox-close')) return;
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // Wire up media frames (design section)
+    document.querySelectorAll('.media-item .media-frame').forEach(frame => {
+      const img = frame.querySelector('img');
+      if (!img) return;
+      const caption = frame.closest('.media-item').querySelector('.media-caption');
+      frame.addEventListener('click', () => openLightbox(img.src, img.alt, caption ? caption.textContent : ''));
+    });
+
+    // Wire up tab image frames (math notes section)
+    document.querySelectorAll('.tab-img-frame').forEach(frame => {
+      const img = frame.querySelector('img');
+      if (!img) return;
+      const caption = frame.closest('.tab-img-item').querySelector('.tab-caption');
+      frame.addEventListener('click', () => openLightbox(img.src, img.alt, caption ? caption.textContent : ''));
+    });
+  </script>
 </body>
 </html>
