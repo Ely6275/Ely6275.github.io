@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Project Name — Ely Herman</title>
+  <title>Hexapod Robotic Spider — Ely Herman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -28,7 +28,6 @@
       line-height: 1.6;
     }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
@@ -45,7 +44,6 @@
     }
     .back-link:hover { color: var(--accent); }
 
-    /* ── HERO ── */
     .project-hero {
       padding: 8rem 4rem 4rem;
       max-width: 860px;
@@ -65,7 +63,7 @@
     }
     .project-hero-desc {
       font-size: 1.1rem; color: var(--muted);
-      max-width: 640px; line-height: 1.8;
+      max-width: 680px; line-height: 1.8;
       margin-bottom: 2rem;
     }
     .project-meta {
@@ -75,11 +73,9 @@
       border-bottom: 1px solid var(--border);
       margin-bottom: 3rem;
     }
-    .meta-item {}
     .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
     .meta-value { font-size: 0.95rem; color: var(--ink); }
 
-    /* ── TAGS ── */
     .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
     .tag {
       padding: 0.3rem 0.8rem; background: var(--card-bg);
@@ -87,7 +83,6 @@
       font-size: 0.8rem; color: var(--muted); font-weight: 500;
     }
 
-    /* ── MAIN IMAGE ── */
     .main-image {
       width: 100%; max-width: 860px; margin: 0 auto 4rem;
       padding: 0 4rem;
@@ -97,15 +92,7 @@
       border: 1px solid var(--border);
       display: block;
     }
-    .main-image .placeholder {
-      width: 100%; height: 420px; border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.9rem;
-    }
 
-    /* ── CONTENT ── */
     .project-content {
       max-width: 860px; margin: 0 auto;
       padding: 0 4rem 6rem;
@@ -115,14 +102,19 @@
       font-family: var(--serif);
       font-size: 1.75rem; margin-bottom: 1rem;
     }
+    .content-section h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 1.5rem 0 0.6rem;
+    }
     .content-section p {
       color: var(--muted); line-height: 1.85;
-      margin-bottom: 1rem; max-width: 680px;
+      margin-bottom: 1rem; max-width: 700px;
     }
     .content-section ul {
       list-style: none; padding: 0;
       display: flex; flex-direction: column; gap: 0.6rem;
-      max-width: 680px;
+      max-width: 700px;
     }
     .content-section ul li {
       color: var(--muted); line-height: 1.7;
@@ -133,7 +125,6 @@
       color: var(--accent); font-size: 0.85rem;
     }
 
-    /* ── MEDIA GRID ── */
     .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -145,30 +136,54 @@
       background: var(--card-bg);
     }
     .media-item img { width: 100%; display: block; }
-    .media-item .media-placeholder {
-      height: 200px;
+    .media-item .media-frame {
+      height: 220px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.85rem;
+      background: var(--card-bg);
+    }
+    .media-item .media-frame img,
+    .media-item .media-frame video {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
     }
     .media-caption {
-      padding: 0.6rem 0.9rem;
-      font-size: 0.8rem; color: var(--muted);
+      padding: 0.7rem 0.9rem;
+      font-size: 0.82rem; color: var(--muted);
       border-top: 1px solid var(--border);
     }
 
-    /* ── VIDEO ── */
     .video-wrapper {
       position: relative; padding-bottom: 56.25%;
       height: 0; overflow: hidden;
       border-radius: 10px; border: 1px solid var(--border);
-      margin-top: 1.5rem;
+      margin-top: 1rem;
+      background: var(--card-bg);
     }
     .video-wrapper iframe {
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%; border: 0;
     }
+    .video-placeholder {
+      position: relative;
+      margin-top: 1rem;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      background: rgba(255,255,255,0.55);
+      color: var(--muted);
+      max-width: 700px;
+    }
 
-    /* ── LINKS ── */
+    .callout {
+      max-width: 700px;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card-bg);
+      color: var(--muted);
+      margin: 1rem 0;
+    }
+
     .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
     .btn {
       display: inline-block; padding: 0.75rem 1.75rem;
@@ -180,13 +195,11 @@
     .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
     .btn-ghost:hover { border-color: var(--ink); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
     }
 
-    /* ── ANIMATION ── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .project-hero > * { animation: fadeUp 0.6s ease both; }
     .project-eyebrow { animation-delay: 0.05s; }
@@ -197,23 +210,21 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Ely Herman</a>
     <a href="index.html" class="back-link">← Back to portfolio</a>
   </nav>
 
-  <!-- HERO -->
   <div class="project-hero">
-    <span class="project-eyebrow">Robotics · ML</span>
-    <h1 class="project-hero-title">Project Name</h1>
+    <span class="project-eyebrow">Robotics</span>
+    <h1 class="project-hero-title">Hexapod Robotic Spider</h1>
     <p class="project-hero-desc">
-      A one or two sentence summary of the project. What it does, why you built it, and what makes it interesting.
+      A custom six-legged walking robot that I modeled in Fusion 360 and am currently assembling. This project grew out of an earlier quadruped spider design, but I redesigned the platform as a hexapod to make gait development more stable, modular, and practical.
     </p>
     <div class="project-meta">
       <div class="meta-item">
         <div class="meta-label">Date</div>
-        <div class="meta-value">Fall 2024</div>
+        <div class="meta-value">2025 - Present</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Role</div>
@@ -221,98 +232,137 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Stack</div>
-        <div class="meta-value">Python, ROS, PyTorch</div>
+        <div class="meta-value">Fusion 360, Python, Arduino, Kinematics</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Status</div>
-        <div class="meta-value">Completed</div>
+        <div class="meta-value">In progress</div>
       </div>
     </div>
     <div class="tag-row">
+      <span class="tag">Fusion 360</span>
+      <span class="tag">Arduino</span>
       <span class="tag">Python</span>
-      <span class="tag">ROS</span>
-      <span class="tag">Machine Learning</span>
       <span class="tag">Robotics</span>
+      <span class="tag">Locomotion</span>
     </div>
   </div>
 
-  <!-- MAIN IMAGE -->
   <div class="main-image">
-    <!-- Option A: use a real image -->
-    <!-- <img src="project1-cover.jpg" alt="Project Name screenshot"> -->
-
-    <!-- Option B: placeholder until you have an image -->
-    <div class="placeholder">Add a cover image or screenshot here</div>
+    <img src="hex1.png" alt="Fusion 360 render of the hexapod robotic spider">
   </div>
 
-  <!-- CONTENT -->
   <div class="project-content">
 
     <div class="content-section">
       <h2>Overview</h2>
       <p>
-        Describe the project in more depth here. What problem were you solving? What was the context — was it for a class, a personal challenge, or a competition?
+        This project is a multi-legged robotic spider that combines mechanical design, gait planning, and embedded control. I initially began with a quadruped spider concept, but as I worked through walking patterns and support constraints, I realized that moving to a six-legged platform would make locomotion easier to design and more stable in practice.
       </p>
       <p>
-        Add a second paragraph if needed. Explain the scope and what you were trying to achieve.
+        The current version is a full hexapod redesign modeled in Fusion 360 and now in the assembly stage. My goal is to build a robot whose mechanical design and walking logic are developed together, so the CAD, joint limits, and control strategy all support a realistic gait rather than being solved separately.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2>Why I switched from quadruped to hexapod</h2>
+      <p>
+        The original spider was designed with four legs, but once I started thinking more seriously about foot placement, balance, and sequencing, the tradeoffs became clear. A quadruped can absolutely walk, but it demands tighter control over balance and timing. With six legs, the robot can keep more points of contact on the ground at once, which makes static stability and gait design much more forgiving.
+      </p>
+      <p>
+        That design change was less about making the robot bigger and more about making it more feasible to control well. Reworking the platform into a hexapod gave me a better foundation for experimenting with gait generation, support polygons, and coordinated servo motion while keeping the robot mechanically symmetric.
       </p>
     </div>
 
     <div class="content-section">
       <h2>How it works</h2>
+
+      <h3>Mechanical design</h3>
       <p>
-        Explain the technical approach. Walk through the key ideas — what algorithms, hardware, or frameworks did you use and why?
+        I modeled the robot in Fusion 360 with six identical leg modules mounted around a central chassis. The design emphasizes symmetry, reachable leg workspace, and clear joint travel limits so the physical geometry aligns with the motions I want to command in software.
       </p>
+
+      <h3>Locomotion planning</h3>
+      <p>
+        Before assembling the full platform, I worked through the walking problem analytically. I explored point-to-point servo interpolation, smoother foot trajectories, and gait planning ideas for sequencing stance and swing phases. I also simulated leg motion in Python to better understand how each leg should move through a repeatable walking cycle.
+      </p>
+
+      <h3>Kinematics and control</h3>
+      <p>
+        A major part of the project has been developing the math behind the motion. I derived forward and inverse kinematics for the leg geometry, thought through leg-specific angle conventions, and planned how multiple servos should move together so each step looks deliberate instead of jerky. That work is guiding both the assembly and the software architecture for the final robot.
+      </p>
+
       <ul>
-        <li>Key technical detail or component one</li>
-        <li>Key technical detail or component two</li>
-        <li>Key technical detail or component three</li>
+        <li>Designed the full hexapod body and leg layout in Fusion 360 with range-of-motion constraints in mind.</li>
+        <li>Used kinematics and trajectory planning to define how each leg should lift, swing, and place during walking.</li>
+        <li>Built and tested gait ideas in Python before integrating them into the physical robot.</li>
+        <li>Currently assembling the redesigned hexapod hardware and validating the mechanical system against the planned motion model.</li>
       </ul>
     </div>
 
-    <!-- MEDIA GRID — add images here -->
     <div class="content-section">
-      <h2>Photos & media</h2>
+      <h2>Design and motion studies</h2>
       <div class="media-grid">
         <div class="media-item">
-          <!-- <img src="photo1.jpg" alt="Description"> -->
-          <div class="media-placeholder">Photo or screenshot</div>
-          <div class="media-caption">Caption describing what this shows</div>
+          <div class="media-frame"><img src="hex2.png" alt="Top-down Fusion 360 render of the hexapod spider"></div>
+          <div class="media-caption">Top view of the redesigned six-leg chassis, showing the symmetric layout and leg placement around the body.</div>
         </div>
         <div class="media-item">
-          <!-- <img src="photo2.jpg" alt="Description"> -->
-          <div class="media-placeholder">Photo or screenshot</div>
-          <div class="media-caption">Caption describing what this shows</div>
+          <div class="media-frame"><img src="hex1.png" alt="Perspective Fusion 360 render of the hexapod spider"></div>
+          <div class="media-caption">Perspective render used to evaluate stance, leg articulation, and overall body geometry during the CAD phase.</div>
         </div>
         <div class="media-item">
-          <!-- <img src="photo3.jpg" alt="Description"> -->
-          <div class="media-placeholder">Photo or screenshot</div>
-          <div class="media-caption">Caption describing what this shows</div>
+          <div class="media-frame"><img src="hexapod-leg-trot-cropped.gif" alt="GIF of simulated leg trot motion"></div>
+          <div class="media-caption">Early Python / Matplotlib leg-motion simulation used to study a walking cycle before full hardware integration.</div>
         </div>
       </div>
     </div>
 
-    <!-- VIDEO — paste a YouTube embed URL -->
     <div class="content-section">
-      <h2>Demo video</h2>
-      <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+      <h2>Current build status</h2>
+      <p>
+        The robot is still in progress, and right now the most active part of the project is assembly and iteration. The core CAD direction is established, and the next steps are finishing the mechanical build, wiring and testing the actuators, and translating the gait logic into repeatable motion on the real platform.
+      </p>
+      <div class="callout">
+        This page is intentionally structured as a living project log. As I upload more demos and progress footage, I plan to expand this page with walking tests, earlier quadruped footage, and additional build photos.
       </div>
-      <p style="margin-top:0.75rem">Add a YouTube or Vimeo embed above, or remove this section if you don't have a video.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Demo videos</h2>
+      <p>
+        I plan to add YouTube demos here showing the earlier quadruped version, walking tests, and ongoing assembly progress for the hexapod redesign.
+      </p>
+
+      <div class="video-placeholder">
+        <strong style="display:block; color: var(--ink); margin-bottom: 0.35rem; font-weight: 500;">YouTube demo slot 1</strong>
+        Replace this block with an embedded walking or gait test video.
+      </div>
+
+      <div class="video-placeholder">
+        <strong style="display:block; color: var(--ink); margin-bottom: 0.35rem; font-weight: 500;">YouTube demo slot 2</strong>
+        Use this for the earlier quadruped spider or a side-by-side comparison with the hexapod redesign.
+      </div>
+
+      <div class="video-placeholder">
+        <strong style="display:block; color: var(--ink); margin-bottom: 0.35rem; font-weight: 500;">YouTube demo slot 3</strong>
+        Reserve this space for assembly progress, tuning footage, or final walking demos once the robot is fully operational.
+      </div>
     </div>
 
     <div class="content-section">
       <h2>What I learned</h2>
       <p>
-        Reflect on the project. What was the hardest part? What would you do differently? What skills did you build or deepen?
+        This project has reinforced how tightly coupled mechanics and control are in robotics. Changing from four legs to six was not just a design preference — it changed the entire control problem and made the gait strategy more achievable. It also forced me to think more rigorously about support, coordination, and what kinds of motion are actually realistic for the hardware.
+      </p>
+      <p>
+        It has also pushed me to treat CAD as part of the robotics process rather than just packaging. Modeling joint limits, symmetry, and leg placement early made the kinematics work more meaningful, and the math work gave me a much clearer target for what the final assembly needs to do.
       </p>
     </div>
 
-    <!-- LINKS -->
     <div class="project-links-row">
-      <a href="https://github.com/yourusername/repo" class="btn btn-primary">View on GitHub</a>
-      <a href="#" class="btn btn-ghost">Live demo</a>
+      <a href="#" class="btn btn-primary">GitHub link coming soon</a>
+      <a href="#" class="btn btn-ghost">YouTube demos coming soon</a>
     </div>
 
   </div>
