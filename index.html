@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Name — Portfolio</title>
+  <title>Ely Herman — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -95,12 +95,7 @@
       color: var(--muted); font-size: 0.9rem; text-align: center;
       position: relative; overflow: hidden;
     }
-    .avatar-frame::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #f0ebe0 0%, #e8e0d4 100%);
-      opacity: 0.5;
-    }
+    
     .avatar-placeholder { position: relative; z-index: 1; padding: 2rem; }
     .avatar-placeholder svg { opacity: 0.3; margin-bottom: 0.75rem; }
 
@@ -113,7 +108,7 @@
     }
     .section-title {
       font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.15; margin-bottom: 3rem;
+      line-height: 1.15; margin-bottom: 3rem; 
     }
 
     /* ── ABOUT ── */
@@ -131,6 +126,13 @@
     .stat-label { font-size: 0.875rem; color: var(--muted); margin-top: 0.25rem; }
 
     /* ── PROJECTS ── */
+    .projects-grid--small {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .projects-grid--small .project-image {
+    height: 140px;
+    }
+
     #projects { background: var(--bg); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
     .project-card {
@@ -209,7 +211,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Your Name</a>
+    <a href="#" class="nav-logo">Ely Herman</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -221,10 +223,12 @@
   <section class="hero">
     <div class="hero-text">
       <span class="hero-eyebrow">Portfolio</span>
-      <h1 class="hero-title">Hi, I'm <em>Your Name</em>.</h1>
+      <h1 class="hero-title">Hi, I'm <em>Ely Herman</em>.</h1>
       <p class="hero-bio">
-        I'm a [your role] who builds [what you make]. I care about [what matters to you].
-        Currently [what you're doing — e.g. open to work / studying / building X].
+        I'm a freshman at <b>Duke University</b> studying <b>Electrical Engineering and Computer Science</b>, 
+        with a focus on <b>Robotics</b> and <b>Machine Learning</b>. I'm drawn to the intersection of 
+        hardware and intelligent systems, and I'm actively seeking research opportunities 
+        and internships where I can contribute and grow.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">View my work</a>
@@ -233,9 +237,9 @@
     </div>
     <div class="hero-image">
       <div class="avatar-frame">
-        <div class="avatar-placeholder">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          <p>Replace with your photo</p>
+        <div class="avatar-frame">
+            <img src="photo.jpg" alt="Ely Herman" 
+            style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
     </div>
@@ -248,29 +252,34 @@
         <p class="section-label">About me</p>
         <h2 class="section-title">A little background</h2>
         <p style="color: var(--muted); line-height: 1.8; margin-bottom: 1rem;">
-          Write 2–3 sentences about your background — where you studied, what field you're in, and what drives you.
+          I'm a freshman at Duke University studying Electrical Engineering and Computer Science, 
+          with roots in robotics and programming that go back to high school — 
+          where I competed in VEX Robotics and led both my school's math and coding clubs.
         </p>
         <p style="color: var(--muted); line-height: 1.8;">
-          Add another paragraph about your approach to work, what kind of problems you love solving, or anything else you want people to know.
-        </p>
+          I'm drawn to problems that live at the intersection of hardware and software, 
+          where the math and the physical thing you're building have to work together. 
+          I learn by doing and I like working with others, 
+          whether that's teaching Arduino to classmates or debugging a robot at midnight. 
+          What keeps me going is the belief that intelligent systems can meaningfully change
+          how the world works.
         <div class="about-skills">
-          <span class="skill-tag">HTML &amp; CSS</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Figma</span>
-          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Arduino</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">Fusion360</span>
           <!-- Add your own skills here -->
         </div>
       </div>
       <div>
         <div class="about-stats">
           <div class="stat-item">
-            <div class="stat-number">12+</div>
+            <div class="stat-number">4+</div>
             <div class="stat-label">Projects completed</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">3</div>
+            <div class="stat-number">5</div>
             <div class="stat-label">Years of experience</div>
           </div>
           <div class="stat-item">
@@ -288,77 +297,85 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-    <p class="section-label">Work</p>
-    <h2 class="section-title">Selected projects</h2>
-    <div class="projects-grid">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Featured projects</h2>
+  <div class="projects-grid">
 
-      <!-- Project card — duplicate this block for each project -->
-      <article class="project-card">
-        <div class="project-image">Project screenshot or demo</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">React</span>
-            <span class="project-tag">API</span>
-          </div>
-          <h3 class="project-title">Project Name</h3>
-          <p class="project-desc">A short description of what the project does, what problem it solves, and what you learned building it.</p>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Live demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
+    <!-- FEATURED PROJECT CARDS GO HERE -->
+    <article class="project-card" onclick="location.href='project1.html'" style="cursor:pointer;">
+      <div class="project-image">
+        <img src="Hand.jpg"style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="project-tag">Arduino</span>
+          <span class="project-tag">Python</span>
         </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-image">Project screenshot or demo</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">Data</span>
-          </div>
-          <h3 class="project-title">Another Project</h3>
-          <p class="project-desc">Describe what this one does. Keep it concise — two to three sentences is plenty. Link to the repo or a demo.</p>
-          <div class="project-links">
-            <a href="#" class="project-link">↗ Live demo</a>
-            <a href="#" class="project-link">⌥ GitHub</a>
-          </div>
+        <h3 class="project-title">Vision Controlled Prosthetic Hand</h3>
+        <div class="project-links">
+          <a href="#" class="project-link">↗ Live demo</a>
+          <a href="#" class="project-link">⌥ GitHub</a>
         </div>
-      </article>
+      </div>
+    </article>
 
+    <article class="project-card" onclick="location.href='project2.html'" style="cursor:pointer;">
+      <div class="project-image">Project screenshot or demo</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+        </div>
+        <h3 class="project-title">Featured Project</h3>
+        <p class="project-desc">Description of your best, most recent work.</p>
+        <div class="project-links">
+          <a href="#" class="project-link">↗ Live demo</a>
+          <a href="#" class="project-link">⌥ GitHub</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- DIVIDER -->
+  <div style="margin-top: 5rem;">
+    <p class="section-label">Earlier work</p>
+    <h3 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">High school projects</h3>
+    <p style="color: var(--muted); font-size: 0.95rem; max-width: 540px; margin-bottom: 2.5rem;">
+      Projects I built before college — where I first got into robotics, programming, and hardware.
+    </p>
+    <div class="projects-grid projects-grid--small">
+
+      <!-- SMALLER HIGH SCHOOL PROJECT CARDS GO HERE -->
       <article class="project-card">
-        <div class="project-image">Project screenshot or demo</div>
-        <div class="project-body">
+        <div class="project-body" style="padding: 1.25rem;">
           <div class="project-tags">
-            <span class="project-tag">HTML</span>
-            <span class="project-tag">CSS</span>
+            <span class="project-tag">Arduino</span>
           </div>
-          <h3 class="project-title">Third Project</h3>
-          <p class="project-desc">Even a small project counts. Show the breadth of your skills — different stacks, different problem types.</p>
+          <h3 class="project-title" style="font-size: 1.15rem;">High School Project</h3>
+          <p class="project-desc" style="font-size: 0.875rem;">Brief description of what it was and what you learned.</p>
           <div class="project-links">
-            <a href="#" class="project-link">↗ Live demo</a>
             <a href="#" class="project-link">⌥ GitHub</a>
           </div>
         </div>
       </article>
 
     </div>
+  </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
     <p class="section-label">Get in touch</p>
-    <h2 class="section-title">Let's work together</h2>
-    <p>Whether you have a project in mind, a question, or just want to say hi — my inbox is always open.</p>
-    <a href="mailto:you@example.com" class="btn btn-primary">Say hello →</a>
+    <p>Whether you have a question, or just want to say hi, my inbox is always open.</p>
+    <a href="mailto:ely.herman@icloud.com" class="btn btn-primary">Say hello →</a>
     <div class="social-links">
-      <a href="https://github.com/yourusername">GitHub</a>
-      <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
-      <a href="https://twitter.com/yourhandle">Twitter / X</a>
+      <a href="https://github.com/Ely6275">GitHub</a>
+      <a href="https://www.linkedin.com/in/ely-herman-506143361/">LinkedIn</a>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 Your Name · Built with HTML, CSS &amp; GitHub Pages</p>
+    <p>© 2026 Ely Herman · Built with HTML, CSS &amp; GitHub Pages</p>
   </footer>
 
 </body>

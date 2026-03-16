@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Name — Ely Herman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2ec;
+      --ink: #1a1814;
+      --muted: #6b6760;
+      --accent: #c84b2f;
+      --card-bg: #ffffff;
+      --border: #e0dcd4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245,242,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+    .back-link {
+      display: flex; align-items: center; gap: 0.4rem;
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .project-hero {
+      padding: 8rem 4rem 4rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .project-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .project-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .project-hero-desc {
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 640px; line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .project-meta {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+    .meta-item {}
+    .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
+    .meta-value { font-size: 0.95rem; color: var(--ink); }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .tag {
+      padding: 0.3rem 0.8rem; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    }
+
+    /* ── MAIN IMAGE ── */
+    .main-image {
+      width: 100%; max-width: 860px; margin: 0 auto 4rem;
+      padding: 0 4rem;
+    }
+    .main-image img {
+      width: 100%; border-radius: 12px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    .main-image .placeholder {
+      width: 100%; height: 420px; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.9rem;
+    }
+
+    /* ── CONTENT ── */
+    .project-content {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 4rem 6rem;
+    }
+    .content-section { margin-bottom: 3.5rem; }
+    .content-section h2 {
+      font-family: var(--serif);
+      font-size: 1.75rem; margin-bottom: 1rem;
+    }
+    .content-section p {
+      color: var(--muted); line-height: 1.85;
+      margin-bottom: 1rem; max-width: 680px;
+    }
+    .content-section ul {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: 0.6rem;
+      max-width: 680px;
+    }
+    .content-section ul li {
+      color: var(--muted); line-height: 1.7;
+      padding-left: 1.25rem; position: relative;
+    }
+    .content-section ul li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--accent); font-size: 0.85rem;
+    }
+
+    /* ── MEDIA GRID ── */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .media-item {
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+    }
+    .media-item img { width: 100%; display: block; }
+    .media-item .media-placeholder {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    .media-caption {
+      padding: 0.6rem 0.9rem;
+      font-size: 0.8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── VIDEO ── */
+    .video-wrapper {
+      position: relative; padding-bottom: 56.25%;
+      height: 0; overflow: hidden;
+      border-radius: 10px; border: 1px solid var(--border);
+      margin-top: 1.5rem;
+    }
+    .video-wrapper iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    /* ── LINKS ── */
+    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.75rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; border-radius: 4px; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .project-hero > * { animation: fadeUp 0.6s ease both; }
+    .project-eyebrow { animation-delay: 0.05s; }
+    .project-hero-title { animation-delay: 0.15s; }
+    .project-hero-desc { animation-delay: 0.25s; }
+    .project-meta { animation-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Ely Herman</a>
+    <a href="index.html" class="back-link">← Back to portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-hero">
+    <span class="project-eyebrow">Robotics · ML</span>
+    <h1 class="project-hero-title">Project Name</h1>
+    <p class="project-hero-desc">
+      A one or two sentence summary of the project. What it does, why you built it, and what makes it interesting.
+    </p>
+    <div class="project-meta">
+      <div class="meta-item">
+        <div class="meta-label">Date</div>
+        <div class="meta-value">Fall 2024</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Solo project</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Stack</div>
+        <div class="meta-value">Python, ROS, PyTorch</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">Completed</div>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">ROS</span>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">Robotics</span>
+    </div>
+  </div>
+
+  <!-- MAIN IMAGE -->
+  <div class="main-image">
+    <!-- Option A: use a real image -->
+    <!-- <img src="project1-cover.jpg" alt="Project Name screenshot"> -->
+
+    <!-- Option B: placeholder until you have an image -->
+    <div class="placeholder">Add a cover image or screenshot here</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <div class="content-section">
+      <h2>Overview</h2>
+      <p>
+        Describe the project in more depth here. What problem were you solving? What was the context — was it for a class, a personal challenge, or a competition?
+      </p>
+      <p>
+        Add a second paragraph if needed. Explain the scope and what you were trying to achieve.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2>How it works</h2>
+      <p>
+        Explain the technical approach. Walk through the key ideas — what algorithms, hardware, or frameworks did you use and why?
+      </p>
+      <ul>
+        <li>Key technical detail or component one</li>
+        <li>Key technical detail or component two</li>
+        <li>Key technical detail or component three</li>
+      </ul>
+    </div>
+
+    <!-- MEDIA GRID — add images here -->
+    <div class="content-section">
+      <h2>Photos & media</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <!-- <img src="photo1.jpg" alt="Description"> -->
+          <div class="media-placeholder">Photo or screenshot</div>
+          <div class="media-caption">Caption describing what this shows</div>
+        </div>
+        <div class="media-item">
+          <!-- <img src="photo2.jpg" alt="Description"> -->
+          <div class="media-placeholder">Photo or screenshot</div>
+          <div class="media-caption">Caption describing what this shows</div>
+        </div>
+        <div class="media-item">
+          <!-- <img src="photo3.jpg" alt="Description"> -->
+          <div class="media-placeholder">Photo or screenshot</div>
+          <div class="media-caption">Caption describing what this shows</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO — paste a YouTube embed URL -->
+    <div class="content-section">
+      <h2>Demo video</h2>
+      <div class="video-wrapper">
+        <!-- Replace VIDEO_ID with your YouTube video ID -->
+        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+      </div>
+      <p style="margin-top:0.75rem">Add a YouTube or Vimeo embed above, or remove this section if you don't have a video.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>What I learned</h2>
+      <p>
+        Reflect on the project. What was the hardest part? What would you do differently? What skills did you build or deepen?
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="project-links-row">
+      <a href="https://github.com/yourusername/repo" class="btn btn-primary">View on GitHub</a>
+      <a href="#" class="btn btn-ghost">Live demo</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

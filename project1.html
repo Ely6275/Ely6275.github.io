@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Name — Ely Herman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2ec;
+      --ink: #1a1814;
+      --muted: #6b6760;
+      --accent: #c84b2f;
+      --card-bg: #ffffff;
+      --border: #e0dcd4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245,242,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+    .back-link {
+      display: flex; align-items: center; gap: 0.4rem;
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .project-hero {
+      padding: 8rem 4rem 4rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .project-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .project-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .project-hero-desc {
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 640px; line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .project-meta {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+    .meta-item {}
+    .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
+    .meta-value { font-size: 0.95rem; color: var(--ink); }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .tag {
+      padding: 0.3rem 0.8rem; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    }
+
+    /* ── MAIN IMAGE ── */
+    .main-image {
+      width: 100%; max-width: 860px; margin: 0 auto 4rem;
+      padding: 0 4rem;
+    }
+    .main-image img {
+      width: 100%; border-radius: 12px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    .main-image .placeholder {
+      width: 100%; height: 420px; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.9rem;
+    }
+
+    /* ── CONTENT ── */
+    .project-content {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 4rem 6rem;
+    }
+    .content-section { margin-bottom: 3.5rem; }
+    .content-section h2 {
+      font-family: var(--serif);
+      font-size: 1.75rem; margin-bottom: 1rem;
+    }
+    .content-section p {
+      color: var(--muted); line-height: 1.85;
+      margin-bottom: 1rem; max-width: 680px;
+    }
+    .content-section ul {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: 0.6rem;
+      max-width: 680px;
+    }
+    .content-section ul li {
+      color: var(--muted); line-height: 1.7;
+      padding-left: 1.25rem; position: relative;
+    }
+    .content-section ul li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--accent); font-size: 0.85rem;
+    }
+
+    /* ── MEDIA GRID ── */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .media-item {
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+    }
+    .media-item img { width: 100%; display: block; }
+    .media-item .media-placeholder {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    .media-caption {
+      padding: 0.6rem 0.9rem;
+      font-size: 0.8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── VIDEO ── */
+    .video-wrapper {
+      position: relative; padding-bottom: 56.25%;
+      height: 0; overflow: hidden;
+      border-radius: 10px; border: 1px solid var(--border);
+      margin-top: 1.5rem;
+    }
+    .video-wrapper iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    /* ── LINKS ── */
+    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.75rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; border-radius: 4px; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .project-hero > * { animation: fadeUp 0.6s ease both; }
+    .project-eyebrow { animation-delay: 0.05s; }
+    .project-hero-title { animation-delay: 0.15s; }
+    .project-hero-desc { animation-delay: 0.25s; }
+    .project-meta { animation-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Ely Herman</a>
+    <a href="index.html" class="back-link">← Back to portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-hero">
+    <span class="project-eyebrow">Robotics</span>
+    <h1 class="project-hero-title">Vision Controlled Prosthetic Hand</h1>
+    <p class="project-hero-desc">
+A low-cost prosthetic hand that utilizes camera-based hand recognition and Arduino to mimic hand movement in real time.    </p>
+    <div class="project-meta">
+      <div class="meta-item">
+        <div class="meta-label">Date</div>
+        <div class="meta-value">Summer 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Solo project</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Stack</div>
+        <div class="meta-value">OpenCV, MediaPipe, Arduino</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">Completed</div>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">Arduino</span>
+      <span class="tag">Robotics</span>
+    </div>
+  </div>
+
+  <!-- MAIN IMAGE -->
+  <div class="main-image">
+    <!-- Option A: use a real image -->
+    <!-- <img src="project1-cover.jpg" alt="Project Name screenshot"> -->
+
+    <!-- Option B: placeholder until you have an image -->
+    <div class="placeholder"><img src="Thumbnail.png" 
+            style="width:100%; height:100%; object-fit:cover;"></div>
+    </div>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <div class="content-section">
+      <h2>Overview</h2>
+      <p>
+        This project explores a low-cost approach to traditional prosthetics by 
+        using a standard webcam and 3D-printed parts. With OpenCV and MediaPipe, 
+        this prosthetic leverages computer vision to track hand landmarks in realtime 
+        and translates gestures to actuate servo motors controlling each finger. 
+        This approach eliminates the need for flex sensors or wearable gloves, 
+        providing a more cost-effective solution to gesture recognition.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2>How it works</h2>
+
+      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Hardware</h3>
+      <p>
+        The physical hand is an open source 3D printed model from <a href="https://inmoov.fr/" style="color: var(--accent);">InMoov</a>, driven by five MG996R servo motors connected to an Arduino Nano. Each servo connects to a finger via fishing line threaded through the finger joints. When the servo rotates, it pulls the line and curls the finger. This mechanical approach keeps the build low-cost while still achieving a realistic range of motion.
+      </p>
+
+      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Computer vision pipeline</h3>
+      <p>
+        OpenCV captures the live webcam feed frame by frame and passes each frame to MediaPipe's hand landmark model, which returns the XYZ coordinates of 21 hand landmarks in real time. For each finger, I extract two key landmarks: the fingertip and the base knuckle where the finger meets the palm.
+      </p>
+      <p>
+        To determine how open or closed each finger is, I calculate the Euclidean pixel distance between those two points:
+      </p>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 0.75rem 0 1rem; font-family: monospace; font-size: 0.95rem; color: var(--ink);">
+        d = &radic;((x&#8321; &minus; x&#8322;)&sup2; + (y&#8321; &minus; y&#8322;)&sup2;)
+      </div>
+      <p>
+        A longer distance means the finger is extended; a shorter distance means it is curling closed. This distance is then mapped to a servo angle using a linear function. After testing, a multiplier of 40 produced a full and natural range of motion:
+      </p>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 0.75rem 0 1rem; font-family: monospace; font-size: 0.95rem; color: var(--ink);">
+        &theta; = 40d
+      </div>
+      <p>
+        One edge case required special handling: when a finger is fully closed, the tip landmark drops below the base landmark in screen coordinates, meaning its Y value is greater than the base's Y value. A simple conditional catches this and writes the servo directly to its maximum angle of 180 degrees, preventing jitter at the extremes of motion.
+      </p>
+      <p>
+        The thumb uses a slightly different approach. Because it moves along a different axis than the other fingers (side to side), the distance measurement uses a right triangle constructed from the tip and base coordinates rather than a straight line.
+      </p>
+
+      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Software architecture</h3>
+      <p>The project is organized into three files, each with a clear responsibility:</p>
+      <ul>
+        <li><strong style="font-weight: 500; color: var(--ink);">Servo_Utils.py</strong> — defines a Servo class that wraps PyFirmata2, handling the serial connection to the Arduino and using a <code style="font-size: 0.85rem; background: var(--card-bg); padding: 0.1rem 0.35rem; border-radius: 3px; border: 1px solid var(--border);">write(angle)</code> method for each motor</li>
+        <li><strong style="font-weight: 500; color: var(--ink);">Finger.py</strong> — defines a Finger object that stores the tip and base coordinates alongside its associated servo, with an <code style="font-size: 0.85rem; background: var(--card-bg); padding: 0.1rem 0.35rem; border-radius: 3px; border: 1px solid var(--border);">isThumb</code> flag to handle the alternate distance calculation</li>
+        <li><strong style="font-weight: 500; color: var(--ink);">handControl.py</strong> — the main loop that captures frames, runs the MediaPipe landmark detection, instantiates Finger objects for each digit, calculates distances, and writes the resulting angles to each servo via PyFirmata2</li>
+      </ul>
+      <p style="margin-top: 1rem;">
+        Communication between Python and the Arduino is handled by PyFirmata2, which sends servo angles over USB serial without requiring custom firmware on the Arduino side.
+      </p>
+    </div>
+
+    <!-- MEDIA GRID — add images here -->
+    <div class="content-section">
+      <h2>Photos & media</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <!-- <img src="photo1.jpg" alt="Description"> -->
+          <div class="media-placeholder"><img src="Hand2.jpg" 
+            style="width:100%; height:100%;;"></div>
+          <div class="media-caption">Fully assembled hand</div>
+        </div>
+        <div class="media-item">
+          <!-- <img src="photo2.jpg" alt="Description"> -->
+          <div class="media-placeholder"><img src="circuit.jpg" 
+            style="width:100%; height:100%;;"></div>
+          <div class="media-caption">PCB with soldered servo driver</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO — paste a YouTube embed URL -->
+    <div class="content-section">
+      <h2>Demo videos</h2>
+      <div class="video-wrapper">
+        <!-- Replace VIDEO_ID with your YouTube video ID -->
+        <iframe src="https://www.youtube.com/embed/b7CLX6D0mAc" allowfullscreen></iframe>
+      </div>      
+      <div class="video-wrapper">
+        <!-- Replace VIDEO_ID with your YouTube video ID -->
+        <iframe src="https://www.youtube.com/embed/DjKZX3GeChw" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>Limitations & what's next</h2>
+      <p>
+        Building this project exposed two fundamental constraints of the camera-only approach that I want to address in future iterations.
+      </p>
+ 
+      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Finger length calibration</h3>
+      <p>
+        The current servo mapping assumes a fixed relationship between tip-to-base pixel distance and finger state. In practice, people have different finger proportions, so the same physical gesture produces different distance measurements depending on the user. A future version needs an adaptive function that normalizes distances relative to each individual's hand geometry.
+      </p>
+ 
+      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Depth perception with stereo vision</h3>
+      <p>
+        A single camera has no sense of depth, which means the measured tip-to-base distance changes as the hand moves toward or away from the lens, even if the fingers themselves haven't moved. This creates false servo actuation whenever the user shifts their hand in space. Replacing the webcam with a stereo camera setup would provide real depth data from hand position in the frame.
+      </p>
+ 
+      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">EMG-based neural control</h3>
+      <p>
+        The longer term direction for this project is to move away from camera based input entirely and integrate EMG sensors that read electrical signals directly from the user's arm muscles. Each movement produces a distinct signal pattern, and by training a machine learning model on labeled EMG recordings, the prosthetic could predict intended gestures and actuate accordingly, enabling far more natural control than any vision-based approach can offer.
+      </p>
+    </div>
+ 
+    <!-- LINKS -->
+    <div class="project-links-row">
+      <a href="https://github.com/Ely6275/Vision-Controlled-Prosthetic-Hand/tree/main" class="btn btn-primary">View on GitHub</a>
+      <a href="#" class="btn btn-ghost">Live demo</a>
+    </div>
+  </div>
+
+</body>
+</html>
