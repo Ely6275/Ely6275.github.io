@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Project Name — Ely Herman</title>
+  <title>Collision Warning Sensor System — Ely Herman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -75,7 +75,6 @@
       border-bottom: 1px solid var(--border);
       margin-bottom: 3rem;
     }
-    .meta-item {}
     .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
     .meta-value { font-size: 0.95rem; color: var(--ink); }
 
@@ -87,7 +86,7 @@
       font-size: 0.8rem; color: var(--muted); font-weight: 500;
     }
 
-    /* ── MAIN IMAGE ── */
+    /* ── MAIN IMAGE (poster) ── */
     .main-image {
       width: 100%; max-width: 860px; margin: 0 auto 4rem;
       padding: 0 4rem;
@@ -95,14 +94,11 @@
     .main-image img {
       width: 100%; border-radius: 12px;
       border: 1px solid var(--border);
-      display: block;
+      display: block; cursor: zoom-in;
     }
-    .main-image .placeholder {
-      width: 100%; height: 420px; border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.9rem;
+    .main-image-caption {
+      font-size: 0.82rem; color: var(--muted);
+      text-align: center; margin-top: 0.75rem;
     }
 
     /* ── CONTENT ── */
@@ -114,6 +110,10 @@
     .content-section h2 {
       font-family: var(--serif);
       font-size: 1.75rem; margin-bottom: 1rem;
+    }
+    .content-section h3 {
+      font-size: 1.1rem; font-weight: 500;
+      margin: 1.5rem 0 0.6rem; color: var(--ink);
     }
     .content-section p {
       color: var(--muted); line-height: 1.85;
@@ -133,6 +133,121 @@
       color: var(--accent); font-size: 0.85rem;
     }
 
+    /* ── TEAM STRIP ── */
+    .team-strip {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .team-member {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.875rem; color: var(--ink);
+    }
+    .team-member-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .team-member.you { border-color: var(--accent); }
+    .team-member.you .team-member-dot { background: var(--accent); }
+
+    /* ── RESULTS TABLE ── */
+    .results-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 1.25rem; font-size: 0.875rem;
+      max-width: 680px;
+    }
+    .results-table th {
+      text-align: left; padding: 0.6rem 0.9rem;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+      border-bottom: 2px solid var(--border);
+    }
+    .results-table td {
+      padding: 0.65rem 0.9rem; color: var(--muted);
+      border-bottom: 1px solid var(--border); vertical-align: top;
+      line-height: 1.6;
+    }
+    .results-table tr:last-child td { border-bottom: none; }
+    .pass-badge {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #1a6b35;
+      background: #e6f4ec; border: 1px solid #b3d9c1;
+      padding: 0.15rem 0.5rem; border-radius: 3px;
+    }
+
+    /* ── SENSOR CARDS ── */
+    .sensor-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-top: 1.25rem; max-width: 680px;
+    }
+    .sensor-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem;
+    }
+    .sensor-card-label {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .sensor-card-title {
+      font-family: var(--serif); font-size: 1.15rem;
+      margin-bottom: 0.6rem; color: var(--ink);
+    }
+    .sensor-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* ── DESIGN PROCESS TABS ── */
+    .tab-container { margin-top: 1.5rem; }
+    .tab-list {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-btn {
+      padding: 0.55rem 1rem;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      color: var(--muted); background: transparent;
+      border: 1px solid transparent; border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      cursor: pointer; transition: color 0.15s, background 0.15s;
+      position: relative; bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--ink); background: var(--card-bg); }
+    .tab-btn.active {
+      color: var(--ink); background: var(--card-bg);
+      border-color: var(--border); border-bottom-color: var(--card-bg);
+    }
+    .tab-panel {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border); border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 1.75rem;
+    }
+    .tab-panel.active { display: block; }
+    .tab-panel p { color: var(--muted); line-height: 1.85; margin-bottom: 0.85rem; max-width: 100%; }
+    .tab-panel ul { max-width: 100%; }
+    .tab-panel ul li { color: var(--muted); }
+
+    /* Pugh table inside tab */
+    .pugh-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 1rem; font-size: 0.82rem;
+    }
+    .pugh-table th {
+      text-align: center; padding: 0.5rem 0.6rem;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--accent);
+      border-bottom: 2px solid var(--border);
+    }
+    .pugh-table th:first-child { text-align: left; }
+    .pugh-table td {
+      padding: 0.55rem 0.6rem; text-align: center;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    .pugh-table td:first-child { text-align: left; font-weight: 500; color: var(--ink); }
+    .pugh-table tr:last-child td { border-bottom: none; font-weight: 500; color: var(--ink); }
+    .best { color: #1a6b35; font-weight: 500; }
+
     /* ── MEDIA GRID ── */
     .media-grid {
       display: grid;
@@ -144,15 +259,16 @@
       border: 1px solid var(--border);
       background: var(--card-bg);
     }
-    .media-item img { width: 100%; display: block; }
-    .media-item .media-placeholder {
-      height: 200px;
+    .media-frame {
+      height: 220px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.85rem;
+      background: var(--card-bg); cursor: zoom-in; overflow: hidden;
     }
+    .media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media-frame.contain img { object-fit: contain; }
     .media-caption {
-      padding: 0.6rem 0.9rem;
-      font-size: 0.8rem; color: var(--muted);
+      padding: 0.7rem 0.9rem;
+      font-size: 0.82rem; color: var(--muted);
       border-top: 1px solid var(--border);
     }
 
@@ -161,11 +277,17 @@
       position: relative; padding-bottom: 56.25%;
       height: 0; overflow: hidden;
       border-radius: 10px; border: 1px solid var(--border);
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
     .video-wrapper iframe {
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%; border: 0;
+    }
+    .video-placeholder {
+      border: 1px dashed var(--border); border-radius: 10px;
+      padding: 1.25rem; margin-top: 1rem;
+      background: rgba(255,255,255,0.55); color: var(--muted);
+      font-size: 0.9rem; max-width: 680px;
     }
 
     /* ── LINKS ── */
@@ -180,14 +302,41 @@
     .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
     .btn-ghost:hover { border-color: var(--ink); }
 
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,9,8,0.92);
+      align-items: center; justify-content: center; padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 90vw; max-height: 88vh; object-fit: contain;
+      border-radius: 8px; animation: lbIn 0.2s ease;
+    }
+    .lightbox-caption {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      color: rgba(245,242,236,0.7); font-size: 0.85rem; text-align: center;
+      max-width: 560px; line-height: 1.5; pointer-events: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.5rem;
+      background: none; border: none;
+      color: rgba(245,242,236,0.6); font-size: 1.75rem;
+      cursor: pointer; transition: color 0.15s;
+    }
+    .lightbox-close:hover { color: #fff; }
+    @keyframes lbIn { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .sensor-grid { grid-template-columns: 1fr; }
+      .tab-btn { font-size: 0.8rem; padding: 0.45rem 0.7rem; }
     }
 
     /* ── ANIMATION ── */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
     .project-hero > * { animation: fadeUp 0.6s ease both; }
     .project-eyebrow { animation-delay: 0.05s; }
     .project-hero-title { animation-delay: 0.15s; }
@@ -205,162 +354,476 @@
 
   <!-- HERO -->
   <div class="project-hero">
-    <span class="project-eyebrow">Robotics</span>
-    <h1 class="project-hero-title">Vision Controlled Prosthetic Hand</h1>
+    <span class="project-eyebrow">Sensors · Embedded Systems · Team Project</span>
+    <h1 class="project-hero-title">Collision Warning Sensor System for Scissor Lifts</h1>
     <p class="project-hero-desc">
-A low-cost prosthetic hand that utilizes camera-based hand recognition and Arduino to mimic hand movement in real time.    </p>
+      A dual-sensor LiDAR network designed for scissor lifts to detect nearby obstacles in real time
+      and alert operators before collisions occur — developed for Skanska USA Building, Inc. as part of
+      Duke University's Engineering Design POD program.
+    </p>
+
+    <!-- TEAM -->
+    <div class="team-strip">
+      <div class="team-member you">
+        <div class="team-member-dot"></div>
+        Ely Herman
+      </div>
+      <div class="team-member">
+        <div class="team-member-dot" style="background: var(--muted);"></div>
+        Andrew Xu
+      </div>
+      <div class="team-member">
+        <div class="team-member-dot" style="background: var(--muted);"></div>
+        David Zhu
+      </div>
+      <div class="team-member">
+        <div class="team-member-dot" style="background: var(--muted);"></div>
+        Jillian Qin
+      </div>
+    </div>
+
     <div class="project-meta">
       <div class="meta-item">
         <div class="meta-label">Date</div>
-        <div class="meta-value">Summer 2025</div>
+        <div class="meta-value">Fall 2025</div>
       </div>
       <div class="meta-item">
-        <div class="meta-label">Role</div>
-        <div class="meta-value">Solo project</div>
+        <div class="meta-label">Team</div>
+        <div class="meta-value">High Rollers — Scissor Lift Group 1</div>
       </div>
       <div class="meta-item">
-        <div class="meta-label">Stack</div>
-        <div class="meta-value">OpenCV, MediaPipe, Arduino</div>
+        <div class="meta-label">Client</div>
+        <div class="meta-value">Skanska USA Building, Inc.</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Institution</div>
+        <div class="meta-value">Duke Pratt School of Engineering</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Status</div>
-        <div class="meta-value">Completed</div>
+        <div class="meta-value">Prototype completed</div>
       </div>
     </div>
     <div class="tag-row">
-      <span class="tag">Python</span>
-      <span class="tag">Arduino</span>
-      <span class="tag">Robotics</span>
+      <span class="tag">LiDAR</span>
+      <span class="tag">ESP32</span>
+      <span class="tag">Embedded Systems</span>
+      <span class="tag">Sensor Fusion</span>
+      <span class="tag">C++</span>
+      <span class="tag">3D Printing</span>
     </div>
   </div>
 
-  <!-- MAIN IMAGE -->
+  <!-- MAIN IMAGE — Poster -->
   <div class="main-image">
-    <!-- Option A: use a real image -->
-    <!-- <img src="project1-cover.jpg" alt="Project Name screenshot"> -->
-
-    <!-- Option B: placeholder until you have an image -->
-    <div class="placeholder"><img src="lift.png" 
-            style="width:100%; height:100%; object-fit:cover;"></div>
-    </div>
+    <img src="Poster.png" alt="Final project poster: A Collision Warning Sensor System for Scissor Lifts, presented at Duke Engineering Design POD">
+    <p class="main-image-caption">Final design poster presented at Duke Engineering Design POD — click to enlarge</p>
+  </div>
 
   <!-- CONTENT -->
   <div class="project-content">
 
+    <!-- OVERVIEW -->
     <div class="content-section">
       <h2>Overview</h2>
       <p>
-        This project explores a low-cost approach to traditional prosthetics by 
-        using a standard webcam and 3D-printed parts. With OpenCV and MediaPipe, 
-        this prosthetic leverages computer vision to track hand landmarks in realtime 
-        and translates gestures to actuate servo motors controlling each finger. 
-        This approach eliminates the need for flex sensors or wearable gloves, 
-        providing a more cost-effective solution to gesture recognition.
+        Scissor lifts are widely used in construction for elevated work, but their large size and sudden
+        acceleration make them difficult to maneuver safely. Collisions with walls, doorframes, ceilings,
+        and construction materials cause property damage and put workers at risk. Our team was commissioned
+        by Skanska USA to design a sensor system that detects obstacles in real time and alerts the operator
+        before a collision occurs.
+      </p>
+      <p>
+        Our solution pairs two complementary LiDAR sensor types mounted across the lift — one for
+        close-range 3D detection and one for 360° sweeping coverage. Both trigger audible buzzer alerts
+        with increasing frequency as the lift approaches an obstacle, starting at 12 inches of clearance.
+        All units are self-contained, magnetically mounted, and require no client-side code configuration.
       </p>
     </div>
 
+    <!-- SENSOR SYSTEM -->
+    <div class="content-section">
+      <h2>Sensor system</h2>
+      <p>The system uses two different sensor types that complement each other's strengths and coverage areas.</p>
+
+      <div class="sensor-grid">
+        <div class="sensor-card">
+          <div class="sensor-card-label">Sensor type 1</div>
+          <div class="sensor-card-title">Chip LiDAR (×6)</div>
+          <p>
+            Mounted magnetically on the basket corners and base. Each unit has a 3D field of view and
+            detects obstacles within a fixed range, triggering buzzer alerts with increasing frequency
+            starting at 12 inches. Controlled by an ESP32-C3 SuperMini microcontroller powered by a 9V battery.
+          </p>
+        </div>
+        <div class="sensor-card">
+          <div class="sensor-card-label">Sensor type 2</div>
+          <div class="sensor-card-title">360° Sweeping LiDAR (×2)</div>
+          <p>
+            Mounted front and rear of the lift. A servo motor improves the vertical field of view.
+            Scans in a full 360° arc and alerts starting at 12 inches. Controlled by a standard ESP32
+            in a dedicated weatherproof control box, also on a 9V battery.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
     <div class="content-section">
       <h2>How it works</h2>
 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Hardware</h3>
+      <h3>Hardware & enclosures</h3>
       <p>
-        The physical hand is an open source 3D printed model from <a href="https://inmoov.fr/" style="color: var(--accent);">InMoov</a>, driven by five MG996R servo motors connected to an Arduino Nano. Each servo connects to a finger via fishing line threaded through the finger joints. When the servo rotates, it pulls the line and curls the finger. This mechanical approach keeps the build low-cost while still achieving a realistic range of motion.
+        Each sensor unit is housed in a custom 3D-printed enclosure with a built-in buzzer, battery
+        compartment, and magnet mount. The magnetic attachment lets operators place and remove sensors
+        in seconds without tools, and holds securely on the steel frame of the lift during operation.
+        The 360° sweeping units include a servo motor that tilts the sensor during scans to extend
+        vertical coverage above and below the horizontal plane.
       </p>
 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Computer vision pipeline</h3>
+      <h3>Alert logic</h3>
       <p>
-        OpenCV captures the live webcam feed frame by frame and passes each frame to MediaPipe's hand landmark model, which returns the XYZ coordinates of 21 hand landmarks in real time. For each finger, I extract two key landmarks: the fingertip and the base knuckle where the finger meets the palm.
-      </p>
-      <p>
-        To determine how open or closed each finger is, I calculate the Euclidean pixel distance between those two points:
-      </p>
-      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 0.75rem 0 1rem; font-family: monospace; font-size: 0.95rem; color: var(--ink);">
-        d = &radic;((x&#8321; &minus; x&#8322;)&sup2; + (y&#8321; &minus; y&#8322;)&sup2;)
-      </div>
-      <p>
-        A longer distance means the finger is extended; a shorter distance means it is curling closed. This distance is then mapped to a servo angle using a linear function. After testing, a multiplier of 40 produced a full and natural range of motion:
-      </p>
-      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 0.75rem 0 1rem; font-family: monospace; font-size: 0.95rem; color: var(--ink);">
-        &theta; = 40d
-      </div>
-      <p>
-        One edge case required special handling: when a finger is fully closed, the tip landmark drops below the base landmark in screen coordinates, meaning its Y value is greater than the base's Y value. A simple conditional catches this and writes the servo directly to its maximum angle of 180 degrees, preventing jitter at the extremes of motion.
-      </p>
-      <p>
-        The thumb uses a slightly different approach. Because it moves along a different axis than the other fingers (side to side), the distance measurement uses a right triangle constructed from the tip and base coordinates rather than a straight line.
+        Both sensor types use a distance threshold programmed in firmware. When an obstacle enters the
+        12-inch warning zone, the onboard buzzer activates. The beep frequency increases as clearance
+        decreases, giving the operator an intuitive sense of proximity without needing to look at a display.
+        The alert system responds in under 0.1 seconds — fast enough for an operator to react and stop the lift.
       </p>
 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Software architecture</h3>
-      <p>The project is organized into three files, each with a clear responsibility:</p>
-      <ul>
-        <li><strong style="font-weight: 500; color: var(--ink);">Servo_Utils.py</strong> — defines a Servo class that wraps PyFirmata2, handling the serial connection to the Arduino and using a <code style="font-size: 0.85rem; background: var(--card-bg); padding: 0.1rem 0.35rem; border-radius: 3px; border: 1px solid var(--border);">write(angle)</code> method for each motor</li>
-        <li><strong style="font-weight: 500; color: var(--ink);">Finger.py</strong> — defines a Finger object that stores the tip and base coordinates alongside its associated servo, with an <code style="font-size: 0.85rem; background: var(--card-bg); padding: 0.1rem 0.35rem; border-radius: 3px; border: 1px solid var(--border);">isThumb</code> flag to handle the alternate distance calculation</li>
-        <li><strong style="font-weight: 500; color: var(--ink);">handControl.py</strong> — the main loop that captures frames, runs the MediaPipe landmark detection, instantiates Finger objects for each digit, calculates distances, and writes the resulting angles to each servo via PyFirmata2</li>
-      </ul>
-      <p style="margin-top: 1rem;">
-        Communication between Python and the Arduino is handled by PyFirmata2, which sends servo angles over USB serial without requiring custom firmware on the Arduino side.
+      <h3>360° LiDAR scan visualization</h3>
+      <p>
+        During development, we visualized the 360° LiDAR output as a polar point cloud to verify
+        coverage and sensor placement. The scan below shows the sensor at the center, with detected
+        surfaces plotted radially. The color gradient indicates return intensity, and the coordinate
+        readout confirms real-time distance values.
       </p>
+
+      <!-- LiDAR scan image -->
+      <div class="media-grid" style="grid-template-columns: 1fr; max-width: 520px;">
+        <div class="media-item">
+          <div class="media-frame contain">
+            <img src="lidarMapping.png" alt="Polar LiDAR point cloud showing a 360 degree room scan with detected walls and objects plotted radially from the sensor origin">
+          </div>
+          <div class="media-caption">360° LiDAR polar scan — the sensor at center plots detected surfaces radially. The vertical wall (right) and a curved object (left) are clearly resolved.</div>
+        </div>
+      </div>
     </div>
 
-    <!-- MEDIA GRID — add images here -->
+    <!-- DESIGN PROCESS -->
+    <div class="content-section">
+      <h2>Design process</h2>
+      <p>
+        Our engineering process followed a structured decomposition and evaluation framework across
+        multiple assignment phases — from problem definition and sensor selection through to testing and iteration.
+      </p>
+
+      <div class="tab-container">
+        <div class="tab-list" role="tablist">
+          <button class="tab-btn active" onclick="switchTab(event,'problem')" role="tab">Problem definition</button>
+          <button class="tab-btn" onclick="switchTab(event,'sensor')" role="tab">Sensor selection</button>
+          <button class="tab-btn" onclick="switchTab(event,'criteria')" role="tab">Design criteria</button>
+          <button class="tab-btn" onclick="switchTab(event,'testing')" role="tab">Testing plan</button>
+        </div>
+
+        <!-- Problem definition -->
+        <div class="tab-panel active" id="tab-problem">
+          <p>
+            We submitted a formal problem statement to Skanska USA in September 2025, identifying scissor
+            lift collisions as a significant safety and property damage risk at construction sites.
+            The core challenge: lifts are large, accelerate suddenly, and operators have limited visibility
+            of the surroundings — especially above the platform and at corners.
+          </p>
+          <p>
+            The system needed to work for any construction company using scissor lifts, with potential
+            users including operators, on-site technicians, and site managers. Key constraints included
+            no client-side code editing, secure magnetic attachment, and battery life exceeding 16 hours
+            of continuous operation.
+          </p>
+        </div>
+
+        <!-- Sensor selection -->
+        <div class="tab-panel" id="tab-sensor">
+          <p>
+            We evaluated five sensor types using Pugh screening and scoring matrices, weighted across
+            five criteria: sensor precision, environmental interference, field of vision, battery consumption, and cost.
+          </p>
+          <table class="pugh-table">
+            <thead>
+              <tr>
+                <th>Criterion</th>
+                <th>Weight</th>
+                <th>Camera</th>
+                <th>Ultrasound</th>
+                <th>LiDAR</th>
+                <th>mmWave</th>
+                <th>Infrared</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sensor precision</td>
+                <td>0.25</td>
+                <td>2</td><td>3</td><td class="best">5</td><td>4</td><td>1</td>
+              </tr>
+              <tr>
+                <td>Environmental interference</td>
+                <td>0.20</td>
+                <td>2</td><td>3</td><td>4</td><td class="best">5</td><td>1</td>
+              </tr>
+              <tr>
+                <td>Field of vision</td>
+                <td>0.30</td>
+                <td>2</td><td>4</td><td class="best">5</td><td>3</td><td>1</td>
+              </tr>
+              <tr>
+                <td>Battery consumption</td>
+                <td>0.05</td>
+                <td class="best">5</td><td>1</td><td>2</td><td>3</td><td>4</td>
+              </tr>
+              <tr>
+                <td>Cost</td>
+                <td>0.20</td>
+                <td class="best">5</td><td>3</td><td>1</td><td>2</td><td>4</td>
+              </tr>
+              <tr>
+                <td>Weighted score</td>
+                <td>1.00</td>
+                <td>2.75</td><td>3.20</td><td class="best">3.85</td><td>3.45</td><td>1.45</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 1rem;">
+            LiDAR scored highest overall. Despite its cost relative to ultrasound and mmWave radar,
+            its superior precision and field of vision were deemed critical for reliable collision detection.
+            We noted that the Pugh matrix doesn't capture non-linear cost thresholds, so mmWave radar
+            remained a strong secondary candidate throughout prototyping.
+          </p>
+        </div>
+
+        <!-- Design criteria -->
+        <div class="tab-panel" id="tab-criteria">
+          <p>
+            We used a pairwise comparison chart to rank our design criteria by importance. The final
+            priority order, from most to least important:
+          </p>
+          <ul>
+            <li><strong style="color: var(--ink); font-weight: 500;">Alert audibility</strong> — 90–95 dB, at least 10 dB above ambient noise in a loud construction environment</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Timely alerting</strong> — alert begins within 0.1 seconds of object entering field of vision</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Varying clearance alerts</strong> — different beep frequencies at 1 in, 3 in, and 6 in clearance thresholds</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Ease of setup</strong> — no code editing required by the client, minimal on-site configuration</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Battery life</strong> — at least 16 hours of operation, recharge in 4–5 hours</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Sensor precision</strong> — obstacle detection distance error ≤ 10%</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Clearance / braking system</strong> — warning within specified inches; possible future auto-stop integration</li>
+            <li><strong style="color: var(--ink); font-weight: 500;">Minimal false positives</strong> — no random triggers during a 30-minute testing period</li>
+          </ul>
+        </div>
+
+        <!-- Testing plan -->
+        <div class="tab-panel" id="tab-testing">
+          <p>We designed four tests to validate the prototype against each design criterion:</p>
+          <ul>
+            <li>
+              <strong style="color: var(--ink); font-weight: 500;">Sensor detection</strong> — move a 5×5 inch material sample along the sensor's horizontal plane and measure the detection distance and angular field of view. Target: &lt;5% distance error, ≥55° FOV in each direction.
+            </li>
+            <li>
+              <strong style="color: var(--ink); font-weight: 500;">Alert system</strong> — drop an object in front of the sensor and video record the response. Measure delay in frames and buzzer volume with a decibel meter. Target: &lt;0.1s delay, 90–95 dB alert volume.
+            </li>
+            <li>
+              <strong style="color: var(--ink); font-weight: 500;">Setup process</strong> — time multiple lift operators placing all sensor units on pre-indicated spots. Target: &lt;5 min for new users, &lt;2 min for experienced users.
+            </li>
+            <li>
+              <strong style="color: var(--ink); font-weight: 500;">Battery consumption</strong> — run device continuously with an LED indicator for 10 hours. Repeat 3 times. Target: ≥10 hours per charge, recharge in 6 hours.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTING RESULTS -->
+    <div class="content-section">
+      <h2>Testing results</h2>
+      <p>All five design criteria tests passed. Results from our final prototype evaluation:</p>
+
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>Target</th>
+            <th>Result</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sensor precision (360° LiDAR)</td>
+            <td>&lt;5% max error</td>
+            <td>Max error 0.7% across all angles</td>
+            <td><span class="pass-badge">Passed</span></td>
+          </tr>
+          <tr>
+            <td>Sensor precision (Chip LiDAR)</td>
+            <td>&lt;5% max error</td>
+            <td>Max error 5.0%; alarm at 28.5 cm vs. expected 30 cm</td>
+            <td><span class="pass-badge">Passed</span></td>
+          </tr>
+          <tr>
+            <td>Field of vision (Chip LiDAR)</td>
+            <td>&lt;5% error at ±30°</td>
+            <td>Within 5% error at all tested angles</td>
+            <td><span class="pass-badge">Passed</span></td>
+          </tr>
+          <tr>
+            <td>Timely alerting (360° LiDAR)</td>
+            <td>&lt;0.1s delay</td>
+            <td>Alert triggered in under 2 video frames (0.083s)</td>
+            <td><span class="pass-badge">Passed</span></td>
+          </tr>
+          <tr>
+            <td>Alert audibility</td>
+            <td>90–95 dB</td>
+            <td>97.2 dB minimum — client approved</td>
+            <td><span class="pass-badge">Passed</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Accuracy chart -->
+      <h3 style="margin-top: 2rem;">360° LiDAR accuracy calibration</h3>
+      <p>
+        We validated the 360° LiDAR by comparing measured distances to ground-truth measurements across
+        the full operational range. The sensor showed near-perfect linearity with an R² of 0.9998 and
+        a slope of 1.0072 — a 0.72% systematic overread that could be corrected with a single calibration constant.
+      </p>
+      <div class="media-grid" style="grid-template-columns: 1fr; max-width: 560px;">
+        <div class="media-item">
+          <div class="media-frame contain" style="height: 300px;">
+            <img src="lidarAccuracy.png" alt="Scatter plot of 360 LiDAR measured distance versus actual distance from 150mm to 920mm, showing a linear fit with R squared equals 0.9998 and slope 1.0072">
+          </div>
+          <div class="media-caption">360° LiDAR calibration — measured vs. actual distance (150–920 mm). R² = 0.9998, slope = 1.0072.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIA -->
+    <!-- ADD MORE PHOTOS AND MEDIA HERE AS YOU GET THEM -->
     <div class="content-section">
       <h2>Photos & media</h2>
       <div class="media-grid">
+
         <div class="media-item">
-          <!-- <img src="photo1.jpg" alt="Description"> -->
-          <div class="media-placeholder"><img src="Hand2.jpg" 
-            style="width:100%; height:100%;;"></div>
-          <div class="media-caption">Fully assembled hand</div>
+          <div class="media-frame">
+            <img src="Poster.png" alt="Final engineering design poster presented at Duke">
+          </div>
+          <div class="media-caption">Final design poster presented at Duke Engineering Design POD showcase.</div>
         </div>
+
+        <!-- ADD MORE MEDIA ITEMS HERE — copy and paste this block:
         <div class="media-item">
-          <!-- <img src="photo2.jpg" alt="Description"> -->
-          <div class="media-placeholder"><img src="circuit.jpg" 
-            style="width:100%; height:100%;;"></div>
-          <div class="media-caption">PCB with soldered servo driver</div>
+          <div class="media-frame">
+            <img src="YOUR_IMAGE.jpg" alt="Description">
+          </div>
+          <div class="media-caption">Your caption here.</div>
         </div>
+        -->
+
       </div>
     </div>
 
-    <!-- VIDEO — paste a YouTube embed URL -->
+    <!-- VIDEO SECTION -->
     <div class="content-section">
       <h2>Demo videos</h2>
+      <!-- ADD YOUTUBE EMBEDS HERE when available -->
+      <!-- Replace VIDEO_ID with the ID from your YouTube URL -->
+      <!--
       <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/b7CLX6D0mAc" allowfullscreen></iframe>
-      </div>      
-      <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/DjKZX3GeChw" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      </div>
+      -->
+      <div class="video-placeholder">
+        Demo footage coming soon — replace this block with a YouTube embed when available.
       </div>
     </div>
 
+    <!-- FUTURE WORK -->
     <div class="content-section">
-      <h2>Limitations & what's next</h2>
+      <h2>Next steps</h2>
       <p>
-        Building this project exposed two fundamental constraints of the camera-only approach that I want to address in future iterations.
+        Our prototype passed all five design tests and was well received by our client. The next phase
+        focuses on real-world deployment and refinement:
       </p>
- 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Finger length calibration</h3>
-      <p>
-        The current servo mapping assumes a fixed relationship between tip-to-base pixel distance and finger state. In practice, people have different finger proportions, so the same physical gesture produces different distance measurements depending on the user. A future version needs an adaptive function that normalizes distances relative to each individual's hand geometry.
-      </p>
- 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Depth perception with stereo vision</h3>
-      <p>
-        A single camera has no sense of depth, which means the measured tip-to-base distance changes as the hand moves toward or away from the lens, even if the fingers themselves haven't moved. This creates false servo actuation whenever the user shifts their hand in space. Replacing the webcam with a stereo camera setup would provide real depth data from hand position in the frame.
-      </p>
- 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">EMG-based neural control</h3>
-      <p>
-        The longer term direction for this project is to move away from camera based input entirely and integrate EMG sensors that read electrical signals directly from the user's arm muscles. Each movement produces a distinct signal pattern, and by training a machine learning model on labeled EMG recordings, the prosthetic could predict intended gestures and actuate accordingly, enabling far more natural control than any vision-based approach can offer.
-      </p>
+      <ul>
+        <li>Install the full sensor network on an actual scissor lift at a Skanska USA construction site</li>
+        <li>Test under real-world conditions including vibration, variable lighting, and dynamic motion</li>
+        <li>Refine sensor placement and alert thresholds using field data</li>
+        <li>Present the completed design to the client team at Skanska USA</li>
+        <li>Explore automatic braking integration — stopping the lift at a specified clearance threshold</li>
+      </ul>
     </div>
- 
-    <!-- LINKS -->
+
+    <!-- ACKNOWLEDGEMENTS -->
+    <div class="content-section">
+      <h2>Acknowledgements</h2>
+      <p>
+        This project was completed as part of the Duke University Pratt School of Engineering Design POD program.
+        We are grateful to our advisors and client contacts for their guidance throughout the semester.
+      </p>
+      <ul>
+        <li>Dr. Aaron Kyle — Duke Pratt School of Engineering</li>
+        <li>Dr. Elizabeth Bucholz — Duke Pratt School of Engineering</li>
+        <li>Dagan Trnka — Duke Pratt School of Engineering</li>
+        <li>Christopher Bingham — Duke Pratt School of Engineering</li>
+        <li>Andrew Tucker — Duke Pratt School of Engineering</li>
+        <li>Anna Jooste — Duke Pratt School of Engineering</li>
+        <li>Paul Kelker — Skanska USA Building, Inc.</li>
+        <li>Cole Lewin — Skanska USA Building, Inc.</li>
+      </ul>
+    </div>
+
     <div class="project-links-row">
-      <a href="https://github.com/Ely6275/Vision-Controlled-Prosthetic-Hand/tree/main" class="btn btn-primary">View on GitHub</a>
+      <a href="#" class="btn btn-primary">GitHub coming soon</a>
+      <a href="Poster.png" class="btn btn-ghost" target="_blank">View full poster</a>
     </div>
+
   </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <script>
+    function switchTab(e, id) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+      document.getElementById('tab-' + id).classList.add('active');
+    }
+    function openLightbox(src, alt, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = alt;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e && e.target !== e.currentTarget && !e.target.classList.contains('lightbox-close')) return;
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // Wire lightbox to all clickable images
+    document.querySelectorAll('.media-frame, .main-image img').forEach(el => {
+      const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+      if (!img) return;
+      const caption = el.closest('.media-item')?.querySelector('.media-caption');
+      const altCaption = el.closest('.main-image')?.querySelector('.main-image-caption');
+      el.addEventListener('click', () =>
+        openLightbox(img.src, img.alt, caption?.textContent || altCaption?.textContent || '')
+      );
+    });
+  </script>
 
 </body>
 </html>
