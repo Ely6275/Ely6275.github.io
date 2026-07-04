@@ -5,184 +5,231 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ely Herman — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f2ec;
-      --ink: #1a1814;
-      --muted: #6b6760;
-      --accent: #c84b2f;
-      --card-bg: #ffffff;
-      --border: #e0dcd4;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
+      --ground: #0e2a4a;
+      --ground-2: #0a2140;
+      --panel: rgba(255,255,255,0.025);
+      --ink: #eaf2fb;
+      --muted: #9db4cf;
+      --accent: #7fe7c4;
+      --accent-dim: rgba(127,231,196,0.4);
+      --amber: #ffb454;
+      --line: rgba(234,242,251,0.16);
+      --sans: 'Archivo', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
-      background: var(--bg);
+      background: var(--ground);
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: var(--ink);
       font-size: 16px;
       line-height: 1.6;
     }
 
+    ::selection { background: var(--accent); color: var(--ground); }
+
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(245,242,236,0.85);
+      padding: 1.1rem 4rem;
+      background: rgba(10,33,64,0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
     }
-    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-logo { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       align-items: center;
       padding: 8rem 4rem 4rem;
       gap: 4rem;
     }
-    .hero-text { max-width: 540px; }
+    .hero-text { max-width: 560px; }
     .hero-eyebrow {
       display: inline-block;
-      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      border: 1px solid var(--amber);
+      padding: 0.25rem 0.6rem;
       margin-bottom: 1.5rem;
     }
     .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 5vw, 5rem);
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 800;
       line-height: 1.05;
-      color: var(--ink);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
       margin-bottom: 1.5rem;
     }
-    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-title em { font-style: normal; color: var(--accent); }
     .hero-bio {
-      font-size: 1.1rem; color: var(--muted); line-height: 1.75;
-      max-width: 440px; margin-bottom: 2.5rem;
+      font-size: 1.05rem; color: var(--muted); line-height: 1.75;
+      max-width: 460px; margin-bottom: 2.5rem;
     }
+    .hero-bio b { color: var(--ink); font-weight: 600; }
     .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn {
-      display: inline-block; padding: 0.75rem 1.75rem;
-      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
-      text-decoration: none; border-radius: 4px; transition: all 0.2s;
+      display: inline-block; padding: 0.75rem 1.5rem;
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
+      text-decoration: none; transition: all 0.2s;
       cursor: pointer; border: none;
     }
-    .btn-primary { background: var(--ink); color: var(--bg); }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--ink); }
-    .hero-image {
-      display: flex; justify-content: center; align-items: center;
+    .btn-primary { background: var(--accent); color: var(--ground); font-weight: 600; }
+    .btn-primary:hover { box-shadow: 0 0 18px rgba(127,231,196,0.45); }
+    .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(127,231,196,0.1); }
+
+    .hero-image { display: flex; justify-content: center; align-items: center; }
+    .fig-frame {
+      position: relative;
+      width: 360px;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      background: var(--panel);
     }
-    .avatar-frame {
-      width: 380px; height: 460px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.9rem; text-align: center;
-      position: relative; overflow: hidden;
+    .fig-frame::before, .fig-frame::after {
+      content: ""; position: absolute; width: 14px; height: 14px;
+      border-color: var(--accent); border-style: solid;
     }
-    
-    .avatar-placeholder { position: relative; z-index: 1; padding: 2rem; }
-    .avatar-placeholder svg { opacity: 0.3; margin-bottom: 0.75rem; }
+    .fig-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .fig-frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .fig-frame img { width: 100%; height: 420px; object-fit: cover; display: block; }
+    .fig-caption {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--amber); margin-top: 0.75rem;
+      display: flex; justify-content: space-between;
+    }
 
     /* ── SECTION COMMON ── */
     section { padding: 6rem 4rem; }
     .section-label {
-      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 0.9rem;
     }
     .section-title {
-      font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.15; margin-bottom: 3rem; 
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em;
+      line-height: 1.15; margin-bottom: 3rem;
     }
 
     /* ── ABOUT ── */
-    #about { background: var(--card-bg); border-top: 1px solid var(--border); }
+    #about { background: var(--ground-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
     .about-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
     .skill-tag {
-      padding: 0.35rem 0.85rem; background: var(--bg);
-      border: 1px solid var(--border); border-radius: 100px;
-      font-size: 0.825rem; color: var(--muted); font-weight: 500;
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
     }
-    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
-    .stat-item {}
-    .stat-number { font-family: var(--serif); font-size: 3rem; color: var(--ink); line-height: 1; }
-    .stat-label { font-size: 0.875rem; color: var(--muted); margin-top: 0.25rem; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .stat-item { background: var(--ground-2); padding: 2rem 1.75rem; }
+    .stat-number { font-family: var(--mono); font-size: 2.6rem; font-weight: 600; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
 
     /* ── PROJECTS ── */
-    .projects-grid--small {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
-    .projects-grid--small .project-image {
-    height: 140px;
-    }
-
-    #projects { background: var(--bg); }
+    #projects { background: transparent; }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
     .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      background: var(--ground-2);
+      border: 1px solid var(--line);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      margin-top: 0.7rem;
     }
-    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    }
+    .sheet-label {
+      position: absolute; top: -0.65rem; left: 1.25rem; z-index: 2;
+      background: var(--ground);
+      padding: 0 0.5rem;
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+      color: var(--amber);
+    }
     .project-image {
-      width: 100%; height: 200px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.85rem;
+      width: 100%; height: 210px;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
     }
+    .project-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .project-body { padding: 1.5rem; }
-    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
     .project-tag {
-      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
-      text-transform: uppercase; color: var(--accent); background: rgba(200,75,47,0.08);
-      padding: 0.2rem 0.5rem; border-radius: 3px;
+      font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      padding: 0.18rem 0.45rem;
     }
-    .project-title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.5rem; }
-    .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
-    .project-links { display: flex; gap: 0.75rem; }
+    .project-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .project-links { display: flex; gap: 1rem; }
     .project-link {
-      font-size: 0.825rem; font-weight: 500; color: var(--ink);
-      text-decoration: none; display: flex; align-items: center; gap: 0.3rem;
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em;
+      color: var(--ink); text-decoration: none;
       transition: color 0.2s;
     }
     .project-link:hover { color: var(--accent); }
 
+    .projects-grid--small { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+    .divider-head { margin-top: 5rem; }
+    .divider-head h3 {
+      font-size: 1.4rem; font-weight: 700; text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .divider-head p { color: var(--muted); font-size: 0.95rem; max-width: 540px; margin-bottom: 2.5rem; }
+
     /* ── CONTACT ── */
-    #contact { background: var(--ink); color: var(--bg); text-align: center; }
-    #contact .section-label { color: rgba(245,242,236,0.5); }
-    #contact .section-title { color: var(--bg); margin-bottom: 1rem; }
-    #contact p { color: rgba(245,242,236,0.65); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.75; }
-    #contact .btn-primary { background: var(--bg); color: var(--ink); }
-    #contact .btn-primary:hover { background: var(--accent); color: var(--bg); }
-    .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
-    .social-links a { color: rgba(245,242,236,0.5); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
-    .social-links a:hover { color: var(--bg); }
+    #contact {
+      background: var(--ground-2);
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    #contact .section-title { margin-bottom: 1rem; }
+    #contact p { color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.75; }
+    .social-links { display: flex; justify-content: center; gap: 2rem; margin-top: 2.5rem; }
+    .social-links a {
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--accent); }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--ink); color: rgba(245,242,236,0.35);
-      text-align: center; padding: 1.5rem; font-size: 0.8rem;
-      border-top: 1px solid rgba(245,242,236,0.08);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+      background: var(--ground-2);
+      color: var(--muted);
+      padding: 1.5rem 4rem;
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em;
+      border-top: 1px solid var(--line);
     }
 
     /* ── ANIMATIONS ── */
@@ -194,16 +241,24 @@
     .hero-cta      { animation-delay: 0.5s; }
     .hero-image    { animation: fadeUp 0.9s 0.3s ease both; }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-text > *, .hero-image { animation: none; }
+      .project-card, .btn { transition: none; }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
       .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+      .hero-eyebrow { margin-left: auto; margin-right: auto; }
       .hero-bio { max-width: 100%; }
       .hero-cta { justify-content: center; }
       .hero-image { display: none; }
       section { padding: 4rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -211,35 +266,36 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Ely Herman</a>
+    <a href="#" class="nav-logo">EH // INDEX</a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#projects">PROJECTS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <span class="hero-eyebrow">Portfolio</span>
-      <h1 class="hero-title">Hi, I'm <em>Ely Herman</em>.</h1>
+      <span class="hero-eyebrow">SHEET 01 / 04 — TITLE BLOCK</span>
+      <h1 class="hero-title">Ely Herman<br><em>EECS + Robotics</em></h1>
       <p class="hero-bio">
-        I'm a freshman at <b>Duke University</b> studying <b>Electrical Engineering and Computer Science</b>, 
-        with a focus on <b>Robotics</b> and <b>Machine Learning</b>. I'm drawn to the intersection of 
-        hardware and intelligent systems, and I'm actively seeking research opportunities 
+        I'm a freshman at <b>Duke University</b> studying <b>Electrical Engineering and Computer Science</b>,
+        with a focus on <b>Robotics</b> and <b>Machine Learning</b>. I'm drawn to the intersection of
+        hardware and intelligent systems, and I'm actively seeking research opportunities
         and internships where I can contribute and grow.
       </p>
       <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View my work</a>
-        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        <a href="#projects" class="btn btn-primary">VIEW PROJECTS →</a>
+        <a href="#contact" class="btn btn-ghost">CONTACT ↴</a>
       </div>
     </div>
     <div class="hero-image">
-      <div class="avatar-frame">
-        <div class="avatar-frame">
-            <img src="photo.jpg" alt="Ely Herman" 
-            style="width:100%; height:100%; object-fit:cover;">
+      <div class="fig-frame">
+        <img src="photo.jpg" alt="Ely Herman">
+        <div class="fig-caption">
+          <span>FIG. 01 — E. HERMAN</span>
+          <span>DUKE UNIV.</span>
         </div>
       </div>
     </div>
@@ -248,28 +304,28 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="about-grid">
-      <div>
-        <p class="section-label">About me</p>
-        <h2 class="section-title">A little background</h2>
-        <p style="color: var(--muted); line-height: 1.8; margin-bottom: 1rem;">
-          I'm a freshman at Duke University studying Electrical Engineering and Computer Science, 
-          with roots in robotics and programming that go back to high school — 
+      <div class="about-text">
+        <p class="section-label">SHEET 02 / 04 — ABOUT</p>
+        <h2 class="section-title">A Little Background</h2>
+        <p>
+          I'm a freshman at Duke University studying Electrical Engineering and Computer Science,
+          with roots in robotics and programming that go back to high school —
           where I competed in VEX Robotics and led both my school's math and coding clubs.
         </p>
-        <p style="color: var(--muted); line-height: 1.8;">
-          I'm drawn to problems that live at the intersection of hardware and software, 
-          where the math and the physical thing you're building have to work together. 
-          I learn by doing and I like working with others, 
-          whether that's teaching Arduino to classmates or debugging a robot at midnight. 
+        <p>
+          I'm drawn to problems that live at the intersection of hardware and software,
+          where the math and the physical thing you're building have to work together.
+          I learn by doing and I like working with others,
+          whether that's teaching Arduino to classmates or debugging a robot at midnight.
           What keeps me going is the belief that intelligent systems can meaningfully change
           how the world works.
+        </p>
         <div class="about-skills">
-          <span class="skill-tag">Arduino</span>
-          <span class="skill-tag">Java</span>
+          <span class="skill-tag">ARDUINO</span>
+          <span class="skill-tag">JAVA</span>
           <span class="skill-tag">C++</span>
-          <span class="skill-tag">PyTorch</span>
-          <span class="skill-tag">Fusion360</span>
-          <!-- Add your own skills here -->
+          <span class="skill-tag">PYTORCH</span>
+          <span class="skill-tag">FUSION360</span>
         </div>
       </div>
       <div>
@@ -297,106 +353,112 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-  <p class="section-label">Work</p>
-  <h2 class="section-title">Featured projects</h2>
-  <div class="projects-grid">
+    <p class="section-label">SHEET 03 / 04 — PROJECT DRAWINGS</p>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
 
-    <!-- FEATURED PROJECT CARDS GO HERE -->
-    <article class="project-card" onclick="location.href='project1.html'" style="cursor:pointer;">
-      <div class="project-image">
-        <img src="Hand.jpg"style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="project-tag">Arduino</span>
-          <span class="project-tag">Python</span>
+      <article class="project-card" onclick="location.href='project1.html'" style="cursor:pointer;">
+        <span class="sheet-label">DWG. EH-01</span>
+        <div class="project-image">
+          <img src="Hand.jpg" alt="Vision controlled prosthetic hand">
         </div>
-        <h3 class="project-title">Vision Controlled Prosthetic Hand</h3>
-        <p class="project-desc">A low-cost prosthetic hand that utilizes camera-based hand recognition and Arduino to mimic hand movement in real time.</p>
-        <div class="project-links">
-          <a href="#" class="project-link">↗ View Project</a>
-          <a href="https://github.com/Ely6275" class="project-link">⌥ GitHub</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="project-card" onclick="location.href='project2.html'" style="cursor:pointer;">
-      <div class="project-image">
-        <img src="hex1.png" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="project-tag">Robotics</span>
-          <span class="project-tag">Fusion 360</span>
-          <span class="project-tag">Python</span>
-        </div>
-        <h3 class="project-title">Hexapod Robotic Spider</h3>
-        <p class="project-desc">A custom six-legged walking robot designed in Fusion 360, with inverse kinematics and Bézier curve gait planning.</p>
-        <div class="project-links">
-          <a href="project2.html" class="project-link">↗ View project</a>
-          <a href="https://github.com/Ely6275" class="project-link">⌥ GitHub</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="project-card" onclick="location.href='project3.html'" style="cursor:pointer;">
-      <div class="project-image">
-        <img src="lift.png" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="project-tag">LiDAR</span>
-          <span class="project-tag">Fusion 360</span>
-          <span class="project-tag">Arduino</span>
-        </div>
-        <h3 class="project-title">Scissor Lift Collision Avoidance System</h3>
-        <p class="project-desc">A 360 degree LiDAR-based collision detection and avoidance system for scissor lifts.</p>
-        <div class="project-links">
-          <a href="project3.html" class="project-link">↗ View project</a>
-          <a href="https://github.com/Ely6275" class="project-link">⌥ GitHub</a>
-        </div>
-      </div>
-    </article>
-
-  </div>
-
-  <!-- DIVIDER -->
-  <div style="margin-top: 5rem;">
-    <p class="section-label">Earlier work</p>
-    <h3 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">High school projects</h3>
-    <p style="color: var(--muted); font-size: 0.95rem; max-width: 540px; margin-bottom: 2.5rem;">
-      Projects I built before college — where I first got into robotics, programming, and hardware.
-    </p>
-    <div class="projects-grid projects-grid--small">
-
-      <!-- SMALLER HIGH SCHOOL PROJECT CARDS GO HERE -->
-      <article class="project-card">
-        <div class="project-body" style="padding: 1.25rem;">
+        <div class="project-body">
           <div class="project-tags">
             <span class="project-tag">Arduino</span>
+            <span class="project-tag">Python</span>
           </div>
-          <h3 class="project-title" style="font-size: 1.15rem;">High School Project</h3>
-          <p class="project-desc" style="font-size: 0.875rem;">Brief description of what it was and what that you learned.</p>
+          <h3 class="project-title">Vision Controlled Prosthetic Hand</h3>
+          <p class="project-desc">A low-cost prosthetic hand that utilizes camera-based hand recognition and Arduino to mimic hand movement in real time.</p>
           <div class="project-links">
-            <a href="#" class="project-link">⌥ GitHub</a>
+            <a href="project1.html" class="project-link">↗ VIEW PROJECT</a>
+            <a href="https://github.com/Ely6275" class="project-link">⌥ GITHUB</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card" onclick="location.href='project2.html'" style="cursor:pointer;">
+        <span class="sheet-label">DWG. EH-02</span>
+        <div class="project-image">
+          <img src="hexReal.png" alt="Hexapod robotic spider">
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Robotics</span>
+            <span class="project-tag">Fusion 360</span>
+            <span class="project-tag">Python</span>
+          </div>
+          <h3 class="project-title">Hexapod Robotic Spider</h3>
+          <p class="project-desc">A custom six-legged walking robot designed in Fusion 360, with inverse kinematics and Bézier curve gait planning.</p>
+          <div class="project-links">
+            <a href="project2.html" class="project-link">↗ VIEW PROJECT</a>
+            <a href="https://github.com/Ely6275" class="project-link">⌥ GITHUB</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card" onclick="location.href='project3.html'" style="cursor:pointer;">
+        <span class="sheet-label">DWG. EH-03</span>
+        <div class="project-image">
+          <img src="lift.png" alt="Scissor lift collision avoidance system">
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">LiDAR</span>
+            <span class="project-tag">Fusion 360</span>
+            <span class="project-tag">Arduino</span>
+          </div>
+          <h3 class="project-title">Scissor Lift Collision Avoidance System</h3>
+          <p class="project-desc">A 360 degree LiDAR-based collision detection and avoidance system for scissor lifts.</p>
+          <div class="project-links">
+            <a href="project3.html" class="project-link">↗ VIEW PROJECT</a>
+            <a href="https://github.com/Ely6275" class="project-link">⌥ GITHUB</a>
           </div>
         </div>
       </article>
 
     </div>
-  </div>
+
+    <!-- DIVIDER -->
+    <div class="divider-head">
+      <p class="section-label">APPENDIX — EARLIER WORK</p>
+      <h3>High School Projects</h3>
+      <p>Projects I built before college — where I first got into robotics, programming, and hardware.</p>
+      <div class="projects-grid projects-grid--small">
+
+        <article class="project-card">
+          <span class="sheet-label">DWG. HS-01</span>
+          <div class="project-body" style="padding: 1.4rem 1.25rem 1.25rem;">
+            <div class="project-tags">
+              <span class="project-tag">Arduino</span>
+            </div>
+            <h3 class="project-title" style="font-size: 1.05rem;">High School Project</h3>
+            <p class="project-desc" style="font-size: 0.85rem;">Brief description of what it was and what that you learned.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">⌥ GITHUB</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <p class="section-label">Get in touch</p>
+    <p class="section-label">SHEET 04 / 04 — CONTACT</p>
+    <h2 class="section-title">Get In Touch</h2>
     <p>Whether you have a question, or just want to say hi, my inbox is always open.</p>
-    <a href="mailto:ely.herman@duke.edu" class="btn btn-primary">Say hello →</a>
+    <a href="mailto:ely.herman@duke.edu" class="btn btn-primary">SAY HELLO →</a>
     <div class="social-links">
-      <a href="https://github.com/Ely6275">GitHub</a>
-      <a href="https://www.linkedin.com/in/ely-herman-506143361/">LinkedIn</a>
+      <a href="https://github.com/Ely6275">GITHUB</a>
+      <a href="https://www.linkedin.com/in/ely-herman-506143361/">LINKEDIN</a>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 Ely Herman · Built with HTML, CSS &amp; Gi
+    <span>REV. 2026.07 · DUKE UNIVERSITY</span>
+    <span>© 2026 ELY HERMAN</span>
+  </footer>
+
+</body>
+</html>

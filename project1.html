@@ -3,364 +3,484 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Project Name — Ely Herman</title>
+  <title>Vision Controlled Prosthetic Hand — Ely Herman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f2ec;
-      --ink: #1a1814;
-      --muted: #6b6760;
-      --accent: #c84b2f;
-      --card-bg: #ffffff;
-      --border: #e0dcd4;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
+      --ground: #0e2a4a;
+      --ground-2: #0a2140;
+      --panel: rgba(255,255,255,0.025);
+      --ink: #eaf2fb;
+      --muted: #9db4cf;
+      --accent: #7fe7c4;
+      --accent-dim: rgba(127,231,196,0.4);
+      --amber: #ffb454;
+      --line: rgba(234,242,251,0.16);
+      --sans: 'Archivo', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
-      background: var(--bg);
+      background: var(--ground);
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: var(--ink);
       font-size: 16px;
       line-height: 1.6;
     }
 
+    ::selection { background: var(--accent); color: var(--ground); }
+
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(245,242,236,0.85);
+      padding: 1.1rem 4rem;
+      background: rgba(10,33,64,0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
     }
-    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
-    .back-link {
-      display: flex; align-items: center; gap: 0.4rem;
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
-      font-weight: 500; transition: color 0.2s;
-    }
+    .nav-logo { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .back-link { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); }
 
     /* ── HERO ── */
-    .project-hero {
-      padding: 8rem 4rem 4rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
+    .project-hero { padding: 8rem 4rem 3rem; max-width: 960px; margin: 0 auto; }
     .project-eyebrow {
       display: inline-block;
-      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      border: 1px solid var(--amber);
+      padding: 0.25rem 0.6rem;
+      margin-bottom: 1.5rem;
     }
     .project-hero-title {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1.1;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em;
+      line-height: 1.05;
       margin-bottom: 1.25rem;
     }
     .project-hero-desc {
-      font-size: 1.1rem; color: var(--muted);
-      max-width: 640px; line-height: 1.8;
-      margin-bottom: 2rem;
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 680px; line-height: 1.75;
+      margin-bottom: 2.5rem;
     }
-    .project-meta {
-      display: flex; flex-wrap: wrap; gap: 2rem;
-      padding: 1.5rem 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
-    }
-    .meta-item {}
-    .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
-    .meta-value { font-size: 0.95rem; color: var(--ink); }
+    .project-hero-desc b { color: var(--ink); font-weight: 600; }
 
-    /* ── TAGS ── */
-    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
-    .tag {
-      padding: 0.3rem 0.8rem; background: var(--card-bg);
-      border: 1px solid var(--border); border-radius: 100px;
-      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    .spec-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--mono);
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
+    .spec-cell { padding: 1rem 1.25rem; border-right: 1px solid var(--line); }
+    .spec-cell:last-child { border-right: none; }
+    .spec-label { font-size: 0.62rem; letter-spacing: 0.14em; color: var(--amber); margin-bottom: 0.35rem; }
+    .spec-value { font-size: 0.82rem; color: var(--ink); line-height: 1.5; }
 
     /* ── MAIN IMAGE ── */
-    .main-image {
-      width: 100%; max-width: 860px; margin: 0 auto 4rem;
-      padding: 0 4rem;
+    .main-image { max-width: 960px; margin: 3rem auto 0; padding: 0 4rem; }
+    .fig-frame {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 1rem;
     }
-    .main-image img {
-      width: 100%; border-radius: 12px;
-      border: 1px solid var(--border);
-      display: block;
+    .fig-frame::before, .fig-frame::after {
+      content: ""; position: absolute; width: 14px; height: 14px;
+      border-color: var(--accent); border-style: solid;
     }
-    .main-image .placeholder {
-      width: 100%; height: 420px; border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.9rem;
+    .fig-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .fig-frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .fig-frame img { width: 100%; display: block; }
+    .fig-caption {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--amber); margin-top: 0.75rem;
+      display: flex; justify-content: space-between;
     }
 
     /* ── CONTENT ── */
-    .project-content {
-      max-width: 860px; margin: 0 auto;
-      padding: 0 4rem 6rem;
+    .project-content { max-width: 960px; margin: 0 auto; padding: 4rem 4rem 6rem; }
+    .content-section { margin-bottom: 4.5rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
     }
-    .content-section { margin-bottom: 3.5rem; }
     .content-section h2 {
-      font-family: var(--serif);
-      font-size: 1.75rem; margin-bottom: 1rem;
+      font-size: 1.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
     }
     .content-section p {
-      color: var(--muted); line-height: 1.85;
-      margin-bottom: 1rem; max-width: 680px;
+      color: var(--muted); line-height: 1.8;
+      margin-bottom: 1rem; max-width: 700px;
     }
+    .content-section p b { color: var(--ink); font-weight: 600; }
+    .content-section a { color: var(--accent); }
+
+    /* signal chain */
+    .chain {
+      display: flex; flex-wrap: wrap; align-items: stretch;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      font-family: var(--mono);
+    }
+    .chain-step {
+      border: 1px solid var(--accent-dim);
+      background: var(--ground-2);
+      color: var(--accent);
+      font-size: 0.68rem; letter-spacing: 0.08em;
+      padding: 0.6rem 0.8rem;
+      display: flex; align-items: center;
+      text-align: center;
+    }
+    .chain-arrow { display: flex; align-items: center; color: var(--amber); font-size: 0.8rem; }
+
+    /* capability grid */
+    .cap-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 1.5rem;
+    }
+    .cap-cell { background: var(--ground-2); padding: 1.5rem; }
+    .cap-cell h3 {
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em;
+      color: var(--accent); font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .cap-cell p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin: 0; max-width: none; }
+
+    /* math block */
+    .math-block {
+      font-family: var(--mono);
+      font-size: 0.95rem; color: var(--accent);
+      background: var(--ground-2);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 0.75rem 0 1rem;
+      max-width: 700px;
+      overflow-x: auto;
+    }
+
+    /* lists */
     .content-section ul {
       list-style: none; padding: 0;
-      display: flex; flex-direction: column; gap: 0.6rem;
-      max-width: 680px;
+      display: flex; flex-direction: column; gap: 0.7rem;
+      max-width: 720px;
     }
     .content-section ul li {
       color: var(--muted); line-height: 1.7;
-      padding-left: 1.25rem; position: relative;
+      padding-left: 1.4rem; position: relative;
+      font-size: 0.95rem;
     }
     .content-section ul li::before {
       content: '→'; position: absolute; left: 0;
-      color: var(--accent); font-size: 0.85rem;
+      color: var(--accent); font-family: var(--mono); font-size: 0.85rem;
+    }
+    .content-section ul li b { color: var(--ink); font-weight: 600; }
+    .content-section ul li code {
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--ground-2);
+      border: 1px solid var(--line);
+      padding: 0.1rem 0.4rem;
     }
 
-    /* ── MEDIA GRID ── */
+    /* media grid */
     .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1rem; margin-top: 1.5rem;
     }
-    .media-item {
-      border-radius: 8px; overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-    }
-    .media-item img { width: 100%; display: block; }
-    .media-item .media-placeholder {
-      height: 200px;
+    .media-item { border: 1px solid var(--line); background: var(--ground-2); }
+    .media-item .media-frame {
+      height: 240px; cursor: zoom-in;
       display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.85rem;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
     }
-    .media-caption {
-      padding: 0.6rem 0.9rem;
-      font-size: 0.8rem; color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
+    .media-item .media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media-caption { padding: 0.7rem 0.9rem; font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
 
-    /* ── VIDEO ── */
+    /* videos */
+    .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
     .video-wrapper {
-      position: relative; padding-bottom: 56.25%;
-      height: 0; overflow: hidden;
-      border-radius: 10px; border: 1px solid var(--border);
-      margin-top: 1.5rem;
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      border: 1px solid var(--line); background: var(--ground-2);
     }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: 0;
-    }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* ── LINKS ── */
-    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    /* links */
+    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
     .btn {
-      display: inline-block; padding: 0.75rem 1.75rem;
-      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
-      text-decoration: none; border-radius: 4px; transition: all 0.2s;
+      display: inline-block; padding: 0.75rem 1.5rem;
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
     }
-    .btn-primary { background: var(--ink); color: var(--bg); }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--ink); }
+    .btn-primary { background: var(--accent); color: var(--ground); font-weight: 600; }
+    .btn-primary:hover { box-shadow: 0 0 18px rgba(127,231,196,0.45); }
+    .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(127,231,196,0.1); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+    /* lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(6,16,31,0.94);
+      align-items: center; justify-content: center; padding: 2rem;
     }
+    .lightbox.open { display: flex; }
+    .lightbox-img { max-width: 90vw; max-height: 88vh; object-fit: contain; animation: lbIn 0.2s ease; }
+    .lightbox-caption {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      color: var(--muted); font-size: 0.85rem; text-align: center;
+      max-width: 560px; line-height: 1.5; pointer-events: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.5rem;
+      background: none; border: none;
+      color: var(--muted); font-size: 1.75rem;
+      cursor: pointer; line-height: 1; transition: color 0.15s;
+    }
+    .lightbox-close:hover { color: var(--ink); }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 
-    /* ── ANIMATION ── */
+    /* animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .project-hero > * { animation: fadeUp 0.6s ease both; }
     .project-eyebrow { animation-delay: 0.05s; }
     .project-hero-title { animation-delay: 0.15s; }
     .project-hero-desc { animation-delay: 0.25s; }
-    .project-meta { animation-delay: 0.35s; }
+    .spec-panel { animation-delay: 0.35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .project-hero > *, .lightbox-img { animation: none; }
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .spec-panel { grid-template-columns: 1fr 1fr; }
+      .spec-cell:nth-child(2) { border-right: none; }
+      .spec-cell:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .cap-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">Ely Herman</a>
-    <a href="index.html" class="back-link">← Back to portfolio</a>
+    <a href="index.html" class="nav-logo">EH // INDEX</a>
+    <a href="index.html#projects" class="back-link">← BACK TO PROJECTS</a>
   </nav>
 
   <!-- HERO -->
   <div class="project-hero">
-    <span class="project-eyebrow">Robotics</span>
+    <span class="project-eyebrow">DWG. EH-01 — ROBOTICS / COMPUTER VISION</span>
     <h1 class="project-hero-title">Vision Controlled Prosthetic Hand</h1>
     <p class="project-hero-desc">
-A low-cost prosthetic hand that utilizes camera-based hand recognition and Arduino to mimic hand movement in real time.    </p>
-    <div class="project-meta">
-      <div class="meta-item">
-        <div class="meta-label">Date</div>
-        <div class="meta-value">Summer 2025</div>
+      A low-cost 3D-printed prosthetic hand teleoperated by <b>real-time computer vision</b>:
+      <b>MediaPipe hand tracking</b> converts 21 landmarks per frame into servo angles,
+      mirroring the user's hand on physical hardware with no gloves or flex sensors.
+    </p>
+    <div class="spec-panel">
+      <div class="spec-cell">
+        <div class="spec-label">TIMELINE</div>
+        <div class="spec-value">Summer 2025</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Role</div>
-        <div class="meta-value">Solo project</div>
+      <div class="spec-cell">
+        <div class="spec-label">ROLE</div>
+        <div class="spec-value">Solo — CV, control, build</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Stack</div>
-        <div class="meta-value">OpenCV, MediaPipe, Arduino</div>
+      <div class="spec-cell">
+        <div class="spec-label">STACK</div>
+        <div class="spec-value">OpenCV, MediaPipe, Arduino</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Status</div>
-        <div class="meta-value">Completed</div>
+      <div class="spec-cell">
+        <div class="spec-label">STATUS</div>
+        <div class="spec-value">Completed + demoed</div>
       </div>
-    </div>
-    <div class="tag-row">
-      <span class="tag">Python</span>
-      <span class="tag">Arduino</span>
-      <span class="tag">Robotics</span>
     </div>
   </div>
 
   <!-- MAIN IMAGE -->
   <div class="main-image">
-    <!-- Option A: use a real image -->
-    <!-- <img src="project1-cover.jpg" alt="Project Name screenshot"> -->
-
-    <!-- Option B: placeholder until you have an image -->
-    <div class="placeholder"><img src="Thumbnail.png" 
-            style="width:100%; height:100%; object-fit:cover;"></div>
-    </div>
-
-  <!-- CONTENT -->
-  <div class="project-content">
-
-    <div class="content-section">
-      <h2>Overview</h2>
-      <p>
-        This project explores a low-cost approach to traditional prosthetics by 
-        using a standard webcam and 3D-printed parts. With OpenCV and MediaPipe, 
-        this prosthetic leverages computer vision to track hand landmarks in realtime 
-        and translates gestures to actuate servo motors controlling each finger. 
-        This approach eliminates the need for flex sensors or wearable gloves, 
-        providing a more cost-effective solution to gesture recognition.
-      </p>
-    </div>
-
-    <div class="content-section">
-      <h2>How it works</h2>
-
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Hardware</h3>
-      <p>
-        The physical hand is an open source 3D printed model from <a href="https://inmoov.fr/" style="color: var(--accent);">InMoov</a>, driven by five MG996R servo motors connected to an Arduino Nano. Each servo connects to a finger via fishing line threaded through the finger joints. When the servo rotates, it pulls the line and curls the finger. This mechanical approach keeps the build low-cost while still achieving a realistic range of motion.
-      </p>
-
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Computer vision pipeline</h3>
-      <p>
-        OpenCV captures the live webcam feed frame by frame and passes each frame to MediaPipe's hand landmark model, which returns the XYZ coordinates of 21 hand landmarks in real time. For each finger, I extract two key landmarks: the fingertip and the base knuckle where the finger meets the palm.
-      </p>
-      <p>
-        To determine how open or closed each finger is, I calculate the Euclidean pixel distance between those two points:
-      </p>
-      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 0.75rem 0 1rem; font-family: monospace; font-size: 0.95rem; color: var(--ink);">
-        d = &radic;((x&#8321; &minus; x&#8322;)&sup2; + (y&#8321; &minus; y&#8322;)&sup2;)
+    <div class="fig-frame">
+      <img src="Thumbnail.png" alt="Vision controlled prosthetic hand mirroring a human hand gesture">
+      <div class="fig-caption">
+        <span>FIG. 01 — LIVE GESTURE MIRRORING</span>
+        <span>CAMERA-ONLY INPUT</span>
       </div>
-      <p>
-        A longer distance means the finger is extended; a shorter distance means it is curling closed. This distance is then mapped to a servo angle using a linear function. After testing, a multiplier of 40 produced a full and natural range of motion:
-      </p>
-      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 0.75rem 0 1rem; font-family: monospace; font-size: 0.95rem; color: var(--ink);">
-        &theta; = 40d
-      </div>
-      <p>
-        One edge case required special handling: when a finger is fully closed, the tip landmark drops below the base landmark in screen coordinates, meaning its Y value is greater than the base's Y value. A simple conditional catches this and writes the servo directly to its maximum angle of 180 degrees, preventing jitter at the extremes of motion.
-      </p>
-      <p>
-        The thumb uses a slightly different approach. Because it moves along a different axis than the other fingers (side to side), the distance measurement uses a right triangle constructed from the tip and base coordinates rather than a straight line.
-      </p>
-
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Software architecture</h3>
-      <p>The project is organized into three files, each with a clear responsibility:</p>
-      <ul>
-        <li><strong style="font-weight: 500; color: var(--ink);">Servo_Utils.py</strong> — defines a Servo class that wraps PyFirmata2, handling the serial connection to the Arduino and using a <code style="font-size: 0.85rem; background: var(--card-bg); padding: 0.1rem 0.35rem; border-radius: 3px; border: 1px solid var(--border);">write(angle)</code> method for each motor</li>
-        <li><strong style="font-weight: 500; color: var(--ink);">Finger.py</strong> — defines a Finger object that stores the tip and base coordinates alongside its associated servo, with an <code style="font-size: 0.85rem; background: var(--card-bg); padding: 0.1rem 0.35rem; border-radius: 3px; border: 1px solid var(--border);">isThumb</code> flag to handle the alternate distance calculation</li>
-        <li><strong style="font-weight: 500; color: var(--ink);">handControl.py</strong> — the main loop that captures frames, runs the MediaPipe landmark detection, instantiates Finger objects for each digit, calculates distances, and writes the resulting angles to each servo via PyFirmata2</li>
-      </ul>
-      <p style="margin-top: 1rem;">
-        Communication between Python and the Arduino is handled by PyFirmata2, which sends servo angles over USB serial without requiring custom firmware on the Arduino side.
-      </p>
-    </div>
-
-    <!-- MEDIA GRID — add images here -->
-    <div class="content-section">
-      <h2>Photos & media</h2>
-      <div class="media-grid">
-        <div class="media-item">
-          <!-- <img src="photo1.jpg" alt="Description"> -->
-          <div class="media-placeholder"><img src="Hand2.jpg" 
-            style="width:100%; height:100%;;"></div>
-          <div class="media-caption">Fully assembled hand</div>
-        </div>
-        <div class="media-item">
-          <!-- <img src="photo2.jpg" alt="Description"> -->
-          <div class="media-placeholder"><img src="circuit.jpg" 
-            style="width:100%; height:100%;;"></div>
-          <div class="media-caption">PCB with soldered servo driver</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- VIDEO — paste a YouTube embed URL -->
-    <div class="content-section">
-      <h2>Demo videos</h2>
-      <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/b7CLX6D0mAc" allowfullscreen></iframe>
-      </div>      
-      <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/DjKZX3GeChw" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div class="content-section">
-      <h2>Limitations & what's next</h2>
-      <p>
-        Building this project exposed two fundamental constraints of the camera-only approach that I want to address in future iterations.
-      </p>
- 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Finger length calibration</h3>
-      <p>
-        The current servo mapping assumes a fixed relationship between tip-to-base pixel distance and finger state. In practice, people have different finger proportions, so the same physical gesture produces different distance measurements depending on the user. A future version needs an adaptive function that normalizes distances relative to each individual's hand geometry.
-      </p>
- 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">Depth perception with stereo vision</h3>
-      <p>
-        A single camera has no sense of depth, which means the measured tip-to-base distance changes as the hand moves toward or away from the lens, even if the fingers themselves haven't moved. This creates false servo actuation whenever the user shifts their hand in space. Replacing the webcam with a stereo camera setup would provide real depth data from hand position in the frame.
-      </p>
- 
-      <h3 style="font-size: 1.1rem; font-weight: 500; margin: 1.5rem 0 0.6rem;">EMG-based neural control</h3>
-      <p>
-        The longer term direction for this project is to move away from camera based input entirely and integrate EMG sensors that read electrical signals directly from the user's arm muscles. Each movement produces a distinct signal pattern, and by training a machine learning model on labeled EMG recordings, the prosthetic could predict intended gestures and actuate accordingly, enabling far more natural control than any vision-based approach can offer.
-      </p>
-    </div>
- 
-    <!-- LINKS -->
-    <div class="project-links-row">
-      <a href="https://github.com/Ely6275/Vision-Controlled-Prosthetic-Hand/tree/main" class="btn btn-primary">View on GitHub</a>
     </div>
   </div>
 
+  <div class="project-content">
+
+    <!-- AT A GLANCE -->
+    <div class="content-section">
+      <p class="section-label">01 — SYSTEM OVERVIEW</p>
+      <h2>At a Glance</h2>
+      <p>
+        The system replaces flex sensors and wearable gloves with a single webcam — cutting
+        cost while keeping full five-finger control. One camera frame in, five servo angles out:
+      </p>
+      <div class="chain">
+        <div class="chain-step">CAMERA FEED</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">MEDIAPIPE<br>21 LANDMARKS</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">TIP↔KNUCKLE<br>DISTANCE</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">LINEAR ANGLE<br>MAP θ = 40d</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">SERVO WRITE<br>VIA SERIAL</div>
+      </div>
+      <div class="cap-grid">
+        <div class="cap-cell">
+          <h3>COMPUTER VISION</h3>
+          <p>OpenCV captures the live feed frame by frame; MediaPipe's hand landmark model returns XYZ coordinates for 21 landmarks in real time — fingertip and base knuckle extracted per finger.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>CONTROL MAPPING</h3>
+          <p>Euclidean tip-to-knuckle distance maps linearly to servo angle, with a tuned gain and explicit edge-case handling for fully closed fingers and the thumb's off-axis motion.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>HARDWARE</h3>
+          <p>Open-source <a href="https://inmoov.fr/">InMoov</a> 3D-printed hand driven by five MG996R servos on an Arduino Nano. Tendon actuation — fishing line through the finger joints — keeps the build cheap with realistic range of motion.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>SOFTWARE DESIGN</h3>
+          <p>Three-module object-oriented architecture with PyFirmata2 handling Python-to-Arduino serial — servo angles stream over USB with no custom firmware required.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROL LAW -->
+    <div class="content-section">
+      <p class="section-label">02 — CONTROL LAW</p>
+      <h2>From Pixels to Servo Angles</h2>
+      <p>
+        Each finger's openness is measured as the Euclidean pixel distance between its
+        fingertip and base knuckle landmarks:
+      </p>
+      <div class="math-block">d = √((x₁ − x₂)² + (y₁ − y₂)²)</div>
+      <p>
+        A longer distance means an extended finger; shorter means curling closed. The distance
+        maps to a servo angle through a linear gain — after testing, a multiplier of 40 produced
+        a full, natural range of motion:
+      </p>
+      <div class="math-block">θ = 40d</div>
+      <ul>
+        <li><b>Closed-fist edge case:</b> when a finger fully closes, the tip landmark drops below the knuckle in screen coordinates. A conditional catches the Y-inversion and drives the servo straight to 180°, eliminating jitter at the extremes.</li>
+        <li><b>Thumb handling:</b> the thumb moves side-to-side rather than curling, so its distance is computed from a right triangle built on the tip and base coordinates instead of a straight line.</li>
+      </ul>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div class="content-section">
+      <p class="section-label">03 — ARCHITECTURE</p>
+      <h2>Software Structure</h2>
+      <ul>
+        <li><code>handControl.py</code> — main loop: captures frames, runs landmark detection, computes distances, and writes angles to all five servos.</li>
+        <li><code>Finger.py</code> — a Finger object holding tip/base coordinates and its servo, with an <code>isThumb</code> flag for the alternate distance calculation.</li>
+        <li><code>Servo_Utils.py</code> — a Servo class wrapping PyFirmata2's serial connection with a clean <code>write(angle)</code> interface per motor.</li>
+      </ul>
+    </div>
+
+    <!-- BUILD -->
+    <div class="content-section">
+      <p class="section-label">04 — BUILD</p>
+      <h2>Hardware &amp; Assembly</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-frame"><img src="Hand2.jpg" alt="Fully assembled 3D-printed prosthetic hand"></div>
+          <div class="media-caption">Fully assembled hand — InMoov 3D-printed structure with tendon-driven fingers.</div>
+        </div>
+        <div class="media-item">
+          <div class="media-frame"><img src="circuit.jpg" alt="PCB with soldered servo driver and Arduino Nano"></div>
+          <div class="media-caption">Soldered servo driver board with Arduino Nano.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMOS -->
+    <div class="content-section">
+      <p class="section-label">05 — DEMOS</p>
+      <h2>Demo Videos</h2>
+      <div class="video-grid">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/b7CLX6D0mAc" title="Prosthetic hand demo video" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/DjKZX3GeChw" title="Prosthetic hand demo video" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIMITATIONS / ROADMAP -->
+    <div class="content-section">
+      <p class="section-label">06 — ROADMAP</p>
+      <h2>Known Limits &amp; Next Iterations</h2>
+      <p>Building this exposed the fundamental constraints of camera-only control — each one maps to a concrete next step:</p>
+      <ul>
+        <li><b>Per-user calibration:</b> the fixed distance-to-angle gain assumes one hand geometry. Next version normalizes distances against each user's finger proportions.</li>
+        <li><b>Stereo depth:</b> a single camera can't separate finger motion from the whole hand moving toward the lens, causing false actuation. A stereo camera pair would recover true depth.</li>
+        <li><b>EMG + machine learning:</b> the long-term direction is dropping the camera entirely — training a model on labeled EMG muscle signals to predict intended gestures, enabling far more natural prosthetic control.</li>
+      </ul>
+      <div class="project-links-row">
+        <a href="https://github.com/Ely6275/Vision-Controlled-Prosthetic-Hand/tree/main" class="btn btn-primary">⌥ VIEW ON GITHUB</a>
+        <a href="index.html#projects" class="btn btn-ghost">← ALL PROJECTS</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <script>
+    function openLightbox(src, alt, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = alt;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e && e.target !== e.currentTarget && !e.target.classList.contains('lightbox-close')) return;
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    document.querySelectorAll('.media-item .media-frame').forEach(frame => {
+      const img = frame.querySelector('img');
+      if (!img) return;
+      const caption = frame.closest('.media-item').querySelector('.media-caption');
+      frame.addEventListener('click', () => openLightbox(img.src, img.alt, caption ? caption.textContent : ''));
+    });
+  </script>
 </body>
 </html>

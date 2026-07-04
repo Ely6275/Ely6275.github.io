@@ -3,784 +3,747 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Collision Warning Sensor System — Ely Herman</title>
+  <title>Scissor Lift Collision Warning System — Ely Herman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f2ec;
-      --ink: #1a1814;
-      --muted: #6b6760;
-      --accent: #c84b2f;
-      --card-bg: #ffffff;
-      --border: #e0dcd4;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
+      --ground: #0e2a4a;
+      --ground-2: #0a2140;
+      --panel: rgba(255,255,255,0.025);
+      --ink: #eaf2fb;
+      --muted: #9db4cf;
+      --accent: #7fe7c4;
+      --accent-dim: rgba(127,231,196,0.4);
+      --amber: #ffb454;
+      --line: rgba(234,242,251,0.16);
+      --sans: 'Archivo', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
-      background: var(--bg);
+      background: var(--ground);
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: var(--ink);
       font-size: 16px;
       line-height: 1.6;
     }
 
+    ::selection { background: var(--accent); color: var(--ground); }
+
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(245,242,236,0.85);
+      padding: 1.1rem 4rem;
+      background: rgba(10,33,64,0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
     }
-    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
-    .back-link {
-      display: flex; align-items: center; gap: 0.4rem;
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
-      font-weight: 500; transition: color 0.2s;
-    }
+    .nav-logo { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .back-link { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); }
 
     /* ── HERO ── */
-    .project-hero {
-      padding: 8rem 4rem 4rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
+    .project-hero { padding: 8rem 4rem 3rem; max-width: 960px; margin: 0 auto; }
     .project-eyebrow {
       display: inline-block;
-      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      border: 1px solid var(--amber);
+      padding: 0.25rem 0.6rem;
+      margin-bottom: 1.5rem;
     }
     .project-hero-title {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1.1;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em;
+      line-height: 1.05;
       margin-bottom: 1.25rem;
     }
     .project-hero-desc {
-      font-size: 1.1rem; color: var(--muted);
-      max-width: 640px; line-height: 1.8;
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 700px; line-height: 1.75;
       margin-bottom: 2rem;
     }
-    .project-meta {
-      display: flex; flex-wrap: wrap; gap: 2rem;
-      padding: 1.5rem 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
-    }
-    .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
-    .meta-value { font-size: 0.95rem; color: var(--ink); }
+    .project-hero-desc b { color: var(--ink); font-weight: 600; }
 
-    /* ── TAGS ── */
-    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
-    .tag {
-      padding: 0.3rem 0.8rem; background: var(--card-bg);
-      border: 1px solid var(--border); border-radius: 100px;
-      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    .team-strip {
+      display: flex; flex-wrap: wrap; gap: 1.25rem;
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 2rem;
     }
+    .team-member { display: flex; align-items: center; gap: 0.45rem; }
+    .team-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+    .team-member.you { color: var(--accent); }
+    .team-member.you .team-dot { background: var(--accent); }
 
-    /* ── MAIN IMAGE (poster) ── */
-    .main-image {
-      width: 100%; max-width: 860px; margin: 0 auto 4rem;
-      padding: 0 4rem;
+    .spec-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--mono);
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
-    .main-image img {
-      width: 100%; border-radius: 12px;
-      border: 1px solid var(--border);
-      display: block; cursor: zoom-in;
+    .spec-cell { padding: 1rem 1.25rem; border-right: 1px solid var(--line); }
+    .spec-cell:last-child { border-right: none; }
+    .spec-label { font-size: 0.62rem; letter-spacing: 0.14em; color: var(--amber); margin-bottom: 0.35rem; }
+    .spec-value { font-size: 0.82rem; color: var(--ink); line-height: 1.5; }
+
+    /* ── MAIN IMAGE ── */
+    .main-image { max-width: 960px; margin: 3rem auto 0; padding: 0 4rem; }
+    .fig-frame {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 1rem;
+      cursor: zoom-in;
     }
-    .main-image-caption {
-      font-size: 0.82rem; color: var(--muted);
-      text-align: center; margin-top: 0.75rem;
+    .fig-frame::before, .fig-frame::after {
+      content: ""; position: absolute; width: 14px; height: 14px;
+      border-color: var(--accent); border-style: solid;
+    }
+    .fig-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .fig-frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .fig-frame img { width: 100%; display: block; }
+    .fig-caption {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--amber); margin-top: 0.75rem;
+      display: flex; justify-content: space-between;
     }
 
     /* ── CONTENT ── */
-    .project-content {
-      max-width: 860px; margin: 0 auto;
-      padding: 0 4rem 6rem;
+    .project-content { max-width: 960px; margin: 0 auto; padding: 4rem 4rem 6rem; }
+    .content-section { margin-bottom: 4.5rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
     }
-    .content-section { margin-bottom: 3.5rem; }
     .content-section h2 {
-      font-family: var(--serif);
-      font-size: 1.75rem; margin-bottom: 1rem;
+      font-size: 1.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
     }
     .content-section h3 {
-      font-size: 1.1rem; font-weight: 500;
-      margin: 1.5rem 0 0.6rem; color: var(--ink);
+      font-size: 1.05rem; font-weight: 600;
+      margin: 2rem 0 0.75rem;
     }
     .content-section p {
-      color: var(--muted); line-height: 1.85;
-      margin-bottom: 1rem; max-width: 680px;
+      color: var(--muted); line-height: 1.8;
+      margin-bottom: 1rem; max-width: 720px;
     }
+    .content-section p b { color: var(--ink); font-weight: 600; }
+
+    code {
+      font-family: var(--mono); font-size: 0.78rem;
+      color: var(--accent);
+      background: var(--ground);
+      border: 1px solid var(--line);
+      padding: 0.1rem 0.4rem;
+      white-space: nowrap;
+    }
+
+    /* capability grid */
+    .cap-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 1.5rem;
+    }
+    .cap-cell { background: var(--ground-2); padding: 1.5rem; }
+    .cap-cell h3 {
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em;
+      color: var(--accent); font-weight: 600;
+      margin: 0 0 0.6rem;
+    }
+    .cap-cell p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin: 0; max-width: none; }
+
+    /* lists */
     .content-section ul {
       list-style: none; padding: 0;
-      display: flex; flex-direction: column; gap: 0.6rem;
-      max-width: 680px;
+      display: flex; flex-direction: column; gap: 0.7rem;
+      max-width: 720px;
     }
     .content-section ul li {
       color: var(--muted); line-height: 1.7;
-      padding-left: 1.25rem; position: relative;
+      padding-left: 1.4rem; position: relative;
+      font-size: 0.95rem;
     }
     .content-section ul li::before {
       content: '→'; position: absolute; left: 0;
-      color: var(--accent); font-size: 0.85rem;
+      color: var(--accent); font-family: var(--mono); font-size: 0.85rem;
     }
+    .content-section ul li b { color: var(--ink); font-weight: 600; }
 
-    /* ── TEAM STRIP ── */
-    .team-strip {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-      margin: 1.25rem 0;
+    /* tables */
+    .table-scroll { overflow-x: auto; margin-top: 1.25rem; }
+    table {
+      border-collapse: collapse; width: 100%;
+      font-size: 0.85rem;
+      border: 1px solid var(--line);
+      background: var(--ground-2);
     }
-    .team-member {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: var(--card-bg); border: 1px solid var(--border);
-      border-radius: 100px; padding: 0.35rem 1rem;
-      font-size: 0.875rem; color: var(--ink);
+    th {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; text-align: left;
+      color: var(--amber);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
     }
-    .team-member-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent); flex-shrink: 0;
+    td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      vertical-align: top;
     }
-    .team-member.you { border-color: var(--accent); }
-    .team-member.you .team-member-dot { background: var(--accent); }
-
-    /* ── RESULTS TABLE ── */
-    .results-table {
-      width: 100%; border-collapse: collapse;
-      margin-top: 1.25rem; font-size: 0.875rem;
-      max-width: 680px;
-    }
-    .results-table th {
-      text-align: left; padding: 0.6rem 0.9rem;
-      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent);
-      border-bottom: 2px solid var(--border);
-    }
-    .results-table td {
-      padding: 0.65rem 0.9rem; color: var(--muted);
-      border-bottom: 1px solid var(--border); vertical-align: top;
-      line-height: 1.6;
-    }
-    .results-table tr:last-child td { border-bottom: none; }
+    tr:last-child td { border-bottom: none; }
+    td.best { color: var(--accent); font-weight: 600; }
+    .num { font-family: var(--mono); font-size: 0.8rem; }
     .pass-badge {
       display: inline-block;
-      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
-      text-transform: uppercase; color: #1a6b35;
-      background: #e6f4ec; border: 1px solid #b3d9c1;
-      padding: 0.15rem 0.5rem; border-radius: 3px;
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
     }
 
-    /* ── SENSOR CARDS ── */
-    .sensor-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.25rem; margin-top: 1.25rem; max-width: 680px;
-    }
-    .sensor-card {
-      background: var(--card-bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 1.25rem;
-    }
-    .sensor-card-label {
-      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem;
-    }
-    .sensor-card-title {
-      font-family: var(--serif); font-size: 1.15rem;
-      margin-bottom: 0.6rem; color: var(--ink);
-    }
-    .sensor-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin: 0; }
-
-    /* ── DESIGN PROCESS TABS ── */
+    /* tabs */
     .tab-container { margin-top: 1.5rem; }
     .tab-list {
       display: flex; flex-wrap: wrap; gap: 0.4rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
     }
     .tab-btn {
       padding: 0.55rem 1rem;
-      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--muted); background: transparent;
       border: 1px solid transparent; border-bottom: none;
-      border-radius: 6px 6px 0 0;
       cursor: pointer; transition: color 0.15s, background 0.15s;
       position: relative; bottom: -1px;
     }
-    .tab-btn:hover { color: var(--ink); background: var(--card-bg); }
+    .tab-btn:hover { color: var(--ink); background: var(--ground-2); }
     .tab-btn.active {
-      color: var(--ink); background: var(--card-bg);
-      border-color: var(--border); border-bottom-color: var(--card-bg);
+      color: var(--accent); background: var(--ground-2);
+      border-color: var(--line);
+      border-bottom-color: var(--ground-2);
     }
     .tab-panel {
       display: none;
-      background: var(--card-bg);
-      border: 1px solid var(--border); border-top: none;
-      border-radius: 0 0 10px 10px;
+      background: var(--ground-2);
+      border: 1px solid var(--line); border-top: none;
       padding: 1.75rem;
     }
     .tab-panel.active { display: block; }
-    .tab-panel p { color: var(--muted); line-height: 1.85; margin-bottom: 0.85rem; max-width: 100%; }
-    .tab-panel ul { max-width: 100%; }
-    .tab-panel ul li { color: var(--muted); }
+    .tab-panel p { max-width: none; }
+    .tab-panel ul { max-width: none; }
+    .tab-panel table { background: var(--ground); }
 
-    /* Pugh table inside tab */
-    .pugh-table {
-      width: 100%; border-collapse: collapse;
-      margin-top: 1rem; font-size: 0.82rem;
-    }
-    .pugh-table th {
-      text-align: center; padding: 0.5rem 0.6rem;
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.07em;
-      text-transform: uppercase; color: var(--accent);
-      border-bottom: 2px solid var(--border);
-    }
-    .pugh-table th:first-child { text-align: left; }
-    .pugh-table td {
-      padding: 0.55rem 0.6rem; text-align: center;
-      color: var(--muted); border-bottom: 1px solid var(--border);
-    }
-    .pugh-table td:first-child { text-align: left; font-weight: 500; color: var(--ink); }
-    .pugh-table tr:last-child td { border-bottom: none; font-weight: 500; color: var(--ink); }
-    .best { color: #1a6b35; font-weight: 500; }
-
-    /* ── MEDIA GRID ── */
+    /* media grid */
     .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1rem; margin-top: 1.5rem;
     }
-    .media-item {
-      border-radius: 8px; overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-    }
-    .media-frame {
-      height: 220px;
+    .media-item { border: 1px solid var(--line); background: var(--ground-2); }
+    .media-item .media-frame {
+      height: 260px; cursor: zoom-in;
       display: flex; align-items: center; justify-content: center;
-      background: var(--card-bg); cursor: zoom-in; overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      background: var(--ground);
     }
-    .media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .media-frame.contain img { object-fit: contain; }
-    .media-caption {
-      padding: 0.7rem 0.9rem;
-      font-size: 0.82rem; color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
+    .media-item .media-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .media-caption { padding: 0.7rem 0.9rem; font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
 
-    /* ── VIDEO ── */
+    /* videos */
+    .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
     .video-wrapper {
-      position: relative; padding-bottom: 56.25%;
-      height: 0; overflow: hidden;
-      border-radius: 10px; border: 1px solid var(--border);
-      margin-top: 1rem;
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      border: 1px solid var(--line); background: var(--ground-2);
     }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: 0;
-    }
-    .video-placeholder {
-      border: 1px dashed var(--border); border-radius: 10px;
-      padding: 1.25rem; margin-top: 1rem;
-      background: rgba(255,255,255,0.55); color: var(--muted);
-      font-size: 0.9rem; max-width: 680px;
-    }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* ── LINKS ── */
-    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    /* media placeholders — delete once real media is in */
+    .slot {
+      border: 1px dashed var(--accent-dim);
+      background: var(--panel);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .slot-video { position: relative; padding-bottom: 0; min-height: 0; aspect-ratio: 16 / 9; }
+    .slot-photo { height: 260px; }
+    .slot-tag {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em;
+      color: var(--amber);
+    }
+    .slot-hint { font-size: 0.8rem; color: var(--muted); line-height: 1.5; max-width: 32ch; }
+
+    /* acknowledgements */
+    .ack-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      max-width: 720px; margin-top: 1.25rem;
+    }
+    .ack-col h3 {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+      color: var(--amber); margin: 0 0 0.75rem;
+    }
+    .ack-col ul { gap: 0.35rem; }
+    .ack-col ul li { font-size: 0.85rem; padding-left: 1.1rem; }
+
+    /* links */
+    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
     .btn {
-      display: inline-block; padding: 0.75rem 1.75rem;
-      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
-      text-decoration: none; border-radius: 4px; transition: all 0.2s;
+      display: inline-block; padding: 0.75rem 1.5rem;
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
     }
-    .btn-primary { background: var(--ink); color: var(--bg); }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--ink); }
+    .btn-primary { background: var(--accent); color: var(--ground); font-weight: 600; }
+    .btn-primary:hover { box-shadow: 0 0 18px rgba(127,231,196,0.45); }
+    .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(127,231,196,0.1); }
 
-    /* ── LIGHTBOX ── */
+    /* lightbox */
     .lightbox {
       display: none; position: fixed; inset: 0; z-index: 999;
-      background: rgba(10,9,8,0.92);
+      background: rgba(6,16,31,0.94);
       align-items: center; justify-content: center; padding: 2rem;
     }
     .lightbox.open { display: flex; }
-    .lightbox-img {
-      max-width: 90vw; max-height: 88vh; object-fit: contain;
-      border-radius: 8px; animation: lbIn 0.2s ease;
-    }
+    .lightbox-img { max-width: 90vw; max-height: 88vh; object-fit: contain; animation: lbIn 0.2s ease; }
     .lightbox-caption {
       position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-      color: rgba(245,242,236,0.7); font-size: 0.85rem; text-align: center;
+      color: var(--muted); font-size: 0.85rem; text-align: center;
       max-width: 560px; line-height: 1.5; pointer-events: none;
     }
     .lightbox-close {
       position: fixed; top: 1.25rem; right: 1.5rem;
       background: none; border: none;
-      color: rgba(245,242,236,0.6); font-size: 1.75rem;
-      cursor: pointer; transition: color 0.15s;
+      color: var(--muted); font-size: 1.75rem;
+      cursor: pointer; line-height: 1; transition: color 0.15s;
     }
-    .lightbox-close:hover { color: #fff; }
-    @keyframes lbIn { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+    .lightbox-close:hover { color: var(--ink); }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .sensor-grid { grid-template-columns: 1fr; }
-      .tab-btn { font-size: 0.8rem; padding: 0.45rem 0.7rem; }
-    }
-
-    /* ── ANIMATION ── */
-    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    /* animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .project-hero > * { animation: fadeUp 0.6s ease both; }
     .project-eyebrow { animation-delay: 0.05s; }
     .project-hero-title { animation-delay: 0.15s; }
     .project-hero-desc { animation-delay: 0.25s; }
-    .project-meta { animation-delay: 0.35s; }
+    .team-strip { animation-delay: 0.3s; }
+    .spec-panel { animation-delay: 0.35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .project-hero > *, .lightbox-img { animation: none; }
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .spec-panel { grid-template-columns: 1fr 1fr; }
+      .spec-cell:nth-child(2) { border-right: none; }
+      .spec-cell:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .cap-grid { grid-template-columns: 1fr; }
+      .ack-grid { grid-template-columns: 1fr; }
+      .tab-btn { font-size: 0.66rem; padding: 0.45rem 0.7rem; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">Ely Herman</a>
-    <a href="index.html" class="back-link">← Back to portfolio</a>
+    <a href="index.html" class="nav-logo">EH // INDEX</a>
+    <a href="index.html#projects" class="back-link">← BACK TO PROJECTS</a>
   </nav>
 
   <!-- HERO -->
   <div class="project-hero">
-    <span class="project-eyebrow">Sensors · Embedded Systems · Team Project</span>
-    <h1 class="project-hero-title">Collision Warning Sensor System for Scissor Lifts</h1>
+    <span class="project-eyebrow">DWG. EH-03 — EMBEDDED SYSTEMS / SENSING</span>
+    <h1 class="project-hero-title">Scissor Lift Collision Warning System</h1>
     <p class="project-hero-desc">
-      A dual-sensor LiDAR network designed for scissor lifts to detect nearby obstacles in real time
-      and alert operators before collisions occur — developed for Skanska USA Building, Inc. as part of
-      Duke University's Engineering Design POD program.
+      A dual-LiDAR sensor network that alerts scissor lift operators before collisions —
+      <b>8 self-contained ESP32 sensor units</b>, <b>sub-0.1&nbsp;second alert latency</b>, and
+      <b>0.7% measured distance error</b>. Built for <b>Skanska USA Building, Inc.</b> through
+      Duke's Engineering Design POD program; the prototype passed all five client design tests.
     </p>
-
-    <!-- TEAM -->
     <div class="team-strip">
-      <div class="team-member you">
-        <div class="team-member-dot"></div>
-        Ely Herman
-      </div>
-      <div class="team-member">
-        <div class="team-member-dot" style="background: var(--muted);"></div>
-        Andrew Xu
-      </div>
-      <div class="team-member">
-        <div class="team-member-dot" style="background: var(--muted);"></div>
-        David Zhu
-      </div>
-      <div class="team-member">
-        <div class="team-member-dot" style="background: var(--muted);"></div>
-        Jillian Qin
-      </div>
+      <span class="team-member you"><span class="team-dot"></span>Ely Herman</span>
+      <span class="team-member"><span class="team-dot"></span>Andrew Xu</span>
+      <span class="team-member"><span class="team-dot"></span>David Zhu</span>
+      <span class="team-member"><span class="team-dot"></span>Jillian Qin</span>
     </div>
-
-    <div class="project-meta">
-      <div class="meta-item">
-        <div class="meta-label">Date</div>
-        <div class="meta-value">Fall 2025</div>
+    <div class="spec-panel">
+      <div class="spec-cell">
+        <div class="spec-label">TIMELINE</div>
+        <div class="spec-value">Fall 2025</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Team</div>
-        <div class="meta-value">High Rollers — Scissor Lift Group 1</div>
+      <div class="spec-cell">
+        <div class="spec-label">TEAM</div>
+        <div class="spec-value">4 — Duke Design POD</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Client</div>
-        <div class="meta-value">Skanska USA Building, Inc.</div>
+      <div class="spec-cell">
+        <div class="spec-label">CLIENT</div>
+        <div class="spec-value">Skanska USA Building</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Institution</div>
-        <div class="meta-value">Duke Pratt School of Engineering</div>
+      <div class="spec-cell">
+        <div class="spec-label">STATUS</div>
+        <div class="spec-value">Prototype validated</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Status</div>
-        <div class="meta-value">Prototype completed</div>
-      </div>
-    </div>
-    <div class="tag-row">
-      <span class="tag">LiDAR</span>
-      <span class="tag">ESP32</span>
-      <span class="tag">Embedded Systems</span>
-      <span class="tag">Sensor Fusion</span>
-      <span class="tag">C++</span>
-      <span class="tag">3D Printing</span>
     </div>
   </div>
 
-  <!-- MAIN IMAGE — Poster -->
+  <!-- MAIN IMAGE -->
   <div class="main-image">
-    <img src="Poster.png" alt="Final project poster: A Collision Warning Sensor System for Scissor Lifts, presented at Duke Engineering Design POD">
-    <p class="main-image-caption">Final design poster presented at Duke Engineering Design POD — click to enlarge</p>
+    <div class="fig-frame" id="poster-frame">
+      <img src="Poster.png" alt="Final project poster: A Collision Warning Sensor System for Scissor Lifts, presented at Duke Engineering Design POD">
+      <div class="fig-caption">
+        <span>FIG. 01 — FINAL DESIGN POSTER, DUKE ENGINEERING DESIGN POD</span>
+        <span>CLICK TO ENLARGE</span>
+      </div>
+    </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="project-content">
 
-    <!-- OVERVIEW -->
+    <!-- AT A GLANCE -->
     <div class="content-section">
-      <h2>Overview</h2>
+      <p class="section-label">01 — SYSTEM OVERVIEW</p>
+      <h2>At a Glance</h2>
       <p>
-        Scissor lifts are widely used in construction for elevated work, but their large size and sudden
-        acceleration make them difficult to maneuver safely. Collisions with walls, doorframes, ceilings,
-        and construction materials cause property damage and put workers at risk. Our team was commissioned
-        by Skanska USA to design a sensor system that detects obstacles in real time and alerts the operator
-        before a collision occurs.
+        Scissor lifts are large, accelerate suddenly, and leave operators with poor visibility at
+        corners and overhead. Our system surrounds the lift with two complementary LiDAR types
+        that beep faster as clearance shrinks — starting at 12 inches — so the operator hears
+        proximity without looking at a display.
       </p>
-      <p>
-        Our solution pairs two complementary LiDAR sensor types mounted across the lift — one for
-        close-range 3D detection and one for 360° sweeping coverage. Both trigger audible buzzer alerts
-        with increasing frequency as the lift approaches an obstacle, starting at 12 inches of clearance.
-        All units are self-contained, magnetically mounted, and require no client-side code configuration.
-      </p>
-    </div>
-
-    <!-- SENSOR SYSTEM -->
-    <div class="content-section">
-      <h2>Sensor system</h2>
-      <p>The system uses two different sensor types that complement each other's strengths and coverage areas.</p>
-
-      <div class="sensor-grid">
-        <div class="sensor-card">
-          <div class="sensor-card-label">Sensor type 1</div>
-          <div class="sensor-card-title">Chip LiDAR (×6)</div>
-          <p>
-            Mounted magnetically on the basket corners and base. Each unit has a 3D field of view and
-            detects obstacles within a fixed range, triggering buzzer alerts with increasing frequency
-            starting at 12 inches. Controlled by an ESP32-C3 SuperMini microcontroller powered by a 9V battery.
-          </p>
+      <div class="cap-grid">
+        <div class="cap-cell">
+          <h3>SENSING — CHIP LIDAR ×6</h3>
+          <p>Mounted magnetically on the basket corners and base. Each unit has a 3D field of view, driven by an ESP32-C3 SuperMini on a 9V battery.</p>
         </div>
-        <div class="sensor-card">
-          <div class="sensor-card-label">Sensor type 2</div>
-          <div class="sensor-card-title">360° Sweeping LiDAR (×2)</div>
-          <p>
-            Mounted front and rear of the lift. A servo motor improves the vertical field of view.
-            Scans in a full 360° arc and alerts starting at 12 inches. Controlled by a standard ESP32
-            in a dedicated weatherproof control box, also on a 9V battery.
-          </p>
+        <div class="cap-cell">
+          <h3>SENSING — 360° LIDAR ×2</h3>
+          <p>Front and rear sweeping units scanning a full 360° arc, with a servo tilt that extends vertical coverage. Standard ESP32 in a weatherproof control box.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>EMBEDDED ALERT LOGIC</h3>
+          <p>Firmware distance thresholds trigger onboard buzzers; beep frequency scales with proximity. Measured response: under 0.1 seconds from detection to alert.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>DEPLOYABILITY</h3>
+          <p>Every unit is self-contained in a custom 3D-printed enclosure with magnet mount — operators place or remove sensors in seconds, no tools, no client-side code.</p>
         </div>
       </div>
     </div>
 
-    <!-- HOW IT WORKS -->
+    <!-- VALIDATION -->
     <div class="content-section">
-      <h2>How it works</h2>
+      <p class="section-label">02 — VALIDATION</p>
+      <h2>Test Results</h2>
+      <p>All five design criteria tests passed on the final prototype:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Criterion</th><th>Target</th><th>Result</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sensor precision (360° LiDAR)</td>
+              <td class="num">&lt;5% max error</td>
+              <td>Max error <b style="color:var(--ink)">0.7%</b> across all angles</td>
+              <td><span class="pass-badge">PASSED</span></td>
+            </tr>
+            <tr>
+              <td>Sensor precision (Chip LiDAR)</td>
+              <td class="num">&lt;5% max error</td>
+              <td>Max error 5.0%; alarm at 28.5 cm vs. expected 30 cm</td>
+              <td><span class="pass-badge">PASSED</span></td>
+            </tr>
+            <tr>
+              <td>Field of vision (Chip LiDAR)</td>
+              <td class="num">&lt;5% error at ±30°</td>
+              <td>Within 5% error at all tested angles</td>
+              <td><span class="pass-badge">PASSED</span></td>
+            </tr>
+            <tr>
+              <td>Timely alerting (360° LiDAR)</td>
+              <td class="num">&lt;0.1 s delay</td>
+              <td>Alert in under 2 video frames (0.083 s)</td>
+              <td><span class="pass-badge">PASSED</span></td>
+            </tr>
+            <tr>
+              <td>Alert audibility</td>
+              <td class="num">90–95 dB</td>
+              <td>97.2 dB minimum — client approved</td>
+              <td><span class="pass-badge">PASSED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3>Hardware & enclosures</h3>
+      <h3>Calibration &amp; scan verification</h3>
       <p>
-        Each sensor unit is housed in a custom 3D-printed enclosure with a built-in buzzer, battery
-        compartment, and magnet mount. The magnetic attachment lets operators place and remove sensors
-        in seconds without tools, and holds securely on the steel frame of the lift during operation.
-        The 360° sweeping units include a servo motor that tilts the sensor during scans to extend
-        vertical coverage above and below the horizontal plane.
+        We validated the 360° LiDAR against ground truth across its full range: near-perfect
+        linearity with <b>R² = 0.9998</b> and slope 1.0072 — a 0.72% systematic overread
+        correctable with a single calibration constant. Polar point-cloud plots verified
+        coverage and sensor placement during development.
       </p>
-
-      <h3>Alert logic</h3>
-      <p>
-        Both sensor types use a distance threshold programmed in firmware. When an obstacle enters the
-        12-inch warning zone, the onboard buzzer activates. The beep frequency increases as clearance
-        decreases, giving the operator an intuitive sense of proximity without needing to look at a display.
-        The alert system responds in under 0.1 seconds — fast enough for an operator to react and stop the lift.
-      </p>
-
-      <h3>360° LiDAR scan visualization</h3>
-      <p>
-        During development, we visualized the 360° LiDAR output as a polar point cloud to verify
-        coverage and sensor placement. The scan below shows the sensor at the center, with detected
-        surfaces plotted radially. The color gradient indicates return intensity, and the coordinate
-        readout confirms real-time distance values.
-      </p>
-
-      <!-- LiDAR scan image -->
-      <div class="media-grid" style="grid-template-columns: 1fr; max-width: 520px;">
+      <div class="media-grid">
         <div class="media-item">
-          <div class="media-frame contain">
+          <div class="media-frame">
+            <img src="lidarAccuracy.png" alt="Scatter plot of 360 LiDAR measured distance versus actual distance from 150mm to 920mm, showing a linear fit with R squared equals 0.9998 and slope 1.0072">
+          </div>
+          <div class="media-caption">Measured vs. actual distance (150–920 mm). R² = 0.9998, slope = 1.0072.</div>
+        </div>
+        <div class="media-item">
+          <div class="media-frame">
             <img src="lidarMapping.png" alt="Polar LiDAR point cloud showing a 360 degree room scan with detected walls and objects plotted radially from the sensor origin">
           </div>
-          <div class="media-caption">360° LiDAR polar scan — the sensor at center plots detected surfaces radially. The vertical wall (right) and a curved object (left) are clearly resolved.</div>
+          <div class="media-caption">360° polar scan — sensor at center, detected surfaces plotted radially; wall and curved object clearly resolved.</div>
         </div>
       </div>
+    </div>
+
+    <!-- FIRMWARE -->
+    <div class="content-section">
+      <p class="section-label">03 — FIRMWARE</p>
+      <h2>Firmware Deep Dive — 360° LiDAR Unit</h2>
+      <p>
+        I wrote the firmware for the 360° sweeping LiDAR unit in C++ on the ESP32, built around
+        <b>FreeRTOS real-time multitasking</b> — LiDAR ingest, servo sweep, and alerting run as
+        independent tasks that communicate through event-driven notifications instead of polling.
+      </p>
+      <div class="cap-grid">
+        <div class="cap-cell">
+          <h3>CONCURRENCY — DUAL-CORE RTOS</h3>
+          <p>Three FreeRTOS tasks pinned across both ESP32 cores with explicit priorities: LiDAR ingest (priority 4) and servo sweep (priority 3) share core 0, while the buzzer task runs on core 1 — alert timing never blocks scan processing, and vice versa.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>ISR-SAFE TASK SIGNALING</h3>
+          <p>The buzzer task sleeps on <code>ulTaskNotifyTake</code> and is woken from the LiDAR data path via <code>vTaskNotifyGiveFromISR</code> with a yield request — zero CPU wasted on polling. The servo receives STOP/RESUME commands as notification bit flags.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>SENSOR FUSION — POSE-AWARE FILTERING</h3>
+          <p>Every LiDAR return is validated against the servo's current pointing angle: dynamic ignore zones (20–160° or 200–340°, depending on sweep direction) reject readings from behind the scan plane, eliminating false positives.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>UART DRIVER &amp; ACTUATOR CONTROL</h3>
+          <p>The LD14P LiDAR streams over a dedicated hardware UART with the RX buffer raised to 1&nbsp;KB for burst traffic, integrated through a callback-driven C++ driver class. The servo runs on calibrated 500–2400&nbsp;µs PWM pulses.</p>
+        </div>
+      </div>
+
+      <h3>Control Flow Highlights</h3>
+      <ul>
+        <li><b>Streaming minimum-distance reduction</b> — each full revolution is reduced to its closest valid return on the fly (zero-readings rejected, points downsampled 20:1), so obstacle detection runs in constant memory at scan rate.</li>
+        <li><b>Servo hold-and-resume state machine</b> — the sweep loop checks for a STOP notification without blocking at every 5° step; on detection it freezes the scan head at its current angle and suspends until the obstacle clears, then resumes mid-sweep exactly where it left off.</li>
+        <li><b>Graduated proximity alerts</b> — beep intervals tighten from 500&nbsp;ms to 50&nbsp;ms across the 500&nbsp;mm → 150&nbsp;mm approach envelope, encoding distance into sound so the operator hears how close they are, not just that something is there.</li>
+        <li><b>Object-oriented driver architecture</b> — the LiDAR is abstracted behind a driver class with registered callbacks for scan points, packets, serial I/O, and errors, keeping hardware specifics isolated from the detection logic.</li>
+      </ul>
     </div>
 
     <!-- DESIGN PROCESS -->
     <div class="content-section">
-      <h2>Design process</h2>
+      <p class="section-label">04 — PROCESS</p>
+      <h2>Engineering Design Process</h2>
       <p>
-        Our engineering process followed a structured decomposition and evaluation framework across
-        multiple assignment phases — from problem definition and sensor selection through to testing and iteration.
+        We followed a structured decomposition and evaluation framework — from problem
+        definition through sensor trade studies, ranked design criteria, and a formal test plan.
       </p>
-
       <div class="tab-container">
         <div class="tab-list" role="tablist">
-          <button class="tab-btn active" onclick="switchTab(event,'problem')" role="tab">Problem definition</button>
-          <button class="tab-btn" onclick="switchTab(event,'sensor')" role="tab">Sensor selection</button>
-          <button class="tab-btn" onclick="switchTab(event,'criteria')" role="tab">Design criteria</button>
-          <button class="tab-btn" onclick="switchTab(event,'testing')" role="tab">Testing plan</button>
+          <button class="tab-btn active" onclick="switchTab(event,'problem')" role="tab">Problem</button>
+          <button class="tab-btn" onclick="switchTab(event,'sensor')" role="tab">Sensor Trade Study</button>
+          <button class="tab-btn" onclick="switchTab(event,'criteria')" role="tab">Design Criteria</button>
+          <button class="tab-btn" onclick="switchTab(event,'testing')" role="tab">Test Plan</button>
         </div>
 
-        <!-- Problem definition -->
         <div class="tab-panel active" id="tab-problem">
           <p>
-            We submitted a formal problem statement to Skanska USA in September 2025, identifying scissor
-            lift collisions as a significant safety and property damage risk at construction sites.
-            The core challenge: lifts are large, accelerate suddenly, and operators have limited visibility
-            of the surroundings — especially above the platform and at corners.
+            Our formal problem statement to Skanska USA (September 2025) identified scissor lift
+            collisions as a major safety and property-damage risk: lifts are large, accelerate
+            suddenly, and operators have limited visibility — especially above the platform and at corners.
           </p>
           <p>
-            The system needed to work for any construction company using scissor lifts, with potential
-            users including operators, on-site technicians, and site managers. Key constraints included
-            no client-side code editing, secure magnetic attachment, and battery life exceeding 16 hours
-            of continuous operation.
+            The system had to generalize to any construction company: no client-side code editing,
+            secure magnetic attachment, and battery life beyond 16 hours of continuous operation.
           </p>
         </div>
 
-        <!-- Sensor selection -->
         <div class="tab-panel" id="tab-sensor">
           <p>
-            We evaluated five sensor types using Pugh screening and scoring matrices, weighted across
-            five criteria: sensor precision, environmental interference, field of vision, battery consumption, and cost.
+            We evaluated five sensor types with Pugh screening and scoring matrices, weighted across
+            precision, environmental interference, field of vision, battery consumption, and cost:
           </p>
-          <table class="pugh-table">
-            <thead>
-              <tr>
-                <th>Criterion</th>
-                <th>Weight</th>
-                <th>Camera</th>
-                <th>Ultrasound</th>
-                <th>LiDAR</th>
-                <th>mmWave</th>
-                <th>Infrared</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Sensor precision</td>
-                <td>0.25</td>
-                <td>2</td><td>3</td><td class="best">5</td><td>4</td><td>1</td>
-              </tr>
-              <tr>
-                <td>Environmental interference</td>
-                <td>0.20</td>
-                <td>2</td><td>3</td><td>4</td><td class="best">5</td><td>1</td>
-              </tr>
-              <tr>
-                <td>Field of vision</td>
-                <td>0.30</td>
-                <td>2</td><td>4</td><td class="best">5</td><td>3</td><td>1</td>
-              </tr>
-              <tr>
-                <td>Battery consumption</td>
-                <td>0.05</td>
-                <td class="best">5</td><td>1</td><td>2</td><td>3</td><td>4</td>
-              </tr>
-              <tr>
-                <td>Cost</td>
-                <td>0.20</td>
-                <td class="best">5</td><td>3</td><td>1</td><td>2</td><td>4</td>
-              </tr>
-              <tr>
-                <td>Weighted score</td>
-                <td>1.00</td>
-                <td>2.75</td><td>3.20</td><td class="best">3.85</td><td>3.45</td><td>1.45</td>
-              </tr>
-            </tbody>
-          </table>
-          <p style="margin-top: 1rem;">
-            LiDAR scored highest overall. Despite its cost relative to ultrasound and mmWave radar,
-            its superior precision and field of vision were deemed critical for reliable collision detection.
-            We noted that the Pugh matrix doesn't capture non-linear cost thresholds, so mmWave radar
-            remained a strong secondary candidate throughout prototyping.
-          </p>
-        </div>
-
-        <!-- Design criteria -->
-        <div class="tab-panel" id="tab-criteria">
-          <p>
-            We used a pairwise comparison chart to rank our design criteria by importance. The final
-            priority order, from most to least important:
-          </p>
-          <ul>
-            <li><strong style="color: var(--ink); font-weight: 500;">Alert audibility</strong> — 90–95 dB, at least 10 dB above ambient noise in a loud construction environment</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Timely alerting</strong> — alert begins within 0.1 seconds of object entering field of vision</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Varying clearance alerts</strong> — different beep frequencies at 1 in, 3 in, and 6 in clearance thresholds</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Ease of setup</strong> — no code editing required by the client, minimal on-site configuration</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Battery life</strong> — at least 16 hours of operation, recharge in 4–5 hours</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Sensor precision</strong> — obstacle detection distance error ≤ 10%</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Clearance / braking system</strong> — warning within specified inches; possible future auto-stop integration</li>
-            <li><strong style="color: var(--ink); font-weight: 500;">Minimal false positives</strong> — no random triggers during a 30-minute testing period</li>
-          </ul>
-        </div>
-
-        <!-- Testing plan -->
-        <div class="tab-panel" id="tab-testing">
-          <p>We designed four tests to validate the prototype against each design criterion:</p>
-          <ul>
-            <li>
-              <strong style="color: var(--ink); font-weight: 500;">Sensor detection</strong> — move a 5×5 inch material sample along the sensor's horizontal plane and measure the detection distance and angular field of view. Target: &lt;5% distance error, ≥55° FOV in each direction.
-            </li>
-            <li>
-              <strong style="color: var(--ink); font-weight: 500;">Alert system</strong> — drop an object in front of the sensor and video record the response. Measure delay in frames and buzzer volume with a decibel meter. Target: &lt;0.1s delay, 90–95 dB alert volume.
-            </li>
-            <li>
-              <strong style="color: var(--ink); font-weight: 500;">Setup process</strong> — time multiple lift operators placing all sensor units on pre-indicated spots. Target: &lt;5 min for new users, &lt;2 min for experienced users.
-            </li>
-            <li>
-              <strong style="color: var(--ink); font-weight: 500;">Battery consumption</strong> — run device continuously with an LED indicator for 10 hours. Repeat 3 times. Target: ≥10 hours per charge, recharge in 6 hours.
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- TESTING RESULTS -->
-    <div class="content-section">
-      <h2>Testing results</h2>
-      <p>All five design criteria tests passed. Results from our final prototype evaluation:</p>
-
-      <table class="results-table">
-        <thead>
-          <tr>
-            <th>Criterion</th>
-            <th>Target</th>
-            <th>Result</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sensor precision (360° LiDAR)</td>
-            <td>&lt;5% max error</td>
-            <td>Max error 0.7% across all angles</td>
-            <td><span class="pass-badge">Passed</span></td>
-          </tr>
-          <tr>
-            <td>Sensor precision (Chip LiDAR)</td>
-            <td>&lt;5% max error</td>
-            <td>Max error 5.0%; alarm at 28.5 cm vs. expected 30 cm</td>
-            <td><span class="pass-badge">Passed</span></td>
-          </tr>
-          <tr>
-            <td>Field of vision (Chip LiDAR)</td>
-            <td>&lt;5% error at ±30°</td>
-            <td>Within 5% error at all tested angles</td>
-            <td><span class="pass-badge">Passed</span></td>
-          </tr>
-          <tr>
-            <td>Timely alerting (360° LiDAR)</td>
-            <td>&lt;0.1s delay</td>
-            <td>Alert triggered in under 2 video frames (0.083s)</td>
-            <td><span class="pass-badge">Passed</span></td>
-          </tr>
-          <tr>
-            <td>Alert audibility</td>
-            <td>90–95 dB</td>
-            <td>97.2 dB minimum — client approved</td>
-            <td><span class="pass-badge">Passed</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Accuracy chart -->
-      <h3 style="margin-top: 2rem;">360° LiDAR accuracy calibration</h3>
-      <p>
-        We validated the 360° LiDAR by comparing measured distances to ground-truth measurements across
-        the full operational range. The sensor showed near-perfect linearity with an R² of 0.9998 and
-        a slope of 1.0072 — a 0.72% systematic overread that could be corrected with a single calibration constant.
-      </p>
-      <div class="media-grid" style="grid-template-columns: 1fr; max-width: 560px;">
-        <div class="media-item">
-          <div class="media-frame contain" style="height: 300px;">
-            <img src="lidarAccuracy.png" alt="Scatter plot of 360 LiDAR measured distance versus actual distance from 150mm to 920mm, showing a linear fit with R squared equals 0.9998 and slope 1.0072">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>Criterion</th><th>Weight</th><th>Camera</th><th>Ultrasound</th><th>LiDAR</th><th>mmWave</th><th>Infrared</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sensor precision</td><td class="num">0.25</td><td class="num">2</td><td class="num">3</td><td class="num best">5</td><td class="num">4</td><td class="num">1</td></tr>
+                <tr><td>Environmental interference</td><td class="num">0.20</td><td class="num">2</td><td class="num">3</td><td class="num">4</td><td class="num best">5</td><td class="num">1</td></tr>
+                <tr><td>Field of vision</td><td class="num">0.30</td><td class="num">2</td><td class="num">4</td><td class="num best">5</td><td class="num">3</td><td class="num">1</td></tr>
+                <tr><td>Battery consumption</td><td class="num">0.05</td><td class="num best">5</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">4</td></tr>
+                <tr><td>Cost</td><td class="num">0.20</td><td class="num best">5</td><td class="num">3</td><td class="num">1</td><td class="num">2</td><td class="num">4</td></tr>
+                <tr><td><b style="color:var(--ink)">Weighted score</b></td><td class="num">1.00</td><td class="num">2.75</td><td class="num">3.20</td><td class="num best">3.85</td><td class="num">3.45</td><td class="num">1.45</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="media-caption">360° LiDAR calibration — measured vs. actual distance (150–920 mm). R² = 0.9998, slope = 1.0072.</div>
+          <p style="margin-top: 1rem;">
+            LiDAR scored highest — its precision and field of vision were critical for reliable
+            detection despite the cost premium. mmWave radar remained the secondary candidate
+            through prototyping, since the matrix doesn't capture non-linear cost thresholds.
+          </p>
+        </div>
+
+        <div class="tab-panel" id="tab-criteria">
+          <p>Design criteria ranked by pairwise comparison, most to least important:</p>
+          <ul>
+            <li><b>Alert audibility</b> — 90–95 dB, at least 10 dB above ambient construction noise</li>
+            <li><b>Timely alerting</b> — alert within 0.1 s of an object entering the field of vision</li>
+            <li><b>Varying clearance alerts</b> — distinct beep frequencies at 1 in, 3 in, and 6 in thresholds</li>
+            <li><b>Ease of setup</b> — no code editing by the client, minimal on-site configuration</li>
+            <li><b>Battery life</b> — at least 16 hours of operation, recharge in 4–5 hours</li>
+            <li><b>Sensor precision</b> — detection distance error ≤ 10%</li>
+            <li><b>Clearance / braking</b> — warning at specified clearance; future auto-stop integration</li>
+            <li><b>Minimal false positives</b> — zero random triggers over a 30-minute test window</li>
+          </ul>
+        </div>
+
+        <div class="tab-panel" id="tab-testing">
+          <p>Four tests validated the prototype against the design criteria:</p>
+          <ul>
+            <li><b>Sensor detection</b> — sweep a 5×5 in sample across the horizontal plane; measure detection distance and angular FOV. Target: &lt;5% distance error, ≥55° FOV each direction.</li>
+            <li><b>Alert system</b> — drop an object in front of the sensor on video; count delay frames and measure buzzer volume. Target: &lt;0.1 s delay, 90–95 dB.</li>
+            <li><b>Setup process</b> — time operators placing all units on marked spots. Target: &lt;5 min new users, &lt;2 min experienced.</li>
+            <li><b>Battery consumption</b> — 10-hour continuous runs with LED indicator, repeated 3×. Target: ≥10 h per charge, recharge in 6 h.</li>
+          </ul>
         </div>
       </div>
     </div>
 
-    <!-- MEDIA -->
-    <!-- ADD MORE PHOTOS AND MEDIA HERE AS YOU GET THEM -->
+    <!-- DEMOS & MEDIA -->
     <div class="content-section">
-      <h2>Photos & media</h2>
+      <p class="section-label">05 — DEMOS &amp; MEDIA</p>
+      <h2>Demos &amp; Media</h2>
+      <p>Field tests, build photos, and demo footage from the prototype.</p>
+
+      <h3>Demo Videos</h3>
+      <div class="video-grid">
+
+        <!-- TO ADD A VIDEO: replace a placeholder slot below with this block
+             (swap VIDEO_ID for the part after "watch?v=" in the YouTube URL):
+
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Demo video" allowfullscreen></iframe>
+        </div>
+        -->
+
+        <div class="slot slot-video">
+          <span class="slot-tag">VIDEO SLOT 01</span>
+          <span class="slot-hint">Replace this block with a YouTube embed — template in the HTML comment above.</span>
+        </div>
+
+        <div class="slot slot-video">
+          <span class="slot-tag">VIDEO SLOT 02</span>
+          <span class="slot-hint">Replace this block with a YouTube embed — template in the HTML comment above.</span>
+        </div>
+
+      </div>
+
+      <h3>Photos</h3>
       <div class="media-grid">
 
-        <div class="media-item">
-          <div class="media-frame">
-            <img src="Poster.png" alt="Final engineering design poster presented at Duke">
-          </div>
-          <div class="media-caption">Final design poster presented at Duke Engineering Design POD showcase.</div>
-        </div>
+        <!-- TO ADD A PHOTO: replace a placeholder slot below with this block:
 
-        <!-- ADD MORE MEDIA ITEMS HERE — copy and paste this block:
         <div class="media-item">
-          <div class="media-frame">
-            <img src="YOUR_IMAGE.jpg" alt="Description">
-          </div>
+          <div class="media-frame"><img src="YOUR_IMAGE.jpg" alt="Describe the photo"></div>
           <div class="media-caption">Your caption here.</div>
         </div>
         -->
 
+        <div class="slot slot-photo">
+          <span class="slot-tag">PHOTO SLOT 01</span>
+          <span class="slot-hint">Replace with a build or field-test photo — template in the HTML comment above. Lightbox zoom wires up automatically.</span>
+        </div>
+
+        <div class="slot slot-photo">
+          <span class="slot-tag">PHOTO SLOT 02</span>
+          <span class="slot-hint">Replace with a build or field-test photo — template in the HTML comment above. Lightbox zoom wires up automatically.</span>
+        </div>
+
+        <div class="slot slot-photo">
+          <span class="slot-tag">PHOTO SLOT 03</span>
+          <span class="slot-hint">Replace with a build or field-test photo — template in the HTML comment above. Lightbox zoom wires up automatically.</span>
+        </div>
+
       </div>
     </div>
 
-    <!-- VIDEO SECTION -->
+    <!-- NEXT STEPS -->
     <div class="content-section">
-      <h2>Demo videos</h2>
-      <!-- ADD YOUTUBE EMBEDS HERE when available -->
-      <!-- Replace VIDEO_ID with the ID from your YouTube URL -->
-      <!--
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-      </div>
-      -->
-      <div class="video-placeholder">
-        Demo footage coming soon — replace this block with a YouTube embed when available.
-      </div>
-    </div>
-
-    <!-- FUTURE WORK -->
-    <div class="content-section">
-      <h2>Next steps</h2>
-      <p>
-        Our prototype passed all five design tests and was well received by our client. The next phase
-        focuses on real-world deployment and refinement:
-      </p>
+      <p class="section-label">06 — NEXT PHASE</p>
+      <h2>Deployment Roadmap</h2>
+      <p>The prototype passed all client design tests; the next phase moves it onto a real job site:</p>
       <ul>
-        <li>Install the full sensor network on an actual scissor lift at a Skanska USA construction site</li>
-        <li>Test under real-world conditions including vibration, variable lighting, and dynamic motion</li>
-        <li>Refine sensor placement and alert thresholds using field data</li>
-        <li>Present the completed design to the client team at Skanska USA</li>
+        <li>Install the full sensor network on an operating scissor lift at a Skanska USA construction site</li>
+        <li>Test under real-world vibration, variable lighting, and dynamic motion; refine placement and thresholds with field data</li>
         <li>Explore automatic braking integration — stopping the lift at a specified clearance threshold</li>
       </ul>
     </div>
 
-    <!-- ACKNOWLEDGEMENTS -->
+    <!-- TEAM & ACKNOWLEDGEMENTS -->
     <div class="content-section">
-      <h2>Acknowledgements</h2>
+      <p class="section-label">07 — CREDITS</p>
+      <h2>Team &amp; Acknowledgements</h2>
       <p>
-        This project was completed as part of the Duke University Pratt School of Engineering Design POD program.
-        We are grateful to our advisors and client contacts for their guidance throughout the semester.
+        Built by the <b>High Rollers</b> (Scissor Lift Group 1) at Duke's Pratt School of
+        Engineering, with guidance from our advisors and client contacts:
       </p>
-      <ul>
-        <li>Dr. Aaron Kyle — Duke Pratt School of Engineering</li>
-        <li>Dr. Elizabeth Bucholz — Duke Pratt School of Engineering</li>
-        <li>Dagan Trnka — Duke Pratt School of Engineering</li>
-        <li>Christopher Bingham — Duke Pratt School of Engineering</li>
-        <li>Andrew Tucker — Duke Pratt School of Engineering</li>
-        <li>Anna Jooste — Duke Pratt School of Engineering</li>
-        <li>Paul Kelker — Skanska USA Building, Inc.</li>
-        <li>Cole Lewin — Skanska USA Building, Inc.</li>
-      </ul>
-    </div>
-
-    <div class="project-links-row">
-      <a href="#" class="btn btn-primary">GitHub coming soon</a>
-      <a href="Poster.png" class="btn btn-ghost" target="_blank">View full poster</a>
+      <div class="ack-grid">
+        <div class="ack-col">
+          <h3>DUKE PRATT SCHOOL OF ENGINEERING</h3>
+          <ul>
+            <li>Dr. Aaron Kyle</li>
+            <li>Dr. Elizabeth Bucholz</li>
+            <li>Dagan Trnka</li>
+            <li>Christopher Bingham</li>
+            <li>Andrew Tucker</li>
+            <li>Anna Jooste</li>
+          </ul>
+        </div>
+        <div class="ack-col">
+          <h3>SKANSKA USA BUILDING, INC.</h3>
+          <ul>
+            <li>Paul Kelker</li>
+            <li>Cole Lewin</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-links-row">
+        <a href="Poster.png" class="btn btn-primary" target="_blank">VIEW FULL POSTER ↗</a>
+        <a href="index.html#projects" class="btn btn-ghost">← ALL PROJECTS</a>
+      </div>
     </div>
 
   </div>
@@ -813,17 +776,18 @@
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    // Wire lightbox to all clickable images
-    document.querySelectorAll('.media-frame, .main-image img').forEach(el => {
-      const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+    document.querySelectorAll('.media-item .media-frame').forEach(frame => {
+      const img = frame.querySelector('img');
       if (!img) return;
-      const caption = el.closest('.media-item')?.querySelector('.media-caption');
-      const altCaption = el.closest('.main-image')?.querySelector('.main-image-caption');
-      el.addEventListener('click', () =>
-        openLightbox(img.src, img.alt, caption?.textContent || altCaption?.textContent || '')
-      );
+      const caption = frame.closest('.media-item').querySelector('.media-caption');
+      frame.addEventListener('click', () => openLightbox(img.src, img.alt, caption ? caption.textContent : ''));
+    });
+
+    const posterFrame = document.getElementById('poster-frame');
+    posterFrame.addEventListener('click', () => {
+      const img = posterFrame.querySelector('img');
+      openLightbox(img.src, img.alt, 'Final design poster — Duke Engineering Design POD showcase.');
     });
   </script>
-
 </body>
 </html>

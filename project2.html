@@ -5,268 +5,215 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hexapod Robotic Spider — Ely Herman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f2ec;
-      --ink: #1a1814;
-      --muted: #6b6760;
-      --accent: #c84b2f;
-      --card-bg: #ffffff;
-      --border: #e0dcd4;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
+      --ground: #0e2a4a;
+      --ground-2: #0a2140;
+      --panel: rgba(255,255,255,0.025);
+      --ink: #eaf2fb;
+      --muted: #9db4cf;
+      --accent: #7fe7c4;
+      --accent-dim: rgba(127,231,196,0.4);
+      --amber: #ffb454;
+      --line: rgba(234,242,251,0.16);
+      --sans: 'Archivo', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
-      background: var(--bg);
+      background: var(--ground);
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: var(--ink);
       font-size: 16px;
       line-height: 1.6;
     }
 
+    ::selection { background: var(--accent); color: var(--ground); }
+
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(245,242,236,0.85);
+      padding: 1.1rem 4rem;
+      background: rgba(10,33,64,0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
     }
-    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
-    .back-link {
-      display: flex; align-items: center; gap: 0.4rem;
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
-      font-weight: 500; transition: color 0.2s;
-    }
+    .nav-logo { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .back-link { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); }
 
+    /* ── HERO ── */
     .project-hero {
-      padding: 8rem 4rem 4rem;
-      max-width: 860px;
-      margin: 0 auto;
+      padding: 8rem 4rem 3rem;
+      max-width: 960px; margin: 0 auto;
     }
     .project-eyebrow {
       display: inline-block;
-      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      border: 1px solid var(--amber);
+      padding: 0.25rem 0.6rem;
+      margin-bottom: 1.5rem;
     }
     .project-hero-title {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1.1;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em;
+      line-height: 1.05;
       margin-bottom: 1.25rem;
     }
     .project-hero-desc {
-      font-size: 1.1rem; color: var(--muted);
-      max-width: 680px; line-height: 1.8;
-      margin-bottom: 2rem;
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 680px; line-height: 1.75;
+      margin-bottom: 2.5rem;
     }
-    .project-meta {
-      display: flex; flex-wrap: wrap; gap: 2rem;
-      padding: 1.5rem 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
-    }
-    .meta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
-    .meta-value { font-size: 0.95rem; color: var(--ink); }
+    .project-hero-desc b { color: var(--ink); font-weight: 600; }
 
-    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
-    .tag {
-      padding: 0.3rem 0.8rem; background: var(--card-bg);
-      border: 1px solid var(--border); border-radius: 100px;
-      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    /* spec panel: hero metadata as a datasheet */
+    .spec-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--mono);
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
+    .spec-cell { padding: 1rem 1.25rem; border-right: 1px solid var(--line); }
+    .spec-cell:last-child { border-right: none; }
+    .spec-label { font-size: 0.62rem; letter-spacing: 0.14em; color: var(--amber); margin-bottom: 0.35rem; }
+    .spec-value { font-size: 0.82rem; color: var(--ink); line-height: 1.5; }
 
+    /* ── MAIN IMAGE ── */
     .main-image {
-      width: 100%; max-width: 860px; margin: 0 auto 4rem;
+      max-width: 960px; margin: 3rem auto 0;
       padding: 0 4rem;
     }
-    .main-image img {
-      width: 100%; border-radius: 12px;
-      border: 1px solid var(--border);
-      display: block;
+    .fig-frame {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 1rem;
+    }
+    .fig-frame::before, .fig-frame::after {
+      content: ""; position: absolute; width: 14px; height: 14px;
+      border-color: var(--accent); border-style: solid;
+    }
+    .fig-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .fig-frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .fig-frame img { width: 100%; display: block; }
+    .fig-caption {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--amber); margin-top: 0.75rem;
+      display: flex; justify-content: space-between;
     }
 
+    /* ── CONTENT ── */
     .project-content {
-      max-width: 860px; margin: 0 auto;
-      padding: 0 4rem 6rem;
+      max-width: 960px; margin: 0 auto;
+      padding: 4rem 4rem 6rem;
     }
-    .content-section { margin-bottom: 3.5rem; }
+    .content-section { margin-bottom: 4.5rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
     .content-section h2 {
-      font-family: var(--serif);
-      font-size: 1.75rem; margin-bottom: 1rem;
-    }
-    .content-section h3 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin: 1.5rem 0 0.6rem;
+      font-size: 1.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
     }
     .content-section p {
-      color: var(--muted); line-height: 1.85;
+      color: var(--muted); line-height: 1.8;
       margin-bottom: 1rem; max-width: 700px;
     }
+    .content-section p b { color: var(--ink); font-weight: 600; }
+
+    /* capability grid — the recruiter scan layer */
+    .cap-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 1.5rem;
+    }
+    .cap-cell { background: var(--ground-2); padding: 1.5rem; }
+    .cap-cell h3 {
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em;
+      color: var(--accent); font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .cap-cell p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin: 0; max-width: none; }
+
+    /* highlights list */
     .content-section ul {
       list-style: none; padding: 0;
-      display: flex; flex-direction: column; gap: 0.6rem;
-      max-width: 700px;
+      display: flex; flex-direction: column; gap: 0.7rem;
+      max-width: 720px;
     }
     .content-section ul li {
       color: var(--muted); line-height: 1.7;
-      padding-left: 1.25rem; position: relative;
+      padding-left: 1.4rem; position: relative;
+      font-size: 0.95rem;
     }
     .content-section ul li::before {
       content: '→'; position: absolute; left: 0;
-      color: var(--accent); font-size: 0.85rem;
+      color: var(--accent); font-family: var(--mono); font-size: 0.85rem;
     }
+    .content-section ul li b { color: var(--ink); font-weight: 600; }
 
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem; margin-top: 1.5rem;
+    /* build log */
+    .build-log { border: 1px solid var(--line); background: var(--panel); max-width: 720px; }
+    .log-row {
+      display: flex; gap: 1.5rem; align-items: baseline;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--line);
     }
-    .media-item {
-      border-radius: 8px; overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
+    .log-row:last-child { border-bottom: none; }
+    .log-date {
+      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+      color: var(--amber); white-space: nowrap; min-width: 6.5rem;
     }
-    .media-item img { width: 100%; display: block; }
-    .media-item .media-frame {
-      height: 220px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--card-bg);
-    }
-    .media-item .media-frame img,
-    .media-item .media-frame video {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block;
-    }
-    .media-caption {
-      padding: 0.7rem 0.9rem;
-      font-size: 0.82rem; color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
+    .log-entry { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .log-row.active .log-entry { color: var(--ink); }
+    .log-row.active .log-date { color: var(--accent); }
 
-    .video-wrapper {
-      position: relative; padding-bottom: 56.25%;
-      height: 0; overflow: hidden;
-      border-radius: 10px; border: 1px solid var(--border);
-      margin-top: 1rem;
-      background: var(--card-bg);
-    }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: 0;
-    }
-    .video-placeholder {
-      position: relative;
-      margin-top: 1rem;
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-      background: rgba(255,255,255,0.55);
-      color: var(--muted);
-      max-width: 700px;
-    }
-
-    .callout {
-      max-width: 700px;
-      padding: 1rem 1.1rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--card-bg);
-      color: var(--muted);
-      margin: 1rem 0;
-    }
-
-    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-    .btn {
-      display: inline-block; padding: 0.75rem 1.75rem;
-      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
-      text-decoration: none; border-radius: 4px; transition: all 0.2s;
-    }
-    .btn-primary { background: var(--ink); color: var(--bg); }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--ink); }
-
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
-    }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .project-hero > * { animation: fadeUp 0.6s ease both; }
-    .project-eyebrow { animation-delay: 0.05s; }
-    .project-hero-title { animation-delay: 0.15s; }
-    .project-hero-desc { animation-delay: 0.25s; }
-    .project-meta { animation-delay: 0.35s; }
-    /* ── LIGHTBOX ── */
-    .media-item .media-frame { cursor: zoom-in; }
-    .lightbox {
-      display: none;
-      position: fixed; inset: 0; z-index: 999;
-      background: rgba(10, 9, 8, 0.92);
-      align-items: center; justify-content: center;
-      padding: 2rem;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox-img {
-      max-width: 90vw; max-height: 88vh;
-      object-fit: contain;
-      border-radius: 8px;
-      animation: lbIn 0.2s ease;
-    }
-    .lightbox-caption {
-      position: fixed; bottom: 1.5rem; left: 50%;
-      transform: translateX(-50%);
-      color: rgba(245,242,236,0.7);
-      font-size: 0.85rem; text-align: center;
-      max-width: 560px; line-height: 1.5;
-      pointer-events: none;
-    }
-    .lightbox-close {
-      position: fixed; top: 1.25rem; right: 1.5rem;
-      background: none; border: none;
-      color: rgba(245,242,236,0.6); font-size: 1.75rem;
-      cursor: pointer; line-height: 1;
-      transition: color 0.15s;
-    }
-    .lightbox-close:hover { color: #fff; }
-    @keyframes lbIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-
-    /* ── TABS ── */
+    /* ── TABS (working notes) ── */
     .tab-container { margin-top: 1.5rem; }
     .tab-list {
       display: flex; flex-wrap: wrap; gap: 0.4rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 0;
+      border-bottom: 1px solid var(--line);
     }
     .tab-btn {
       padding: 0.55rem 1rem;
-      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--muted); background: transparent;
       border: 1px solid transparent; border-bottom: none;
-      border-radius: 6px 6px 0 0;
       cursor: pointer; transition: color 0.15s, background 0.15s;
       position: relative; bottom: -1px;
     }
-    .tab-btn:hover { color: var(--ink); background: var(--card-bg); }
+    .tab-btn:hover { color: var(--ink); background: var(--ground-2); }
     .tab-btn.active {
-      color: var(--ink); background: var(--card-bg);
-      border-color: var(--border);
-      border-bottom-color: var(--card-bg);
+      color: var(--accent); background: var(--ground-2);
+      border-color: var(--line);
+      border-bottom-color: var(--ground-2);
     }
     .tab-panel {
       display: none;
-      background: var(--card-bg);
-      border: 1px solid var(--border); border-top: none;
-      border-radius: 0 0 10px 10px;
+      background: var(--ground-2);
+      border: 1px solid var(--line); border-top: none;
       padding: 1.75rem;
     }
     .tab-panel.active { display: block; }
@@ -277,128 +224,230 @@
     }
     .tab-img-frame {
       width: 100%; aspect-ratio: 3/4;
-      overflow: hidden; border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--ground);
       display: flex; align-items: center; justify-content: center;
       cursor: zoom-in;
     }
-    .tab-img-frame img {
-      width: 100%; height: 100%; object-fit: contain; display: block;
-    }
+    .tab-img-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .tab-caption {
       font-size: 0.82rem; color: var(--muted);
       line-height: 1.6; margin-top: 0.6rem;
     }
+
+    /* ── MEDIA GRID ── */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .media-item { border: 1px solid var(--line); background: var(--ground-2); }
+    .media-item .media-frame {
+      height: 220px; cursor: zoom-in;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .media-item .media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media-caption {
+      padding: 0.7rem 0.9rem;
+      font-size: 0.8rem; color: var(--muted); line-height: 1.55;
+    }
+
+    /* ── VIDEOS ── */
+    .video-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-top: 1.5rem;
+    }
+    .video-wrapper {
+      position: relative; padding-bottom: 56.25%;
+      height: 0; overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--ground-2);
+    }
+    .video-wrapper iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    /* ── LINKS ── */
+    .project-links-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.5rem;
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: var(--ground); font-weight: 600; }
+    .btn-primary:hover { box-shadow: 0 0 18px rgba(127,231,196,0.45); }
+    .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(127,231,196,0.1); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(6,16,31,0.94);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 90vw; max-height: 88vh;
+      object-fit: contain;
+      animation: lbIn 0.2s ease;
+    }
+    .lightbox-caption {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 0.85rem; text-align: center;
+      max-width: 560px; line-height: 1.5;
+      pointer-events: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.5rem;
+      background: none; border: none;
+      color: var(--muted); font-size: 1.75rem;
+      cursor: pointer; line-height: 1;
+      transition: color 0.15s;
+    }
+    .lightbox-close:hover { color: var(--ink); }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .project-hero > * { animation: fadeUp 0.6s ease both; }
+    .project-eyebrow { animation-delay: 0.05s; }
+    .project-hero-title { animation-delay: 0.15s; }
+    .project-hero-desc { animation-delay: 0.25s; }
+    .spec-panel { animation-delay: 0.35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .project-hero > *, .lightbox-img { animation: none; }
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .tab-btn { font-size: 0.8rem; padding: 0.45rem 0.7rem; }
+      nav { padding: 1rem 1.5rem; }
+      .project-hero, .main-image, .project-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .spec-panel { grid-template-columns: 1fr 1fr; }
+      .spec-cell:nth-child(2) { border-right: none; }
+      .spec-cell:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .cap-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: 1fr; }
+      .tab-btn { font-size: 0.66rem; padding: 0.45rem 0.7rem; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="index.html" class="nav-logo">Ely Herman</a>
-    <a href="index.html" class="back-link">← Back to portfolio</a>
+    <a href="index.html" class="nav-logo">EH // INDEX</a>
+    <a href="index.html#projects" class="back-link">← BACK TO PROJECTS</a>
   </nav>
 
+  <!-- HERO -->
   <div class="project-hero">
-    <span class="project-eyebrow">Robotics</span>
+    <span class="project-eyebrow">DWG. EH-02 — ROBOTICS / LOCOMOTION</span>
     <h1 class="project-hero-title">Hexapod Robotic Spider</h1>
     <p class="project-hero-desc">
-      A custom six-legged walking robot that I modeled in Fusion 360 and am currently assembling. This project grew out of an earlier quadruped spider design, but I redesigned the platform as a hexapod to make gait development more stable, modular, and practical.
+      A six-legged walking robot developed end-to-end: <b>analytic inverse kinematics</b>,
+      <b>Bézier-curve foot trajectories</b>, and <b>tripod gait planning</b> — derived by hand,
+      validated in Python simulation, and built into a Fusion 360-designed platform
+      driven by Arduino.
     </p>
-    <div class="project-meta">
-      <div class="meta-item">
-        <div class="meta-label">Date</div>
-        <div class="meta-value">2025 - Present</div>
+    <div class="spec-panel">
+      <div class="spec-cell">
+        <div class="spec-label">TIMELINE</div>
+        <div class="spec-value">2025 — Present</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Role</div>
-        <div class="meta-value">Solo project</div>
+      <div class="spec-cell">
+        <div class="spec-label">ROLE</div>
+        <div class="spec-value">Solo — design, math, build</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Stack</div>
-        <div class="meta-value">Fusion 360, Python, Arduino, Kinematics</div>
+      <div class="spec-cell">
+        <div class="spec-label">STACK</div>
+        <div class="spec-value">Fusion 360, Python, Arduino</div>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Status</div>
-        <div class="meta-value">In progress</div>
+      <div class="spec-cell">
+        <div class="spec-label">STATUS</div>
+        <div class="spec-value">Assembly + gait development</div>
       </div>
-    </div>
-    <div class="tag-row">
-      <span class="tag">Fusion 360</span>
-      <span class="tag">Arduino</span>
-      <span class="tag">Python</span>
-      <span class="tag">Robotics</span>
-      <span class="tag">Locomotion</span>
     </div>
   </div>
 
+  <!-- MAIN IMAGE -->
   <div class="main-image">
-    <img src="hexReal.png" alt="Fusion 360 render of the hexapod robotic spider">
+    <div class="fig-frame">
+      <img src="hexReal.png" alt="Fusion 360 render of the hexapod robotic spider">
+      <div class="fig-caption">
+        <span>FIG. 01 — HEXAPOD ASSEMBLY, FUSION 360</span>
+        <span>SCALE: N/A</span>
+      </div>
+    </div>
   </div>
 
   <div class="project-content">
 
+    <!-- AT A GLANCE -->
     <div class="content-section">
-      <h2>Overview</h2>
+      <p class="section-label">01 — SYSTEM OVERVIEW</p>
+      <h2>At a Glance</h2>
       <p>
-        This project is a multi-legged robotic spider that combines mechanical design, gait planning, and embedded control. I initially began with a quadruped spider concept, but as I worked through walking patterns and support constraints, I realized that moving to a six-legged platform would make locomotion easier to design and more stable in practice.
+        The core idea: develop the mechanics and the control math <b>together</b>, so the CAD
+        geometry, joint limits, and gait strategy all support one realistic walking motion —
+        instead of solving each in isolation.
       </p>
-      <p>
-        The current version is a full hexapod redesign modeled in Fusion 360 and now in the assembly stage. My goal is to build a robot whose mechanical design and walking logic are developed together, so the CAD, joint limits, and control strategy all support a realistic gait rather than being solved separately.
-      </p>
+      <div class="cap-grid">
+        <div class="cap-cell">
+          <h3>KINEMATICS</h3>
+          <p>Derived forward and inverse kinematics for each 3-DOF leg — law-of-cosines joint solutions, DH parameters, and per-leg frame conventions.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>TRAJECTORY GENERATION</h3>
+          <p>Cubic Bézier swing paths for walking, plus a slope-adjusted variant for in-place rotation. Multi-servo moves are speed-scaled so joints arrive at targets simultaneously.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>GAIT PLANNING</h3>
+          <p>Stance/swing sequencing built on support-polygon analysis — the platform stays statically stable at every phase of the cycle. Currently implementing a tripod gait.</p>
+        </div>
+        <div class="cap-cell">
+          <h3>MECHANICAL DESIGN</h3>
+          <p>Six identical leg modules around a symmetric chassis, modeled in Fusion 360 with joint travel limits and leg workspace matched to the control envelope.</p>
+        </div>
+      </div>
     </div>
 
+    <!-- ENGINEERING HIGHLIGHTS -->
     <div class="content-section">
-      <h2>Why I switched from quadruped to hexapod</h2>
-      <p>
-        The original spider was designed with four legs, but once I started thinking more seriously about foot placement, balance, and sequencing, the tradeoffs became clear. A quadruped can absolutely walk, but it demands tighter control over balance and timing. With six legs, the robot can keep more points of contact on the ground at once, which makes static stability and gait design much more forgiving.
-      </p>
-      <p>
-        That design change was less about making the robot bigger and more about making it more feasible to control well. Reworking the platform into a hexapod gave me a better foundation for experimenting with gait generation, support polygons, and coordinated servo motion while keeping the robot mechanically symmetric.
-      </p>
-    </div>
-
-    <div class="content-section">
-      <h2>How it works</h2>
-
-      <h3>Mechanical design</h3>
-      <p>
-        I modeled the robot in Fusion 360 with six identical leg modules mounted around a central chassis. The design emphasizes symmetry, reachable leg workspace, and clear joint travel limits so the physical geometry aligns with the motions I want to command in software.
-      </p>
-
-      <h3>Locomotion planning</h3>
-      <p>
-        Before assembling the full platform, I worked through the walking problem analytically. I explored point-to-point servo interpolation, smoother foot trajectories, and gait planning ideas for sequencing stance and swing phases. I also simulated leg motion in Python to better understand how each leg should move through a repeatable walking cycle.
-      </p>
-
-      <h3>Kinematics and control</h3>
-      <p>
-        A major part of the project has been developing the math behind the motion. I derived forward and inverse kinematics for the leg geometry, thought through leg-specific angle conventions, and planned how multiple servos should move together so each step looks deliberate instead of jerky. That work is guiding both the assembly and the software architecture for the final robot.
-      </p>
-
+      <p class="section-label">02 — KEY WORK</p>
+      <h2>Engineering Highlights</h2>
       <ul>
-        <li>Designed the full hexapod body and leg layout in Fusion 360 with range-of-motion constraints in mind.</li>
-        <li>Used kinematics and trajectory planning to define how each leg should lift, swing, and place during walking.</li>
-        <li>Built and tested gait ideas in Python before integrating them into the physical robot.</li>
-        <li>Currently assembling the redesigned hexapod hardware and validating the mechanical system against the planned motion model.</li>
+        <li><b>Simulation before hardware:</b> built a Python/Matplotlib leg-motion simulator and validated the full kinematic model and walking cycle before committing to assembly.</li>
+        <li><b>Smooth, deliberate motion:</b> replaced naive point-to-point servo moves with interpolated trajectories — linear stepping for stance, cubic Bézier arcs for swing.</li>
+        <li><b>Stability by construction:</b> used support-polygon analysis to sequence legs so the center of mass never leaves the base of support during walking.</li>
+        <li><b>Mechanics-control co-design:</b> leg geometry, servo mapping, and joint limits in CAD were specified directly against the planned motion model.</li>
+        <li><b>Hardware integration in progress:</b> assembling the platform and porting the simulated tripod gait onto the physical robot.</li>
       </ul>
     </div>
 
+    <!-- WORKING NOTES / DERIVATIONS -->
     <div class="content-section">
-      <h2>Math & design notes</h2>
+      <p class="section-label">03 — DERIVATIONS</p>
+      <h2>Working Notes</h2>
       <p>
-        These are my working notes from the quadruped phase — the math that now underpins the hexapod's control architecture. Each tab covers a distinct part of the problem.
+        The math behind the motion, derived by hand. Each tab covers one part of the control
+        problem — click any page to enlarge.
       </p>
       <div class="tab-container">
         <div class="tab-list" role="tablist">
-          <button class="tab-btn active" onclick="switchTab(event,'ik')" role="tab">kinematics</button>
-          <button class="tab-btn" onclick="switchTab(event,'interp')" role="tab">Servo interpolation</button>
-          <button class="tab-btn" onclick="switchTab(event,'bezier')" role="tab">Bézier curves</button>
-          <button class="tab-btn" onclick="switchTab(event,'gait')" role="tab">Gait & support polygons</button>
-          <button class="tab-btn" onclick="switchTab(event,'servo')" role="tab">Servo mapping</button>
+          <button class="tab-btn active" onclick="switchTab(event,'ik')" role="tab">Kinematics</button>
+          <button class="tab-btn" onclick="switchTab(event,'interp')" role="tab">Interpolation</button>
+          <button class="tab-btn" onclick="switchTab(event,'bezier')" role="tab">Bézier Curves</button>
+          <button class="tab-btn" onclick="switchTab(event,'gait')" role="tab">Gait & Stability</button>
+          <button class="tab-btn" onclick="switchTab(event,'servo')" role="tab">Servo Mapping</button>
         </div>
 
         <div class="tab-panel active" id="tab-ik">
@@ -407,19 +456,19 @@
               <div class="tab-img-frame">
                 <img src="page_06.png" alt="Forward kinematics derivation showing joint coordinate frames, link lengths a1 a2 a3, and transformation from joint angles to end-effector position">
               </div>
-              <p class="tab-caption">Forward kinematics — deriving end-effector position from joint angles using link lengths and trigonometry across three joint frames.</p>
+              <p class="tab-caption">Forward kinematics — end-effector position from joint angles across three joint frames.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_07.png" alt="Inverse kinematics working showing law of cosines applied to find joint angles theta1 theta2 theta3 from a target foot position, with case analysis for Z above and below zero">
               </div>
-              <p class="tab-caption">Inverse kinematics — using the law of cosines to compute joint angles from a desired foot position, with separate cases for Z &lt; 0 and Z ≥ 0.</p>
+              <p class="tab-caption">Inverse kinematics — law of cosines solves joint angles from a target foot position, with separate cases for Z &lt; 0 and Z ≥ 0.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_09.png" alt="DH parameters and rotation matrices for the leg joints">
               </div>
-              <p class="tab-caption">DH parameters and rotation matrices — defining the coordinate transformations between each joint frame.</p>
+              <p class="tab-caption">DH parameters and rotation matrices — coordinate transformations between joint frames.</p>
             </div>
           </div>
         </div>
@@ -430,7 +479,7 @@
               <div class="tab-img-frame">
                 <img src="page_01.png" alt="Servo interpolation notes showing slope calculations for XY and XZ axes and pseudocode for the servoLerp function with for loops iterating in both directions">
               </div>
-              <p class="tab-caption">Servo interpolation — breaking foot trajectories into small linear steps by computing slopes on the XY and XZ planes, then iterating with a configurable delay between each write.</p>
+              <p class="tab-caption">Servo interpolation — foot trajectories broken into small linear steps via XY/XZ plane slopes, iterated with a configurable delay per write.</p>
             </div>
           </div>
         </div>
@@ -441,13 +490,13 @@
               <div class="tab-img-frame">
                 <img src="page_02.png" alt="Cubic Bezier curve derivation for walking gait showing Bernstein polynomial formula expanded to n=3, four control points P0 through P3, and generateBezier pseudocode">
               </div>
-              <p class="tab-caption">Bézier walk — cubic Bézier foot trajectory for the walking gait. Four control points define a smooth arc that lifts the foot, swings it forward, and places it cleanly.</p>
+              <p class="tab-caption">Bézier walk — four control points define a smooth arc that lifts, swings, and places the foot cleanly.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_03.png" alt="Bezier curve adapted for rotation gait with a slope term added at each step to adjust leg angle during the swing phase">
               </div>
-              <p class="tab-caption">Bézier rotate — the same cubic curve adapted for turning. A slope term computed at each step adjusts the swing direction so the foot traces a curved arc instead of a straight line.</p>
+              <p class="tab-caption">Bézier rotate — a slope term per step curves the swing so the foot traces an arc for turning.</p>
             </div>
           </div>
         </div>
@@ -458,13 +507,13 @@
               <div class="tab-img-frame">
                 <img src="page_04.png" alt="Photo of the quadruped robot from above with a blue triangle connecting the three grounded feet illustrating the support polygon">
               </div>
-              <p class="tab-caption">Support polygon — the triangle formed by the three grounded feet at any moment. The robot is statically stable as long as the center of mass stays inside this polygon.</p>
+              <p class="tab-caption">Support polygon — the robot is statically stable while the center of mass stays inside the triangle of grounded feet.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_05.png" alt="Sequence of nine top-down diagrams showing each of the four legs taking a swing phase in turn while the others form a support triangle">
               </div>
-              <p class="tab-caption">Gait sequence — each frame shows one leg swinging (green arrow) while the remaining three maintain the support triangle. The full cycle steps through each leg in order.</p>
+              <p class="tab-caption">Gait sequence — one leg swings while the rest maintain the support polygon; the cycle steps through each leg in order.</p>
             </div>
           </div>
         </div>
@@ -475,99 +524,91 @@
               <div class="tab-img-frame">
                 <img src="page_08.png" alt="Diagram of all four legs with initial servo angles and axis orientations, with notes on speed multipliers for simultaneous servo movement">
               </div>
-              <p class="tab-caption">Servo mapping — each leg has a unique axis orientation and initial angle. Simultaneous movement is achieved by scaling the speed of the faster servo so both joints arrive at their targets together.</p>
+              <p class="tab-caption">Servo mapping — per-leg axis orientations and initial angles; speed multipliers synchronize multi-joint moves.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- DESIGN & SIMULATION -->
     <div class="content-section">
-      <h2>Design and motion studies</h2>
+      <p class="section-label">04 — CAD &amp; SIMULATION</p>
+      <h2>Design &amp; Motion Studies</h2>
       <div class="media-grid">
         <div class="media-item">
           <div class="media-frame"><img src="hex2.png" alt="Top-down Fusion 360 render of the hexapod spider"></div>
-          <div class="media-caption">Top view of the redesigned six-leg chassis, showing the symmetric layout and leg placement around the body.</div>
+          <div class="media-caption">Top view — symmetric six-leg layout around the chassis.</div>
         </div>
         <div class="media-item">
           <div class="media-frame"><img src="hex1.png" alt="Perspective Fusion 360 render of the hexapod spider"></div>
-          <div class="media-caption">Perspective render used to evaluate stance, leg articulation, and overall body geometry during the CAD phase.</div>
+          <div class="media-caption">Perspective render — evaluating stance, articulation, and body geometry.</div>
         </div>
         <div class="media-item">
           <div class="media-frame"><img src="hexapod-leg-trot-cropped.gif" alt="GIF of simulated leg trot motion"></div>
-          <div class="media-caption">Early Python / Matplotlib leg-motion simulation used to study a walking cycle before full hardware integration.</div>
+          <div class="media-caption">Python/Matplotlib simulation — studying the walking cycle before hardware integration.</div>
         </div>
       </div>
     </div>
 
+    <!-- DEMOS -->
     <div class="content-section">
-      <h2>Current build status</h2>
-      <p>
-        The robot is still in progress, and right now the most active part of the project is assembly and iteration. The core CAD direction is established, and the next steps are finishing the mechanical build, wiring and testing the actuators, and translating the gait logic into repeatable motion on the real platform.
-      </p>
-      <div class="callout">
-        This page is intentionally structured as a living project log. As I upload more demos and progress footage, I plan to expand this page with walking tests, earlier quadruped footage, and additional build photos.
-        
-        April: Currently, I am developing a tripod walking gait for the Hexapod
+      <p class="section-label">05 — DEMOS</p>
+      <h2>Demo Videos</h2>
+      <p>Walking tests, simulation runs, and build progress — from the early quadruped phase through the hexapod redesign.</p>
+      <div class="video-grid">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/ELoljPaadzE" title="Hexapod demo video" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/MjWofCK_-Qc" title="Hexapod demo video" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/6jpuvefOVIM" title="Hexapod demo video" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/dfQ7VtrR6e8" title="Hexapod demo video" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
 
+    <!-- BUILD LOG -->
     <div class="content-section">
-      <h2>Demo videos</h2>
-      <p>
-        I plan to add some YouTube demos here showing the earlier quadruped version, walking tests, and ongoing assembly progress for the hexapod redesign.
-      </p>
-
-      <div class="video-placeholder">
-        <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/ELoljPaadzE" allowfullscreen></iframe>
+      <p class="section-label">06 — STATUS</p>
+      <h2>Build Log</h2>
+      <div class="build-log">
+        <div class="log-row">
+          <span class="log-date">2025</span>
+          <span class="log-entry">Quadruped prototype — kinematics, interpolation, and gait math derived and tested.</span>
         </div>
-      </div>
-
-      <div class="video-placeholder">
-        <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/MjWofCK_-Qc" allowfullscreen></iframe>
+        <div class="log-row">
+          <span class="log-date">2025</span>
+          <span class="log-entry">Platform redesigned as a hexapod; full CAD modeled in Fusion 360.</span>
         </div>
-      </div>
-
-      <div class="video-placeholder">
-        <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/6jpuvefOVIM" allowfullscreen></iframe>
+        <div class="log-row active">
+          <span class="log-date">2026 APR</span>
+          <span class="log-entry">Assembly underway — developing the tripod walking gait on the physical platform.</span>
         </div>
-      </div>
-
-      <div class="video-placeholder">
-        <div class="video-wrapper">
-        <!-- Replace VIDEO_ID with your YouTube video ID -->
-        <iframe src="https://www.youtube.com/embed/dfQ7VtrR6e8" allowfullscreen></iframe>
-        </div>
-      </div>
-
-      <div class="video-placeholder">
-        <strong style="display:block; color: var(--ink); margin-bottom: 0.35rem; font-weight: 500;">YouTube demo slot 3</strong>
-        Reserve this space for assembly progress, tuning footage, or final walking demos once the robot is fully operational.
       </div>
     </div>
 
+    <!-- TAKEAWAYS -->
     <div class="content-section">
-      <h2>What I learned</h2>
-      <p>
-        This project has reinforced how tightly coupled mechanics and control are in robotics. Changing from four legs to six was not just a design preference — it changed the entire control problem and made the gait strategy more achievable. It also forced me to think more rigorously about support, coordination, and what kinds of motion are actually realistic for the hardware.
-      </p>
-      <p>
-        It has also pushed me to treat CAD as part of the robotics process rather than just packaging. Modeling joint limits, symmetry, and leg placement early made the kinematics work more meaningful, and the math work gave me a much clearer target for what the final assembly needs to do.
-      </p>
-    </div>
-
-    <div class="project-links-row">
-      <a href="#" class="btn btn-primary">GitHub link coming soon</a>
-      <a href="#" class="btn btn-ghost">YouTube demos coming soon</a>
+      <p class="section-label">07 — TAKEAWAYS</p>
+      <h2>What This Demonstrates</h2>
+      <ul>
+        <li><b>Math to hardware:</b> the full pipeline from hand-derived kinematics to simulated trajectories to embedded servo control on a real platform.</li>
+        <li><b>Simulation-first engineering:</b> de-risking the build by validating the motion model in software before assembly.</li>
+        <li><b>Systems thinking:</b> mechanics and control designed as one system — CAD constraints, servo mapping, and gait strategy all serve the same motion plan.</li>
+      </ul>
+      <div class="project-links-row">
+        <a href="https://github.com/Ely6275" class="btn btn-primary">⌥ GITHUB</a>
+        <a href="index.html#projects" class="btn btn-ghost">← ALL PROJECTS</a>
+      </div>
     </div>
 
   </div>
+
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
@@ -597,7 +638,6 @@
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    // Wire up media frames (design section)
     document.querySelectorAll('.media-item .media-frame').forEach(frame => {
       const img = frame.querySelector('img');
       if (!img) return;
@@ -605,7 +645,6 @@
       frame.addEventListener('click', () => openLightbox(img.src, img.alt, caption ? caption.textContent : ''));
     });
 
-    // Wire up tab image frames (math notes section)
     document.querySelectorAll('.tab-img-frame').forEach(frame => {
       const img = frame.querySelector('img');
       if (!img) return;
