@@ -255,6 +255,167 @@
       font-size: 0.8rem; color: var(--muted); line-height: 1.55;
     }
 
+    code {
+      font-family: var(--mono); font-size: 0.78rem;
+      color: var(--accent);
+      background: var(--ground);
+      border: 1px solid var(--line);
+      padding: 0.1rem 0.4rem;
+      white-space: nowrap;
+    }
+
+    /* pipeline chain */
+    .chain {
+      display: flex; flex-wrap: wrap; align-items: stretch;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      font-family: var(--mono);
+    }
+    .chain-step {
+      border: 1px solid var(--accent-dim);
+      background: var(--ground-2);
+      color: var(--accent);
+      font-size: 0.68rem; letter-spacing: 0.08em;
+      padding: 0.6rem 0.8rem;
+      display: flex; align-items: center;
+      text-align: center;
+    }
+    .chain-arrow { display: flex; align-items: center; color: var(--amber); font-size: 0.8rem; }
+
+    /* stat tiles */
+    .stat-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line);
+      margin: 1.5rem 0;
+    }
+    .stat-cell { background: var(--ground-2); padding: 1.4rem 1.25rem; }
+    .stat-number {
+      font-family: var(--mono); font-size: 1.9rem; font-weight: 600;
+      color: var(--accent); line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .stat-sub {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+      color: var(--amber); margin-top: 0.4rem;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-top: 0.4rem; }
+    .substrip {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--muted); line-height: 2;
+    }
+
+    /* fault log */
+    .fault-log { border: 1px solid var(--line); background: var(--panel); margin-top: 1.5rem; }
+    .fault-log details { border-bottom: 1px solid var(--line); }
+    .fault-log details:last-child { border-bottom: none; }
+    .fault-log summary {
+      list-style: none;
+      display: flex; align-items: baseline; gap: 1rem;
+      padding: 0.95rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .fault-log summary::-webkit-details-marker { display: none; }
+    .fault-log summary:hover { background: var(--ground-2); }
+    .fault-tag {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em;
+      color: var(--amber); white-space: nowrap;
+    }
+    .fault-title { font-size: 0.95rem; font-weight: 600; color: var(--ink); flex: 1; }
+    .fault-plus {
+      font-family: var(--mono); color: var(--accent);
+      transition: transform 0.2s ease;
+    }
+    .fault-log details[open] .fault-plus { transform: rotate(45deg); }
+    .fault-log details[open] summary { background: var(--ground-2); border-bottom: 1px dashed var(--line); }
+    .fault-body { padding: 1.1rem 1.25rem 1.3rem; }
+    .fault-body p { font-size: 0.88rem; line-height: 1.7; margin-bottom: 0.7rem; max-width: none; }
+    .fault-body p:last-child { margin-bottom: 0; }
+    .fault-body .k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em; color: var(--accent); margin-right: 0.4rem; }
+
+    /* data analysis graphs */
+    .run-key {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 1.25rem;
+      border: 1px solid var(--line); background: var(--panel);
+      padding: 0.7rem 1.1rem;
+      margin: 1.5rem 0 1.25rem;
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .run-key .key-title { color: var(--amber); }
+    .key-item { display: inline-flex; align-items: center; gap: 0.45rem; white-space: nowrap; }
+    .key-swatch {
+      width: 18px; height: 4px; border-radius: 2px;
+      display: inline-block; flex: none;
+    }
+    .data-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .data-fig {
+      border: 1px solid var(--line); background: var(--panel);
+      cursor: zoom-in;
+    }
+    .data-fig img {
+      display: block;
+      width: 100%; height: auto;   /* fills the cell, aspect ratio preserved */
+      background: #fff;            /* graphs are white TensorBoard exports */
+    }
+    .data-fig figcaption {
+      padding: 0.75rem 0.9rem 0.9rem;
+      font-size: 0.82rem; color: var(--muted); line-height: 1.6;
+      border-top: 1px solid var(--line);
+    }
+    .data-fig figcaption .fig-no {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+      color: var(--amber); display: block; margin-bottom: 0.3rem;
+    }
+
+    /* media placeholder slots — delete once real media is in */
+    .slot {
+      border: 1px dashed var(--accent-dim);
+      background: var(--panel);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .slot-video { aspect-ratio: 16 / 9; }
+    .slot-photo { height: 220px; }
+    .slot-gif { height: 500; margin-bottom: 1rem; padding: 1rem; }
+    /* real GIF frame (drops in when a placeholder is replaced) */
+    .fault-media {
+      border: 1px solid var(--line); background: var(--ground-2);
+      margin-bottom: 1rem;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    /* cap both dimensions so any GIF, whatever its native size, scales down to
+       fit inside the open fault and never overflows onto the text */
+    .fault-media img,
+    .fault-body img {
+      display: block;
+      width: auto; height: auto;
+      max-width: 100%;
+      max-height: 320px;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+    .fault-media figcaption {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      color: var(--amber); padding: 0.45rem 0.75rem;
+      border-top: 1px solid var(--line);
+    }
+    .slot-tag {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em;
+      color: var(--amber);
+    }
+    .slot-hint { font-size: 0.8rem; color: var(--muted); line-height: 1.5; max-width: 32ch; }
+
     /* ── VIDEOS ── */
     .video-grid {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -337,6 +498,9 @@
       .spec-cell:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
       .cap-grid { grid-template-columns: 1fr; }
       .video-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .data-grid { grid-template-columns: 1fr; }
+      .fault-log summary { flex-wrap: wrap; gap: 0.4rem 1rem; }
       .tab-btn { font-size: 0.66rem; padding: 0.45rem 0.7rem; }
     }
   </style>
@@ -354,9 +518,11 @@
     <h1 class="project-hero-title">Hexapod Robotic Spider</h1>
     <p class="project-hero-desc">
       A six-legged walking robot developed end-to-end: <b>analytic inverse kinematics</b>,
-      <b>Bézier-curve foot trajectories</b>, and <b>tripod gait planning</b> — derived by hand,
+      <b>Bézier-curve foot trajectories</b>, and <b>tripod gait planning</b>, all derived by hand,
       validated in Python simulation, and built into a Fusion 360-designed platform
-      driven by Arduino.
+      driven by Arduino. Now learning to walk on its own: a <b>PPO policy trained in
+      NVIDIA Isaac Sim</b> walks naturally on all six feet, tracking velocity commands
+      at ~99% without ever falling.
     </p>
     <div class="spec-panel">
       <div class="spec-cell">
@@ -365,15 +531,15 @@
       </div>
       <div class="spec-cell">
         <div class="spec-label">ROLE</div>
-        <div class="spec-value">Solo — design, math, build</div>
+        <div class="spec-value">Solo: design, math, build</div>
       </div>
       <div class="spec-cell">
         <div class="spec-label">STACK</div>
-        <div class="spec-value">Fusion 360, Python, Arduino</div>
+        <div class="spec-value">Fusion 360, PyTorch, Isaac Sim, Arduino</div>
       </div>
       <div class="spec-cell">
         <div class="spec-label">STATUS</div>
-        <div class="spec-value">Assembly + gait development</div>
+        <div class="spec-value">RL gait trained in sim</div>
       </div>
     </div>
   </div>
@@ -397,13 +563,13 @@
       <h2>At a Glance</h2>
       <p>
         The core idea: develop the mechanics and the control math <b>together</b>, so the CAD
-        geometry, joint limits, and gait strategy all support one realistic walking motion —
+        geometry, joint limits, and gait strategy all support one realistic walking motion,
         instead of solving each in isolation.
       </p>
       <div class="cap-grid">
         <div class="cap-cell">
           <h3>KINEMATICS</h3>
-          <p>Derived forward and inverse kinematics for each 3-DOF leg — law-of-cosines joint solutions, DH parameters, and per-leg frame conventions.</p>
+          <p>Derived forward and inverse kinematics for each 3-DOF leg: law-of-cosines joint solutions, DH parameters, and per-leg frame conventions.</p>
         </div>
         <div class="cap-cell">
           <h3>TRAJECTORY GENERATION</h3>
@@ -411,7 +577,7 @@
         </div>
         <div class="cap-cell">
           <h3>GAIT PLANNING</h3>
-          <p>Stance/swing sequencing built on support-polygon analysis — the platform stays statically stable at every phase of the cycle. Currently implementing a tripod gait.</p>
+          <p>Stance/swing sequencing built on support-polygon analysis, so the platform stays statically stable at every phase of the cycle. Currently implementing a tripod gait.</p>
         </div>
         <div class="cap-cell">
           <h3>MECHANICAL DESIGN</h3>
@@ -426,7 +592,7 @@
       <h2>Engineering Highlights</h2>
       <ul>
         <li><b>Simulation before hardware:</b> built a Python/Matplotlib leg-motion simulator and validated the full kinematic model and walking cycle before committing to assembly.</li>
-        <li><b>Smooth, deliberate motion:</b> replaced naive point-to-point servo moves with interpolated trajectories — linear stepping for stance, cubic Bézier arcs for swing.</li>
+        <li><b>Smooth, deliberate motion:</b> replaced naive point-to-point servo moves with interpolated trajectories: linear stepping for stance, cubic Bézier arcs for swing.</li>
         <li><b>Stability by construction:</b> used support-polygon analysis to sequence legs so the center of mass never leaves the base of support during walking.</li>
         <li><b>Mechanics-control co-design:</b> leg geometry, servo mapping, and joint limits in CAD were specified directly against the planned motion model.</li>
         <li><b>Hardware integration in progress:</b> assembling the platform and porting the simulated tripod gait onto the physical robot.</li>
@@ -439,7 +605,7 @@
       <h2>Working Notes</h2>
       <p>
         The math behind the motion, derived by hand. Each tab covers one part of the control
-        problem — click any page to enlarge.
+        problem. Click any page to enlarge.
       </p>
       <div class="tab-container">
         <div class="tab-list" role="tablist">
@@ -456,19 +622,19 @@
               <div class="tab-img-frame">
                 <img src="page_06.png" alt="Forward kinematics derivation showing joint coordinate frames, link lengths a1 a2 a3, and transformation from joint angles to end-effector position">
               </div>
-              <p class="tab-caption">Forward kinematics — end-effector position from joint angles across three joint frames.</p>
+              <p class="tab-caption">Forward kinematics: end-effector position from joint angles across three joint frames.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_07.png" alt="Inverse kinematics working showing law of cosines applied to find joint angles theta1 theta2 theta3 from a target foot position, with case analysis for Z above and below zero">
               </div>
-              <p class="tab-caption">Inverse kinematics — law of cosines solves joint angles from a target foot position, with separate cases for Z &lt; 0 and Z ≥ 0.</p>
+              <p class="tab-caption">Inverse kinematics: the law of cosines solves joint angles from a target foot position, with separate cases for Z &lt; 0 and Z ≥ 0.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_09.png" alt="DH parameters and rotation matrices for the leg joints">
               </div>
-              <p class="tab-caption">DH parameters and rotation matrices — coordinate transformations between joint frames.</p>
+              <p class="tab-caption">DH parameters and rotation matrices: coordinate transformations between joint frames.</p>
             </div>
           </div>
         </div>
@@ -479,7 +645,7 @@
               <div class="tab-img-frame">
                 <img src="page_01.png" alt="Servo interpolation notes showing slope calculations for XY and XZ axes and pseudocode for the servoLerp function with for loops iterating in both directions">
               </div>
-              <p class="tab-caption">Servo interpolation — foot trajectories broken into small linear steps via XY/XZ plane slopes, iterated with a configurable delay per write.</p>
+              <p class="tab-caption">Servo interpolation: foot trajectories broken into small linear steps via XY/XZ plane slopes, iterated with a configurable delay per write.</p>
             </div>
           </div>
         </div>
@@ -490,13 +656,13 @@
               <div class="tab-img-frame">
                 <img src="page_02.png" alt="Cubic Bezier curve derivation for walking gait showing Bernstein polynomial formula expanded to n=3, four control points P0 through P3, and generateBezier pseudocode">
               </div>
-              <p class="tab-caption">Bézier walk — four control points define a smooth arc that lifts, swings, and places the foot cleanly.</p>
+              <p class="tab-caption">Bézier walk: four control points define a smooth arc that lifts, swings, and places the foot cleanly.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_03.png" alt="Bezier curve adapted for rotation gait with a slope term added at each step to adjust leg angle during the swing phase">
               </div>
-              <p class="tab-caption">Bézier rotate — a slope term per step curves the swing so the foot traces an arc for turning.</p>
+              <p class="tab-caption">Bézier rotate: a slope term per step curves the swing so the foot traces an arc for turning.</p>
             </div>
           </div>
         </div>
@@ -507,13 +673,13 @@
               <div class="tab-img-frame">
                 <img src="page_04.png" alt="Photo of the quadruped robot from above with a blue triangle connecting the three grounded feet illustrating the support polygon">
               </div>
-              <p class="tab-caption">Support polygon — the robot is statically stable while the center of mass stays inside the triangle of grounded feet.</p>
+              <p class="tab-caption">Support polygon: the robot is statically stable while the center of mass stays inside the triangle of grounded feet.</p>
             </div>
             <div class="tab-img-item">
               <div class="tab-img-frame">
                 <img src="page_05.png" alt="Sequence of nine top-down diagrams showing each of the four legs taking a swing phase in turn while the others form a support triangle">
               </div>
-              <p class="tab-caption">Gait sequence — one leg swings while the rest maintain the support polygon; the cycle steps through each leg in order.</p>
+              <p class="tab-caption">Gait sequence: one leg swings while the rest maintain the support polygon; the cycle steps through each leg in order.</p>
             </div>
           </div>
         </div>
@@ -524,7 +690,7 @@
               <div class="tab-img-frame">
                 <img src="page_08.png" alt="Diagram of all four legs with initial servo angles and axis orientations, with notes on speed multipliers for simultaneous servo movement">
               </div>
-              <p class="tab-caption">Servo mapping — per-leg axis orientations and initial angles; speed multipliers synchronize multi-joint moves.</p>
+              <p class="tab-caption">Servo mapping: per-leg axis orientations and initial angles; speed multipliers synchronize multi-joint moves.</p>
             </div>
           </div>
         </div>
@@ -538,24 +704,237 @@
       <div class="media-grid">
         <div class="media-item">
           <div class="media-frame"><img src="hex2.png" alt="Top-down Fusion 360 render of the hexapod spider"></div>
-          <div class="media-caption">Top view — symmetric six-leg layout around the chassis.</div>
+          <div class="media-caption">Top view: symmetric six-leg layout around the chassis.</div>
         </div>
         <div class="media-item">
           <div class="media-frame"><img src="hex1.png" alt="Perspective Fusion 360 render of the hexapod spider"></div>
-          <div class="media-caption">Perspective render — evaluating stance, articulation, and body geometry.</div>
+          <div class="media-caption">Perspective render: evaluating stance, articulation, and body geometry.</div>
         </div>
         <div class="media-item">
           <div class="media-frame"><img src="hexapod-leg-trot-cropped.gif" alt="GIF of simulated leg trot motion"></div>
-          <div class="media-caption">Python/Matplotlib simulation — studying the walking cycle before hardware integration.</div>
+          <div class="media-caption">Python/Matplotlib simulation: studying the walking cycle before hardware integration.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RL LOCOMOTION -->
+    <div class="content-section">
+      <p class="section-label">05 — REINFORCEMENT LEARNING</p>
+      <h2>Sim-to-Walk: Learning a Gait with RL</h2>
+      <p>
+        The latest phase (CS372 final project): teaching the hexapod to walk <b>end-to-end with
+        reinforcement learning</b>. The Fusion 360 model was exported to URDF and trained in
+        <b>NVIDIA Isaac Sim / Isaac Lab</b> using <b>PPO</b>, with 2,048 parallel simulated robots
+        learning to follow linear- and yaw-velocity commands across all 18 joints.
+      </p>
+
+      <div class="chain">
+        <div class="chain-step">FUSION 360<br>CAD MODEL</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">URDF<br>EXPORT</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">ISAAC SIM 5.1<br>PHYSX</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">ISAAC LAB<br>RL ENV</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">PPO POLICY<br>18-DOF GAIT</div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-cell">
+          <div class="stat-number"><span class="count" data-target="59.7" data-decimals="1" data-prefix="+">+59.7</span></div>
+          <div class="stat-sub">MEAN REWARD</div>
+          <div class="stat-label">Up from −18.6 at the start of training</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number"><span class="count" data-target="999" data-suffix="/1000">999/1000</span></div>
+          <div class="stat-sub">EPISODE LENGTH</div>
+          <div class="stat-label">Hits the cap: the robot never falls</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number"><span class="count" data-target="99" data-suffix="%">99%</span></div>
+          <div class="stat-sub">VELOCITY TRACKING</div>
+          <div class="stat-label">Linear ~99%, yaw-rate ~98% command tracking</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number"><span class="count" data-target="24" data-suffix=" MIN">24 MIN</span></div>
+          <div class="stat-sub">TRAINING TIME</div>
+          <div class="stat-label">73.7M sim steps at ~55k steps/s</div>
+        </div>
+      </div>
+      <p class="substrip">RSL_RL PPO&nbsp;&nbsp;·&nbsp;&nbsp;PYTHON / PYTORCH&nbsp;&nbsp;·&nbsp;&nbsp;2048 PARALLEL ENVS&nbsp;&nbsp;·&nbsp;&nbsp;RTX 5060 LAPTOP (8 GB)&nbsp;&nbsp;·&nbsp;&nbsp;73.7M SIM STEPS</p>
+
+      <h3>The Fault Log</h3>
+      <p>
+        This was my first real RL project, and the interesting part wasn't the happy path.
+        Nearly every layer of the pipeline (CAD export, physics setup, coordinate conventions,
+        sensor wiring, reward design) hid a bug, and each one produced misleading symptoms that
+        pointed at the wrong layer. Getting good numbers took one training run; getting a natural
+        gait took four. Here is what broke, what it turned out to be, and what each one taught me.
+        Tap to expand.
+      </p>
+      <div class="fault-log">
+        <details>
+          <summary><span class="fault-tag">URDF DEBUGGING</span><span class="fault-title">Four export bugs before the robot could train</span><span class="fault-plus">+</span></summary>
+          <div class="fault-body">
+            <p>Before any learning could happen, I had to get my Fusion 360 model into the format the simulator reads. Four separate bugs came out of that one export step, all from the converter tool quietly filling in whatever the CAD file left blank.</p>
+            <p><span class="k">MASS</span>On spawn, the joints tore apart and the physics blew up into NaN values. Every part had defaulted to <b>steel</b> because I had never assigned a material, so a 5.7 kg base plate was hanging on hobby servos. Assigning ABS plastic and re-exporting brought the base from 5.72 kg down to 0.77 kg, and the new numbers matched my hand calculations within about 10%.</p>
+            <p><span class="k">UNITS</span>The exported inertia values came out a million times too large, in the wrong units. A script scaled them down, but a later export was already correct and rerunning the script would have broken it, so checking the units by hand became a routine step after every export.</p>
+            <p><span class="k">JOINT LIMITS</span>All 18 joints exported with no rotation limits, so during training the robot could fold its legs straight through its own body. I wrote a script to convert them to limited joints with ranges matched to what the real servos can actually reach.</p>
+            <p><span class="k">PIVOTS AND AXES</span>The big one, which had haunted the project for months: the robot looked perfect standing still, then collapsed the instant the motors engaged, its knees rotating around points <b>floating about 7 cm in mid-air</b>. The file was self-consistent, just wrong, so instead of staring at it I wrote scripts to measure the actual 3D meshes and find where the hinges really are, using three separate methods and checking each one against joints I already knew were correct. Every knee pivot turned out to be off by 70 to 86 mm and the corner axes were tilted by exactly 45°, a known exporter bug with rotated parts. A final script moved all 12 leg joints to the measured hinge points, and re-measuring confirmed everything landed within 0.6 mm.</p>
+            <p><span class="k">LESSON</span>An exported model can be perfectly self-consistent and still completely wrong. Sanity-check every number the exporter hands you against something you measured or worked out yourself.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 1: dragging on its thighs</span><span class="fault-plus">+</span></summary>
+          <div class="fault-body">
+
+            <figure class="fault-media"><img src="rl-video-step-0 Round 1.gif" alt="Robot dragging on its thighs">
+              <figcaption>ROUND 1 — DRAGGING GAIT</figcaption></figure>
+
+            <p><span class="k">SYMPTOM</span>Training looked like a success on paper, 97% velocity tracking, but the gait was ridiculous: the robot splayed itself flat and dragged its body along on its thighs.</p>
+            <p><span class="k">CAUSE</span>My reward only asked for speed and staying upright. The bonus for lifting feet, inherited from the quadruped template, required each step to stay in the air for half a second. A hexapod's steps are much quicker than that, so the robot was effectively being punished for stepping, and dragging cost nothing.</p>
+            <p><span class="k">FIX</span>Shortened the air-time requirement to match a hexapod's natural step, gave it more weight, and added a penalty for any body part other than the feet touching the ground. Retrained from scratch and it started walking on its feet.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 2: the five-legged gait</span><span class="fault-plus">+</span></summary>
+          <div class="fault-body">
+
+            <figure class="fault-media"><img src="rl-video-step-0 Round 3.gif" alt="Robot walking on five legs with one parked">
+              <figcaption>ROUND 2 — FIVE-LEGGED GAIT</figcaption></figure>
+
+            <p><span class="k">SYMPTOM</span>Every robot held one middle leg pinned up in the air and walked on the other five, using the raised leg like a balance arm.</p>
+            <p><span class="k">DIAGNOSIS</span>I first checked whether something in the robot model made that leg physically different, and the math said all six legs were identical. So the policy had <b>learned</b> this trick. The loophole: the stepping bonus only pays out when a foot lands. A foot that never lands earns exactly zero, so parking a leg cost nothing, and coordinating five legs is easier than six.</p>
+            <p><span class="k">FIX</span>Added a small growing penalty for any foot that stays in the air longer than a second. Normal steps never come close to that limit, so it only punishes parked legs.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 3: the grounded shuffle</span><span class="fault-plus">+</span></summary>
+          <div class="fault-body">
+
+            <figure class="fault-media"><img src="rl-video-step-0 Round 2.gif" alt="Robot shuffling with feet on the ground">
+              <figcaption>ROUND 3 — GROUNDED SHUFFLE</figcaption></figure>
+
+            <p><span class="k">SYMPTOM</span>The parked leg was gone, but the gait got worse. The robot now vibrated its legs in tiny rapid steps, inching forward with no visible swing at all, its body hugging the ground.</p>
+            <p><span class="k">CAUSE</span>The training graphs finally told the story: the stepping bonus had been <b>negative for its entire history, in every run</b>. It only paid out if a foot stayed in the air past a time threshold, but my robot's legs are short and its real steps are quicker than that, so no achievable step ever earned it. Worse, with the new parked-leg penalty added, my rules now punished short steps and long holds and paid nothing in between. Gluing the feet down and shuffling was genuinely the best strategy under the rules I had written.</p>
+            <p><span class="k">FIX</span>Lowered the stepping threshold so a real step finally counts, raised the penalty on jerky rapid movements 2.5×, and adjusted the default knee angle so the robot stands taller. On the retrain, the stepping bonus went <b>positive for the first time</b> and the robot walked with a real swing phase on all six feet. The smoothness score improved even though I had made that penalty 2.5× harsher, so the motion was genuinely smoother, not just rescaled.</p>
+            <p><span class="k">LESSON</span>RL optimizes exactly what you wrote, not what you meant. One reward term sitting quietly negative for four runs was the whole story the entire time. Reading the per-term logs is the habit that finally caught it.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3>Data Analysis</h3>
+      <p>
+        The reward-hacking story is visible in the training curves themselves. These are the
+        per-term logs from TensorBoard across the three training rounds, and they show why the
+        headline number kept looking fine while the gait was broken.
+      </p>
+      <div class="run-key">
+        <span class="key-title">RUN KEY</span>
+        <span class="key-item"><span class="key-swatch" style="background:#e8710a"></span>ROUND 1</span>
+        <span class="key-item"><span class="key-swatch" style="background:#e52592"></span>ROUND 2</span>
+        <span class="key-item"><span class="key-swatch" style="background:#9334e6"></span>ROUND 3 (FINAL)</span>
+      </div>
+      <div class="data-grid">
+        <figure class="data-fig" onclick="openLightbox('mean_reward.png','Mean reward training curves for all three rounds','Mean reward: all three rounds converge to nearly the same score.')">
+          <img src="mean_reward.png" alt="Mean reward training curves for all three rounds, all converging between 57 and 60" loading="lazy">
+          <figcaption>
+            <span class="fig-no">GRAPH 01 — MEAN REWARD</span>
+            Why the hacks were invisible from the top line: all three rounds converge to nearly
+            the same score (57.6, 58.9, 59.7). The dragging and parked-leg gaits scored almost as
+            well as the real walk, so this graph alone could not tell a hack from a gait.
+          </figcaption>
+        </figure>
+        <figure class="data-fig" onclick="openLightbox('Feet_air_time.png','Feet air time reward term across the three rounds','Feet air time: negative in rounds 1 and 2, positive only in round 3.')">
+          <img src="Feet_air_time.png" alt="Feet air time reward term, negative for rounds 1 and 2, crossing above zero only in round 3" loading="lazy">
+          <figcaption>
+            <span class="fig-no">GRAPH 02 — FEET AIR TIME (THE SMOKING GUN)</span>
+            The stepping bonus sat below zero for the entire history of rounds 1 and 2, meaning
+            the robot was quietly punished for every real step it took. Only in round 3, after
+            the threshold fix, does the line finally cross above zero and stay there.
+          </figcaption>
+        </figure>
+        <figure class="data-fig" onclick="openLightbox('action_rate.png','Action rate penalty across the three rounds','Action rate: round 3 scores well despite a 2.5× heavier penalty.')">
+          <img src="action_rate.png" alt="Action rate penalty curves, with round 3 recovering to a similar level as earlier rounds despite a heavier weight" loading="lazy">
+          <figcaption>
+            <span class="fig-no">GRAPH 03 — ACTION RATE PENALTY</span>
+            This term taxes jerky, rapid movements, and round 3 weighted it 2.5&times; heavier to
+            kill the shuffle. An equally jittery gait would have scored 2.5&times; worse; instead
+            the round 3 line settles right alongside the earlier rounds, proof the final gait was
+            genuinely smoother rather than just rescaled.
+          </figcaption>
+        </figure>
+        <figure class="data-fig" onclick="openLightbox('loss_value.png','Value function loss across the three rounds','Value loss: stable and near zero in every round.')">
+          <img src="loss_value.png" alt="Value function loss dropping to near zero and staying flat in every round" loading="lazy">
+          <figcaption>
+            <span class="fig-no">GRAPH 04 — VALUE LOSS</span>
+            The critic's loss collapses to near zero and stays flat in every round, showing
+            training itself was always stable and converging. The algorithm was never the
+            problem; it faithfully optimized whatever reward I gave it. That is exactly what
+            makes reward hacking dangerous.
+          </figcaption>
+        </figure>
+      </div>
+
+      <h3>Meta-Lessons</h3>
+      <ul>
+        <li><b>Bugs stack:</b> the export and physics bugs had to be fixed before the reward bugs were even visible. The debugging order was forced from the ground up.</li>
+        <li><b>Measure, don't stare:</b> the diagnoses that actually worked came from scripts that measured the geometry and from per-term reward logs, not from looking harder at the viewport.</li>
+        <li><b>Test your tests:</b> every measurement method I trusted was first checked on joints I knew were correct. The one time I skipped that step, I produced a wrong "fix" and had to revert it.</li>
+        <li><b>Keep a lab notebook:</b> a running log of every fix and dead end was the difference between picking the project back up in minutes and re-debugging old ground.</li>
+      </ul>
+
+      <h3>Training Media</h3>
+      <div class="video-grid">
+
+        <!-- TO ADD A VIDEO: replace a placeholder slot below with this block
+             (swap VIDEO_ID for the part after "watch?v=" in the YouTube URL):
+
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="RL training demo" allowfullscreen></iframe>
+        </div>
+        -->
+
+        <div class="slot slot-video">
+          <span class="slot-tag">VIDEO SLOT 01 — TRAINED POLICY</span>
+          <span class="slot-hint">Replace with a YouTube embed of the learned gait in Isaac Sim. Template in the HTML comment above.</span>
+        </div>
+        <div class="slot slot-video">
+          <span class="slot-tag">VIDEO SLOT 02 — TRAINING RUN</span>
+          <span class="slot-hint">Replace with a YouTube embed, e.g. all 2048 robots training at once.</span>
+        </div>
+      </div>
+      <div class="media-grid">
+
+        <!-- TO ADD A PHOTO/GIF: replace a placeholder slot below with this block:
+
+        <div class="media-item">
+          <div class="media-frame"><img src="YOUR_IMAGE.png" alt="Describe the image"></div>
+          <div class="media-caption">Your caption here.</div>
+        </div>
+        -->
+
+        <div class="slot slot-photo">
+          <span class="slot-tag">MEDIA SLOT 01</span>
+          <span class="slot-hint">Reward curve, Isaac Sim screenshot, or gait GIF. Template in the HTML comment above.</span>
+        </div>
+        <div class="slot slot-photo">
+          <span class="slot-tag">MEDIA SLOT 02</span>
+          <span class="slot-hint">Reward curve, Isaac Sim screenshot, or gait GIF. Template in the HTML comment above.</span>
+        </div>
+        <div class="slot slot-photo">
+          <span class="slot-tag">MEDIA SLOT 03</span>
+          <span class="slot-hint">Reward curve, Isaac Sim screenshot, or gait GIF. Template in the HTML comment above.</span>
         </div>
       </div>
     </div>
 
     <!-- DEMOS -->
     <div class="content-section">
-      <p class="section-label">05 — DEMOS</p>
+      <p class="section-label">06 — DEMOS</p>
       <h2>Demo Videos</h2>
-      <p>Walking tests, simulation runs, and build progress — from the early quadruped phase through the hexapod redesign.</p>
+      <p>Walking tests, simulation runs, and build progress, from the early quadruped phase through the hexapod redesign.</p>
       <div class="video-grid">
         <div class="video-wrapper">
           <iframe src="https://www.youtube.com/embed/ELoljPaadzE" title="Hexapod demo video" allowfullscreen></iframe>
@@ -574,32 +953,37 @@
 
     <!-- BUILD LOG -->
     <div class="content-section">
-      <p class="section-label">06 — STATUS</p>
+      <p class="section-label">07 — STATUS</p>
       <h2>Build Log</h2>
       <div class="build-log">
         <div class="log-row">
           <span class="log-date">2025</span>
-          <span class="log-entry">Quadruped prototype — kinematics, interpolation, and gait math derived and tested.</span>
+          <span class="log-entry">Quadruped prototype: kinematics, interpolation, and gait math derived and tested.</span>
         </div>
         <div class="log-row">
           <span class="log-date">2025</span>
           <span class="log-entry">Platform redesigned as a hexapod; full CAD modeled in Fusion 360.</span>
         </div>
-        <div class="log-row active">
+        <div class="log-row">
           <span class="log-date">2026 APR</span>
-          <span class="log-entry">Assembly underway — developing the tripod walking gait on the physical platform.</span>
+          <span class="log-entry">Assembly underway: developing the tripod walking gait on the physical platform.</span>
+        </div>
+        <div class="log-row active">
+          <span class="log-date">2026 JUL</span>
+          <span class="log-entry">PPO locomotion policy trained in Isaac Sim: +59.7 mean reward, ~99% velocity tracking, a natural gait on all six feet, never falls. Next up: getting the learned gait onto the physical robot.</span>
         </div>
       </div>
     </div>
 
     <!-- TAKEAWAYS -->
     <div class="content-section">
-      <p class="section-label">07 — TAKEAWAYS</p>
+      <p class="section-label">08 — TAKEAWAYS</p>
       <h2>What This Demonstrates</h2>
       <ul>
         <li><b>Math to hardware:</b> the full pipeline from hand-derived kinematics to simulated trajectories to embedded servo control on a real platform.</li>
+        <li><b>Modern robot learning:</b> my first end-to-end RL project, built on Isaac Lab and PPO: designing rewards, catching three rounds of reward hacking in the per-term logs, and running GPU-parallel simulation at 55k steps/s.</li>
         <li><b>Simulation-first engineering:</b> de-risking the build by validating the motion model in software before assembly.</li>
-        <li><b>Systems thinking:</b> mechanics and control designed as one system — CAD constraints, servo mapping, and gait strategy all serve the same motion plan.</li>
+        <li><b>Systems thinking:</b> mechanics and control designed as one system, where CAD constraints, servo mapping, and gait strategy all serve the same motion plan.</li>
       </ul>
       <div class="project-links-row">
         <a href="https://github.com/Ely6275" class="btn btn-primary">⌥ GITHUB</a>
@@ -651,6 +1035,44 @@
       const caption = frame.closest('.tab-img-item').querySelector('.tab-caption');
       frame.addEventListener('click', () => openLightbox(img.src, img.alt, caption ? caption.textContent : ''));
     });
+
+    // Count-up animation for RL stat tiles
+    (() => {
+      const counters = document.querySelectorAll('.count');
+      if (!counters.length) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const fmt = (el, value) => {
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        return (el.dataset.prefix || '') + value.toFixed(decimals) + (el.dataset.suffix || '');
+      };
+      const animate = el => {
+        const target = parseFloat(el.dataset.target);
+        const t0 = performance.now();
+        const duration = 900;
+        const step = now => {
+          const p = Math.min((now - t0) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(el, target * eased);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      if (reduced || !('IntersectionObserver' in window)) {
+        counters.forEach(el => { el.textContent = fmt(el, parseFloat(el.dataset.target)); });
+        return;
+      }
+      const seen = new WeakSet();
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !seen.has(entry.target)) {
+            seen.add(entry.target);
+            animate(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(el => io.observe(el));
+    })();
   </script>
 </body>
 </html>
