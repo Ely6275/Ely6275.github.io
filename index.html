@@ -59,13 +59,13 @@
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      display: flex;
+      justify-content: center;
       align-items: center;
       padding: 8rem 4rem 4rem;
-      gap: 4rem;
+      text-align: center;
     }
-    .hero-text { max-width: 560px; }
+    .hero-text { max-width: 640px; margin: 0 auto; }
     .hero-eyebrow {
       display: inline-block;
       font-family: var(--mono);
@@ -86,10 +86,10 @@
     .hero-title em { font-style: normal; color: var(--accent); }
     .hero-bio {
       font-size: 1.05rem; color: var(--muted); line-height: 1.75;
-      max-width: 460px; margin-bottom: 2.5rem;
+      max-width: 460px; margin: 0 auto 2.5rem;
     }
     .hero-bio b { color: var(--ink); font-weight: 600; }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
     .btn {
       display: inline-block; padding: 0.75rem 1.5rem;
       font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
@@ -100,27 +100,6 @@
     .btn-primary:hover { box-shadow: 0 0 18px rgba(127,231,196,0.45); }
     .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
     .btn-ghost:hover { background: rgba(127,231,196,0.1); }
-
-    .hero-image { display: flex; justify-content: center; align-items: center; }
-    .fig-frame {
-      position: relative;
-      width: 360px;
-      padding: 1rem;
-      border: 1px solid var(--line);
-      background: var(--panel);
-    }
-    .fig-frame::before, .fig-frame::after {
-      content: ""; position: absolute; width: 14px; height: 14px;
-      border-color: var(--accent); border-style: solid;
-    }
-    .fig-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-    .fig-frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-    .fig-frame img { width: 100%; height: 420px; object-fit: cover; display: block; }
-    .fig-caption {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
-      color: var(--amber); margin-top: 0.75rem;
-      display: flex; justify-content: space-between;
-    }
 
     /* ── SECTION COMMON ── */
     section { padding: 6rem 4rem; }
@@ -239,11 +218,10 @@
     .hero-title    { animation-delay: 0.2s; }
     .hero-bio      { animation-delay: 0.35s; }
     .hero-cta      { animation-delay: 0.5s; }
-    .hero-image    { animation: fadeUp 0.9s 0.3s ease both; }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero-text > *, .hero-image { animation: none; }
+      .hero-text > * { animation: none; }
       .project-card, .btn { transition: none; }
     }
 
@@ -251,11 +229,8 @@
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
-      .hero-eyebrow { margin-left: auto; margin-right: auto; }
+      .hero { padding: 6rem 1.5rem 3rem; }
       .hero-bio { max-width: 100%; }
-      .hero-cta { justify-content: center; }
-      .hero-image { display: none; }
       section { padding: 4rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       footer { padding: 1.5rem; }
@@ -288,15 +263,6 @@
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">VIEW PROJECTS →</a>
         <a href="#contact" class="btn btn-ghost">CONTACT ↴</a>
-      </div>
-    </div>
-    <div class="hero-image">
-      <div class="fig-frame">
-        <img src="photo.jpg" alt="Ely Herman">
-        <div class="fig-caption">
-          <span>FIG. 01 — E. HERMAN</span>
-          <span>DUKE UNIV.</span>
-        </div>
       </div>
     </div>
   </section>
