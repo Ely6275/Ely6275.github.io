@@ -456,9 +456,35 @@
       </div>
     </div>
 
+    <!-- INITIAL PROTOTYPE -->
+    <div class="content-section">
+      <p class="section-label">02 — EARLY ITERATION</p>
+      <h2>Initial Prototype and Testing</h2>
+      <p>
+        The first working prototype used an <b>ultrasonic sensor mounted with a magnet</b>, paired
+        with an alert system that beeped faster as the scissor lift closed in on nearby objects.
+        It proved out the core alert concept, but the ultrasonic sensor was ultimately
+        <b>scrapped</b> after testing exposed inaccurate readings and a much smaller effective
+        range than the LiDAR units that replaced it.
+      </p>
+      <div class="video-wrapper" style="max-width: 640px;">
+        <iframe src="https://www.youtube.com/embed/Hw-WbYaN0Mg" title="Initial ultrasonic sensor prototype test" allowfullscreen></iframe>
+      </div>
+
+      <h3>360° Scanning LiDAR Demonstration</h3>
+      <p>
+        Bench test of the 360° sweeping LiDAR unit that replaced the ultrasonic sensor — the
+        servo-driven scan head rotates through a full circle while the sensor picks out nearby
+        objects in real time, the same core sensing loop later integrated into the final prototype.
+      </p>
+      <div class="video-wrapper" style="max-width: 640px;">
+        <iframe src="https://www.youtube.com/embed/t5jmODeFa3M" title="360 degree scanning LiDAR demonstration" allowfullscreen></iframe>
+      </div>
+    </div>
+
     <!-- VALIDATION -->
     <div class="content-section">
-      <p class="section-label">02 — VALIDATION</p>
+      <p class="section-label">03 — VALIDATION</p>
       <h2>Test Results</h2>
       <p>All five design criteria tests passed on the final prototype:</p>
       <div class="table-scroll">
@@ -526,7 +552,7 @@
 
     <!-- FIRMWARE -->
     <div class="content-section">
-      <p class="section-label">03 — FIRMWARE</p>
+      <p class="section-label">04 — FIRMWARE</p>
       <h2>Firmware Deep Dive — 360° LiDAR Unit</h2>
       <p>
         I wrote the firmware for the 360° sweeping LiDAR unit in C++ on the ESP32, built around
@@ -563,7 +589,7 @@
 
     <!-- DESIGN PROCESS -->
     <div class="content-section">
-      <p class="section-label">04 — PROCESS</p>
+      <p class="section-label">05 — PROCESS</p>
       <h2>Engineering Design Process</h2>
       <p>
         We followed a structured decomposition and evaluation framework — from problem
@@ -644,7 +670,7 @@
 
     <!-- DEMOS & MEDIA -->
     <div class="content-section">
-      <p class="section-label">05 — DEMOS &amp; MEDIA</p>
+      <p class="section-label">06 — DEMOS &amp; MEDIA</p>
       <h2>Demos &amp; Media</h2>
       <p>Field tests, build photos, and demo footage from the prototype.</p>
 
@@ -659,14 +685,12 @@
         </div>
         -->
 
-        <div class="slot slot-video">
-          <span class="slot-tag">VIDEO SLOT 01</span>
-          <span class="slot-hint">Replace this block with a YouTube embed — template in the HTML comment above.</span>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/J6cGyluWehs" title="Top view of the scanning LiDAR" allowfullscreen></iframe>
         </div>
 
-        <div class="slot slot-video">
-          <span class="slot-tag">VIDEO SLOT 02</span>
-          <span class="slot-hint">Replace this block with a YouTube embed — template in the HTML comment above.</span>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/1GIztljP2AY" title="Demo video" allowfullscreen></iframe>
         </div>
 
       </div>
@@ -702,7 +726,7 @@
 
     <!-- NEXT STEPS -->
     <div class="content-section">
-      <p class="section-label">06 — NEXT PHASE</p>
+      <p class="section-label">07 — NEXT PHASE</p>
       <h2>Deployment Roadmap</h2>
       <p>The prototype passed all client design tests; the next phase moves it onto a real job site:</p>
       <ul>
@@ -714,7 +738,7 @@
 
     <!-- TEAM & ACKNOWLEDGEMENTS -->
     <div class="content-section">
-      <p class="section-label">07 — CREDITS</p>
+      <p class="section-label">08 — CREDITS</p>
       <h2>Team &amp; Acknowledgements</h2>
       <p>
         Built by the <b>High Rollers</b> (Scissor Lift Group 1) at Duke's Pratt School of

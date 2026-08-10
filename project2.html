@@ -335,6 +335,22 @@
     .fault-body p:last-child { margin-bottom: 0; }
     .fault-body .k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em; color: var(--accent); margin-right: 0.4rem; }
 
+    /* fault log: reward-hacking rounds show the GIF up front, description behind a toggle */
+    .fault-item { border-bottom: 1px solid var(--line); padding: 0.95rem 1.25rem 1.1rem; }
+    .fault-log > .fault-item:last-child { border-bottom: none; }
+    .fault-visible { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.9rem; }
+    .fault-item .fault-media { margin-bottom: 0.9rem; }
+    .fault-item details { border: 1px solid var(--line); background: var(--ground-2); }
+    .fault-item summary {
+      list-style: none; display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.6rem 1rem; cursor: pointer; transition: background 0.15s;
+    }
+    .fault-item summary::-webkit-details-marker { display: none; }
+    .fault-item summary:hover { background: rgba(255,255,255,0.03); }
+    .fault-item details[open] summary { border-bottom: 1px dashed var(--line); }
+    .fault-detail-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); }
+    .fault-item .fault-body { padding: 1rem 1.1rem 1.2rem; }
+
     /* data analysis graphs */
     .run-key {
       display: flex; flex-wrap: wrap; align-items: center;
@@ -374,19 +390,6 @@
       color: var(--amber); display: block; margin-bottom: 0.3rem;
     }
 
-    /* media placeholder slots — delete once real media is in */
-    .slot {
-      border: 1px dashed var(--accent-dim);
-      background: var(--panel);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.5rem;
-      text-align: center;
-      padding: 1.5rem;
-    }
-    .slot-video { aspect-ratio: 16 / 9; }
-    .slot-photo { height: 220px; }
-    .slot-gif { height: 500; margin-bottom: 1rem; padding: 1rem; }
     /* real GIF frame (drops in when a placeholder is replaced) */
     .fault-media {
       border: 1px solid var(--line); background: var(--ground-2);
@@ -410,12 +413,6 @@
       color: var(--amber); padding: 0.45rem 0.75rem;
       border-top: 1px solid var(--line);
     }
-    .slot-tag {
-      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em;
-      color: var(--amber);
-    }
-    .slot-hint { font-size: 0.8rem; color: var(--muted); line-height: 1.5; max-width: 32ch; }
-
     /* ── VIDEOS ── */
     .video-grid {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -547,9 +544,11 @@
   <!-- MAIN IMAGE -->
   <div class="main-image">
     <div class="fig-frame">
-      <img src="hexReal.png" alt="Fusion 360 render of the hexapod robotic spider">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/I1tD6GaUdgg" title="Hexapod walking demonstration" allowfullscreen></iframe>
+      </div>
       <div class="fig-caption">
-        <span>FIG. 01 — HEXAPOD ASSEMBLY, FUSION 360</span>
+        <span>FIG. 01 — HEXAPOD WALKING DEMONSTRATION</span>
         <span>SCALE: N/A</span>
       </div>
     </div>
@@ -576,8 +575,8 @@
           <p>Cubic Bézier swing paths for walking, plus a slope-adjusted variant for in-place rotation. Multi-servo moves are speed-scaled so joints arrive at targets simultaneously.</p>
         </div>
         <div class="cap-cell">
-          <h3>GAIT PLANNING</h3>
-          <p>Stance/swing sequencing built on support-polygon analysis, so the platform stays statically stable at every phase of the cycle. Currently implementing a tripod gait.</p>
+          <h3>REINFORCEMENT LEARNING</h3>
+          <p>PPO policy trained end-to-end in NVIDIA Isaac Sim / Isaac Lab across 2,048 parallel robots, learning a natural six-leg gait that tracks velocity commands at ~99% without ever falling.</p>
         </div>
         <div class="cap-cell">
           <h3>MECHANICAL DESIGN</h3>
@@ -593,9 +592,9 @@
       <ul>
         <li><b>Simulation before hardware:</b> built a Python/Matplotlib leg-motion simulator and validated the full kinematic model and walking cycle before committing to assembly.</li>
         <li><b>Smooth, deliberate motion:</b> replaced naive point-to-point servo moves with interpolated trajectories: linear stepping for stance, cubic Bézier arcs for swing.</li>
-        <li><b>Stability by construction:</b> used support-polygon analysis to sequence legs so the center of mass never leaves the base of support during walking.</li>
-        <li><b>Mechanics-control co-design:</b> leg geometry, servo mapping, and joint limits in CAD were specified directly against the planned motion model.</li>
-        <li><b>Hardware integration in progress:</b> assembling the platform and porting the simulated tripod gait onto the physical robot.</li>
+        <li><b>Reinforcement learning from scratch:</b> trained a PPO locomotion policy in NVIDIA Isaac Sim, debugging three rounds of reward hacking to reach a natural six-leg gait with ~99% velocity tracking.</li>
+        <li><b>Mechanics built for the model:</b> leg geometry, joint travel limits, and chassis symmetry in CAD were specified directly against the kinematic and RL training envelopes.</li>
+        <li><b>Hardware integration in progress:</b> building a remote controller for manual control of the physical robot, with sim-to-real policy transfer onto an NVIDIA Jetson Nano planned next.</li>
       </ul>
     </div>
 
@@ -612,8 +611,6 @@
           <button class="tab-btn active" onclick="switchTab(event,'ik')" role="tab">Kinematics</button>
           <button class="tab-btn" onclick="switchTab(event,'interp')" role="tab">Interpolation</button>
           <button class="tab-btn" onclick="switchTab(event,'bezier')" role="tab">Bézier Curves</button>
-          <button class="tab-btn" onclick="switchTab(event,'gait')" role="tab">Gait & Stability</button>
-          <button class="tab-btn" onclick="switchTab(event,'servo')" role="tab">Servo Mapping</button>
         </div>
 
         <div class="tab-panel active" id="tab-ik">
@@ -667,33 +664,6 @@
           </div>
         </div>
 
-        <div class="tab-panel" id="tab-gait">
-          <div class="tab-images">
-            <div class="tab-img-item">
-              <div class="tab-img-frame">
-                <img src="page_04.png" alt="Photo of the quadruped robot from above with a blue triangle connecting the three grounded feet illustrating the support polygon">
-              </div>
-              <p class="tab-caption">Support polygon: the robot is statically stable while the center of mass stays inside the triangle of grounded feet.</p>
-            </div>
-            <div class="tab-img-item">
-              <div class="tab-img-frame">
-                <img src="page_05.png" alt="Sequence of nine top-down diagrams showing each of the four legs taking a swing phase in turn while the others form a support triangle">
-              </div>
-              <p class="tab-caption">Gait sequence: one leg swings while the rest maintain the support polygon; the cycle steps through each leg in order.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-panel" id="tab-servo">
-          <div class="tab-images">
-            <div class="tab-img-item">
-              <div class="tab-img-frame">
-                <img src="page_08.png" alt="Diagram of all four legs with initial servo angles and axis orientations, with notes on speed multipliers for simultaneous servo movement">
-              </div>
-              <p class="tab-caption">Servo mapping: per-leg axis orientations and initial angles; speed multipliers synchronize multi-joint moves.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -785,43 +755,52 @@
             <p><span class="k">LESSON</span>An exported model can be perfectly self-consistent and still completely wrong. Sanity-check every number the exporter hands you against something you measured or worked out yourself.</p>
           </div>
         </details>
-        <details>
-          <summary><span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 1: dragging on its thighs</span><span class="fault-plus">+</span></summary>
-          <div class="fault-body">
-
-            <figure class="fault-media"><img src="rl-video-step-0 Round 1.gif" alt="Robot dragging on its thighs">
-              <figcaption>ROUND 1 — DRAGGING GAIT</figcaption></figure>
-
-            <p><span class="k">SYMPTOM</span>Training looked like a success on paper, 97% velocity tracking, but the gait was ridiculous: the robot splayed itself flat and dragged its body along on its thighs.</p>
-            <p><span class="k">CAUSE</span>My reward only asked for speed and staying upright. The bonus for lifting feet, inherited from the quadruped template, required each step to stay in the air for half a second. A hexapod's steps are much quicker than that, so the robot was effectively being punished for stepping, and dragging cost nothing.</p>
-            <p><span class="k">FIX</span>Shortened the air-time requirement to match a hexapod's natural step, gave it more weight, and added a penalty for any body part other than the feet touching the ground. Retrained from scratch and it started walking on its feet.</p>
+        <div class="fault-item">
+          <div class="fault-visible">
+            <span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 1: dragging on its thighs</span>
           </div>
-        </details>
-        <details>
-          <summary><span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 2: the five-legged gait</span><span class="fault-plus">+</span></summary>
-          <div class="fault-body">
-
-            <figure class="fault-media"><img src="rl-video-step-0 Round 3.gif" alt="Robot walking on five legs with one parked">
-              <figcaption>ROUND 2 — FIVE-LEGGED GAIT</figcaption></figure>
-
-            <p><span class="k">SYMPTOM</span>Every robot held one middle leg pinned up in the air and walked on the other five, using the raised leg like a balance arm.</p>
-            <p><span class="k">DIAGNOSIS</span>I first checked whether something in the robot model made that leg physically different, and the math said all six legs were identical. So the policy had <b>learned</b> this trick. The loophole: the stepping bonus only pays out when a foot lands. A foot that never lands earns exactly zero, so parking a leg cost nothing, and coordinating five legs is easier than six.</p>
-            <p><span class="k">FIX</span>Added a small growing penalty for any foot that stays in the air longer than a second. Normal steps never come close to that limit, so it only punishes parked legs.</p>
+          <figure class="fault-media"><img src="rl-video-step-0 Round 1.gif" alt="Robot dragging on its thighs">
+            <figcaption>ROUND 1 — DRAGGING GAIT</figcaption></figure>
+          <details>
+            <summary><span class="fault-detail-label">READ THE DEBUG STORY</span><span class="fault-plus">+</span></summary>
+            <div class="fault-body">
+              <p><span class="k">SYMPTOM</span>Training looked like a success on paper, 97% velocity tracking, but the gait was ridiculous: the robot splayed itself flat and dragged its body along on its thighs.</p>
+              <p><span class="k">CAUSE</span>My reward only asked for speed and staying upright. The bonus for lifting feet, inherited from the quadruped template, required each step to stay in the air for half a second. A hexapod's steps are much quicker than that, so the robot was effectively being punished for stepping, and dragging cost nothing.</p>
+              <p><span class="k">FIX</span>Shortened the air-time requirement to match a hexapod's natural step, gave it more weight, and added a penalty for any body part other than the feet touching the ground. Retrained from scratch and it started walking on its feet.</p>
+            </div>
+          </details>
+        </div>
+        <div class="fault-item">
+          <div class="fault-visible">
+            <span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 2: the five-legged gait</span>
           </div>
-        </details>
-        <details>
-          <summary><span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 3: the grounded shuffle</span><span class="fault-plus">+</span></summary>
-          <div class="fault-body">
-
-            <figure class="fault-media"><img src="rl-video-step-0 Round 2.gif" alt="Robot shuffling with feet on the ground">
-              <figcaption>ROUND 3 — GROUNDED SHUFFLE</figcaption></figure>
-
-            <p><span class="k">SYMPTOM</span>The parked leg was gone, but the gait got worse. The robot now vibrated its legs in tiny rapid steps, inching forward with no visible swing at all, its body hugging the ground.</p>
-            <p><span class="k">CAUSE</span>The training graphs finally told the story: the stepping bonus had been <b>negative for its entire history, in every run</b>. It only paid out if a foot stayed in the air past a time threshold, but my robot's legs are short and its real steps are quicker than that, so no achievable step ever earned it. Worse, with the new parked-leg penalty added, my rules now punished short steps and long holds and paid nothing in between. Gluing the feet down and shuffling was genuinely the best strategy under the rules I had written.</p>
-            <p><span class="k">FIX</span>Lowered the stepping threshold so a real step finally counts, raised the penalty on jerky rapid movements 2.5×, and adjusted the default knee angle so the robot stands taller. On the retrain, the stepping bonus went <b>positive for the first time</b> and the robot walked with a real swing phase on all six feet. The smoothness score improved even though I had made that penalty 2.5× harsher, so the motion was genuinely smoother, not just rescaled.</p>
-            <p><span class="k">LESSON</span>RL optimizes exactly what you wrote, not what you meant. One reward term sitting quietly negative for four runs was the whole story the entire time. Reading the per-term logs is the habit that finally caught it.</p>
+          <figure class="fault-media"><img src="rl-video-step-0 Round 3.gif" alt="Robot walking on five legs with one parked">
+            <figcaption>ROUND 2 — FIVE-LEGGED GAIT</figcaption></figure>
+          <details>
+            <summary><span class="fault-detail-label">READ THE DEBUG STORY</span><span class="fault-plus">+</span></summary>
+            <div class="fault-body">
+              <p><span class="k">SYMPTOM</span>Every robot held one middle leg pinned up in the air and walked on the other five, using the raised leg like a balance arm.</p>
+              <p><span class="k">DIAGNOSIS</span>I first checked whether something in the robot model made that leg physically different, and the math said all six legs were identical. So the policy had <b>learned</b> this trick. The loophole: the stepping bonus only pays out when a foot lands. A foot that never lands earns exactly zero, so parking a leg cost nothing, and coordinating five legs is easier than six.</p>
+              <p><span class="k">FIX</span>Added a small growing penalty for any foot that stays in the air longer than a second. Normal steps never come close to that limit, so it only punishes parked legs.</p>
+            </div>
+          </details>
+        </div>
+        <div class="fault-item">
+          <div class="fault-visible">
+            <span class="fault-tag">Reward Hacking</span><span class="fault-title">Round 3: the grounded shuffle</span>
           </div>
-        </details>
+          <figure class="fault-media"><img src="rl-video-step-0 Round 2.gif" alt="Robot shuffling with feet on the ground">
+            <figcaption>ROUND 3 — GROUNDED SHUFFLE</figcaption></figure>
+          <details>
+            <summary><span class="fault-detail-label">READ THE DEBUG STORY</span><span class="fault-plus">+</span></summary>
+            <div class="fault-body">
+              <p><span class="k">SYMPTOM</span>The parked leg was gone, but the gait got worse. The robot now vibrated its legs in tiny rapid steps, inching forward with no visible swing at all, its body hugging the ground.</p>
+              <p><span class="k">CAUSE</span>The training graphs finally told the story: the stepping bonus had been <b>negative for its entire history, in every run</b>. It only paid out if a foot stayed in the air past a time threshold, but my robot's legs are short and its real steps are quicker than that, so no achievable step ever earned it. Worse, with the new parked-leg penalty added, my rules now punished short steps and long holds and paid nothing in between. Gluing the feet down and shuffling was genuinely the best strategy under the rules I had written.</p>
+              <p><span class="k">FIX</span>Lowered the stepping threshold so a real step finally counts, raised the penalty on jerky rapid movements 2.5×, and adjusted the default knee angle so the robot stands taller. On the retrain, the stepping bonus went <b>positive for the first time</b> and the robot walked with a real swing phase on all six feet. The smoothness score improved even though I had made that penalty 2.5× harsher, so the motion was genuinely smoother, not just rescaled.</p>
+              <p><span class="k">LESSON</span>RL optimizes exactly what you wrote, not what you meant. One reward term sitting quietly negative for four runs was the whole story the entire time. Reading the per-term logs is the habit that finally caught it.</p>
+            </div>
+          </details>
+        </div>
       </div>
 
       <h3>Data Analysis</h3>
@@ -850,84 +829,40 @@
           <img src="Feet_air_time.png" alt="Feet air time reward term, negative for rounds 1 and 2, crossing above zero only in round 3" loading="lazy">
           <figcaption>
             <span class="fig-no">GRAPH 02 — FEET AIR TIME (THE SMOKING GUN)</span>
-            The stepping bonus sat below zero for the entire history of rounds 1 and 2, meaning
-            the robot was quietly punished for every real step it took. Only in round 3, after
-            the threshold fix, does the line finally cross above zero and stay there.
+            The stepping bonus sat below zero for the entire history of rounds 1 and 2. That
+            means the robot was quietly punished for every real step it took. Only in round 3,
+            after the threshold fix, does the line finally cross above zero and stay there.
           </figcaption>
         </figure>
         <figure class="data-fig" onclick="openLightbox('action_rate.png','Action rate penalty across the three rounds','Action rate: round 3 scores well despite a 2.5× heavier penalty.')">
           <img src="action_rate.png" alt="Action rate penalty curves, with round 3 recovering to a similar level as earlier rounds despite a heavier weight" loading="lazy">
           <figcaption>
             <span class="fig-no">GRAPH 03 — ACTION RATE PENALTY</span>
-            This term taxes jerky, rapid movements, and round 3 weighted it 2.5&times; heavier to
-            kill the shuffle. An equally jittery gait would have scored 2.5&times; worse; instead
-            the round 3 line settles right alongside the earlier rounds, proof the final gait was
-            genuinely smoother rather than just rescaled.
+            This term taxes jerky, rapid movement, and round 3 weighted it 2.5&times; heavier to
+            kill the shuffle. An equally jittery gait would have scored 2.5&times; worse. Instead, the
+            round 3 line settles right alongside the earlier rounds. That is real evidence the
+            final gait got smoother, not just rescaled.
           </figcaption>
         </figure>
         <figure class="data-fig" onclick="openLightbox('loss_value.png','Value function loss across the three rounds','Value loss: stable and near zero in every round.')">
           <img src="loss_value.png" alt="Value function loss dropping to near zero and staying flat in every round" loading="lazy">
           <figcaption>
             <span class="fig-no">GRAPH 04 — VALUE LOSS</span>
-            The critic's loss collapses to near zero and stays flat in every round, showing
-            training itself was always stable and converging. The algorithm was never the
-            problem; it faithfully optimized whatever reward I gave it. That is exactly what
-            makes reward hacking dangerous.
+            The critic's loss collapses to near zero and stays flat in every round. Training was
+            always stable, so the algorithm itself was never the problem. It faithfully optimized
+            whatever reward I gave it, which is exactly what makes reward hacking dangerous.
           </figcaption>
         </figure>
       </div>
 
       <h3>Meta-Lessons</h3>
       <ul>
-        <li><b>Bugs stack:</b> the export and physics bugs had to be fixed before the reward bugs were even visible. The debugging order was forced from the ground up.</li>
-        <li><b>Measure, don't stare:</b> the diagnoses that actually worked came from scripts that measured the geometry and from per-term reward logs, not from looking harder at the viewport.</li>
+        <li><b>Bugs stack:</b> the export and physics bugs had to be fixed before the reward bugs were even visible, which forced the whole debugging order to run from the ground up.</li>
+        <li><b>Measure, don't stare:</b> the diagnoses that actually worked came from scripts that measured the geometry and from per-term reward logs. Staring harder at the viewport never told me anything.</li>
         <li><b>Test your tests:</b> every measurement method I trusted was first checked on joints I knew were correct. The one time I skipped that step, I produced a wrong "fix" and had to revert it.</li>
         <li><b>Keep a lab notebook:</b> a running log of every fix and dead end was the difference between picking the project back up in minutes and re-debugging old ground.</li>
       </ul>
 
-      <h3>Training Media</h3>
-      <div class="video-grid">
-
-        <!-- TO ADD A VIDEO: replace a placeholder slot below with this block
-             (swap VIDEO_ID for the part after "watch?v=" in the YouTube URL):
-
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="RL training demo" allowfullscreen></iframe>
-        </div>
-        -->
-
-        <div class="slot slot-video">
-          <span class="slot-tag">VIDEO SLOT 01 — TRAINED POLICY</span>
-          <span class="slot-hint">Replace with a YouTube embed of the learned gait in Isaac Sim. Template in the HTML comment above.</span>
-        </div>
-        <div class="slot slot-video">
-          <span class="slot-tag">VIDEO SLOT 02 — TRAINING RUN</span>
-          <span class="slot-hint">Replace with a YouTube embed, e.g. all 2048 robots training at once.</span>
-        </div>
-      </div>
-      <div class="media-grid">
-
-        <!-- TO ADD A PHOTO/GIF: replace a placeholder slot below with this block:
-
-        <div class="media-item">
-          <div class="media-frame"><img src="YOUR_IMAGE.png" alt="Describe the image"></div>
-          <div class="media-caption">Your caption here.</div>
-        </div>
-        -->
-
-        <div class="slot slot-photo">
-          <span class="slot-tag">MEDIA SLOT 01</span>
-          <span class="slot-hint">Reward curve, Isaac Sim screenshot, or gait GIF. Template in the HTML comment above.</span>
-        </div>
-        <div class="slot slot-photo">
-          <span class="slot-tag">MEDIA SLOT 02</span>
-          <span class="slot-hint">Reward curve, Isaac Sim screenshot, or gait GIF. Template in the HTML comment above.</span>
-        </div>
-        <div class="slot slot-photo">
-          <span class="slot-tag">MEDIA SLOT 03</span>
-          <span class="slot-hint">Reward curve, Isaac Sim screenshot, or gait GIF. Template in the HTML comment above.</span>
-        </div>
-      </div>
     </div>
 
     <!-- DEMOS -->
@@ -936,6 +871,9 @@
       <h2>Demo Videos</h2>
       <p>Walking tests, simulation runs, and build progress, from the early quadruped phase through the hexapod redesign.</p>
       <div class="video-grid">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/I1tD6GaUdgg" title="Hexapod demo video" allowfullscreen></iframe>
+        </div>
         <div class="video-wrapper">
           <iframe src="https://www.youtube.com/embed/ELoljPaadzE" title="Hexapod demo video" allowfullscreen></iframe>
         </div>
@@ -968,9 +906,17 @@
           <span class="log-date">2026 APR</span>
           <span class="log-entry">Assembly underway: developing the tripod walking gait on the physical platform.</span>
         </div>
-        <div class="log-row active">
+        <div class="log-row">
           <span class="log-date">2026 JUL</span>
-          <span class="log-entry">PPO locomotion policy trained in Isaac Sim: +59.7 mean reward, ~99% velocity tracking, a natural gait on all six feet, never falls. Next up: getting the learned gait onto the physical robot.</span>
+          <span class="log-entry">PPO locomotion policy trained in Isaac Sim: +59.7 mean reward, ~99% velocity tracking, a natural gait on all six feet, never falls.</span>
+        </div>
+        <div class="log-row active">
+          <span class="log-date">2026 AUG</span>
+          <span class="log-entry">Implementing a remote controller to control the hexapod.</span>
+        </div>
+        <div class="log-row">
+          <span class="log-date">2026 SEP (PLANNED)</span>
+          <span class="log-entry">Start implementing the trained policy on the NVIDIA Jetson Nano and tackle the sim-to-real gap.</span>
         </div>
       </div>
     </div>
